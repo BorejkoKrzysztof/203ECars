@@ -1,7 +1,6 @@
 .OfferInfoBarWrapper{
-    height: 115px;
+    height: 150px;
     border-bottom: solid 1px var(--greyThemeColor);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,10 +12,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
     font-size: 40px;
     color: var(--greyThemeColor);
-
     border: solid 3px var(--greyThemeColor);
     border-radius: 100%;
     padding: 10px;
@@ -48,7 +45,7 @@
 
 @media screen and (min-width: 960px) {
     .OfferInfoBarWrapper{
-        height: 180px;
+        height: 220px;
     }
 
     .OfferInfoBarWrapper div{
