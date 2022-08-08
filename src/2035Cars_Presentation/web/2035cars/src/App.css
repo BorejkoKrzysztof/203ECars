@@ -1,0 +1,28 @@
+:root{
+  /* COLORS */
+  --greyThemeColor: rgb(128, 128, 128);
+  --greenThemeColor: rgb(115, 230, 38);
+  --blueThemeColor: #0055B0;
+  --darkBlueThemeColor: rgb(13, 46, 88);
+
+  /* SIZES */
+  --navbarHeight: 70px;
+  --pageMarginOneSideHorizontal: 15vw;
+  /* --pageMarginRight: 15vw; */
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+a:hover, a:visited, a:link, a:active, a {
+  text-decoration: none;
+  color: var(--paragraphTextColor);
+}
+
+@media screen and (min-width: 960px) {
+  
+}

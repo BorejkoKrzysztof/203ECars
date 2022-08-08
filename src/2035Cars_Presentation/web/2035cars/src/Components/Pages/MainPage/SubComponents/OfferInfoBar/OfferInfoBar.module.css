@@ -1,0 +1,66 @@
+.OfferInfoBarWrapper{
+    height: 115px;
+    border-bottom: solid 1px var(--greyThemeColor);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.OfferInfoBarWrapper div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-size: 40px;
+    color: var(--greyThemeColor);
+
+    border: solid 3px var(--greyThemeColor);
+    border-radius: 100%;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.offerDescription{
+    font-size: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--blueThemeColor);
+}
+
+
+@media (orientation: landscape){
+    .OfferInfoBarWrapper{
+        padding: 0 var(--pageMarginOneSideHorizontal);
+    }
+
+    .OfferInfoBarWrapper div{
+        font-size: 32px;
+    }
+    
+    .OfferInfoBarWrapper div h5{
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .OfferInfoBarWrapper{
+        height: 180px;
+    }
+
+    .OfferInfoBarWrapper div{
+        font-size: 80px;
+        width: 160px;
+        height: 160px;
+        padding: 20px;
+        border-width: 5px;
+    }
+    
+    .OfferInfoBarWrapper div h5{
+        font-size: 12px;
+        text-align: center;
+    }
+}

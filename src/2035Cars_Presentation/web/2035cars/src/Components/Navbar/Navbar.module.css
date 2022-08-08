@@ -1,0 +1,141 @@
+.navbar{
+    width: 100vw;
+    height: var(--navbarHeight);
+    padding: 0 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    background-color: white;
+}
+
+.navbar div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+
+.carLogo{
+    color: var(--greyThemeColor);
+    font-size: 40px;
+    margin-top: 5px;
+}
+
+.greyTitle{
+    color: var(--greyThemeColor);
+    font-weight: bold;
+}
+
+.blueTitle{
+    color: var(--darkBlueThemeColor);
+    font-weight: bold;
+}
+
+.navbarMenu{
+    width: 100vw;
+    height: calc(100vh - var(--navbarHeight));
+    background-color: white;
+    position: fixed;
+    top: 70px;
+    left: -100vw;
+    transition: .7s transform ease .1s;
+}
+
+.navbarMenuActive{
+    transform: translate(100vw);
+}
+
+.navbarMenu div {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.hiddenMenuNavList{
+    width: 80%;
+    margin-left: 3vw;
+    margin-bottom: 25vh;
+}
+
+.menuItem{
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    overflow: hidden;
+    border-bottom: solid 2px var(--greyThemeColor);
+}
+
+.menuItem a{
+    color: var(--greyThemeColor);
+    /* ENCHANCING THE CLICKABLE AREA */
+    display: block;
+    padding: 0 16px;
+}
+
+.hiddenMenuButton{
+    font-size: 30px;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: solid 3px var(--greyThemeColor);
+    cursor: pointer;
+}
+
+
+
+
+@media screen and (min-width: 960px) {
+
+    .hiddenMenuButton{
+        display: none;
+    }
+
+    .companyTitle{
+        margin-left: 60px;
+    }
+
+    .navbarMenu{
+        top: 0;
+        left: 45vw;
+        width: 50vw;
+        height: var(--navbarHeight);
+    }
+
+    .navbarMenuActive{
+        display: none;
+    }
+
+    .navbarMenu div{
+        padding: 0;
+    }
+
+    .hiddenMenuNavList{
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menuItem{
+        border: none;
+        width: auto;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: var(--navbarHeight);
+    }
+
+    .menuItem a{
+        padding: 0;
+    }
+
+    .menuItem :hover{
+        color: var(--darkBlueThemeColor);
+    }
+}
