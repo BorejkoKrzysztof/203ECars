@@ -8,7 +8,7 @@ import { ImStarFull, ImStarHalf } from 'react-icons/im'
 function RecommendationsBar() {
   return (
     <div className={styles.RecommendationsBarWrapper}>
-        <div className={styles.RecommendationsInfoWrapper}>
+        <div className={`${styles.RecommendationsInfoWrapper} ${styles.cardRecommendationContent}`}>
             <div className={styles.RecommendationsInfoContent}>
                 <div>
                     <FaHandshake className={styles.recomInfoIcon}/>
@@ -43,7 +43,7 @@ function RecommendationsBar() {
                 </div>
             </div>
         </div>
-        <div className={styles.recommendationQuoteWrapper}>
+        <div className={`${styles.recommendationQuoteWrapper} ${styles.cardRecommendationContent}`}>
             <div className={styles.recommendationQuoteContent}>
                 <h1 className={styles.recommendationsRate}>4.8/5</h1>
                 <h3 className={styles.recommendationRateText}>Amazing</h3>
@@ -62,7 +62,7 @@ function RecommendationsBar() {
                 </p>
             </div>
         </div>
-        <div className={styles.recommendationOfferWrapper}>
+        <div className={`${styles.recommendationOfferWrapper} ${styles.cardRecommendationContent}`}>
             <div className={styles.recommendationOfferContent}>
                 <h2>Rent a car</h2>
                 <h3>
@@ -79,7 +79,6 @@ function RecommendationsBar() {
                 </a>
             </div>
         </div>
-        
     </div>
   )
 }
