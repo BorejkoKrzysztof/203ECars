@@ -59,6 +59,10 @@
     color: var(--greyThemeColor);
 }
 
+.postDescription > h4{
+    color: var(--greyThemeColor);
+}
+
 @media (orientation: landscape) {
     .footerDescriptionParagraph{
         text-align: center;

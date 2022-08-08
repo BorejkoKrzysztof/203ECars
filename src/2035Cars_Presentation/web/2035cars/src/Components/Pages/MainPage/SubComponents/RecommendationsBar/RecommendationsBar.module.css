@@ -112,7 +112,9 @@
     align-items: flex-start;
 }
 
-.recommendationOfferContent > h2, h3, h4{
+.recommendationOfferContent > h2, 
+.recommendationOfferContent > h3,
+.recommendationOfferContent > h4{
     color: var(--darkBlueThemeColor);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -177,7 +179,6 @@
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
         justify-content: center;
-        /* align-items: center; */
     }
 
     .RecommendationsInfoWrapper{
