@@ -3,6 +3,7 @@ import styles from './RecommendationsBar.module.css'
 import { FaHandshake } from 'react-icons/fa'
 import { IoCarSportSharp } from 'react-icons/io5'
 import { MdPriceCheck } from 'react-icons/md'
+import { ImStarFull, ImStarHalf } from 'react-icons/im'
 
 function RecommendationsBar() {
   return (
@@ -42,7 +43,42 @@ function RecommendationsBar() {
                 </div>
             </div>
         </div>
-
+        <div className={styles.recommendationQuoteWrapper}>
+            <div className={styles.recommendationQuoteContent}>
+                <h1 className={styles.recommendationsRate}>4.8/5</h1>
+                <h3 className={styles.recommendationRateText}>Amazing</h3>
+                <div className={styles.recommendationStars}>
+                    <ImStarFull />
+                    <ImStarFull />
+                    <ImStarFull />
+                    <ImStarFull />
+                    <ImStarHalf />
+                </div>
+                <p className={styles.recommendationQuoteSource}>
+                    Based on 
+                    <span>
+                        1200+ reviews
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div className={styles.recommendationOfferWrapper}>
+            <div className={styles.recommendationOfferContent}>
+                <h2>Rent a car</h2>
+                <h3>
+                    Anywhere from Europe
+                </h3>
+                <h4>
+                    Choose from 300+ cars
+                </h4>
+                <img src={process.env.PUBLIC_URL + '/Images/ExampleCars/Przechwytywanie.jpg'} alt='car'/>
+                <a 
+                // TODO Przekierowanie do banner
+                >  
+                    BOOK A CAR
+                </a>
+            </div>
+        </div>
         
     </div>
   )

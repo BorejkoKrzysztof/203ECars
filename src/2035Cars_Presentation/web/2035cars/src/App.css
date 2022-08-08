@@ -4,10 +4,10 @@
   --greenThemeColor: rgb(115, 230, 38);
   --blueThemeColor: #0055B0;
   --darkBlueThemeColor: rgb(13, 46, 88);
-
+  --paleGreenThemeColor: rgb(70, 180, 70);
   /* SIZES */
   --navbarHeight: 70px;
-  --pageMarginOneSideHorizontal: 15vw;
+  --pageMarginOneSideHorizontal: 10vw;
   /* --pageMarginRight: 15vw; */
 }
 

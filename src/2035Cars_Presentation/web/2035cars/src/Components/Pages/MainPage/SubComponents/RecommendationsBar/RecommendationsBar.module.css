@@ -1,6 +1,6 @@
 .RecommendationsBarWrapper{
     width: 100vw;
-    height: 1300px;
+    height: 1500px;
 
     background-color: rgb(228, 224, 224);
 
@@ -10,8 +10,6 @@
 }
 
 .RecommendationsInfoWrapper{
-    width: 100vw;
-    height: 500px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -21,7 +19,6 @@
 }
 
 .RecommendationsInfoContent{
-    width: 100%;
     height: 150px;
     border: solid 2px var(--greyThemeColor);
     background-color: white;
@@ -55,25 +52,128 @@
     color: var(--greyThemeColor);
 }
 
+.recommendationQuoteWrapper{
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommendationQuoteContent{
+    background-color: white;
+    width: 95%;
+    height: 93%;
+    border: solid 2px var(--greyThemeColor);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
+}
+
+.recommendationsRate{
+    color: var(--darkBlueThemeColor);
+    font-size: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.recommendationRateText{
+    color: var(--darkBlueThemeColor);
+    font-weight: lighter;
+    font-size: 30px;
+}
+
+.recommendationStars{
+    font-size: 50px;
+    color: var(--paleGreenThemeColor);
+}
+
+.recommendationQuoteSource{
+    font-size: 20px;
+}
+
+.recommendationQuoteSource > span{
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.recommendationOfferWrapper{
+    background-color: red;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: solid 2px var(--greyThemeColor);
+}
+
+.recommendationOfferContent{
+    width: 95%;
+    height: 93%;
+    background-color: white;
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.recommendationOfferContent > h2, h3, h4{
+    color: var(--darkBlueThemeColor);
+    /* font-size: 28px; */
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.recommendationOfferContent > h2 {
+    font-size: 28px;
+}
+
+.recommendationOfferContent > img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recommendationOfferContent > a {
+    border: solid 3px var(--blueThemeColor);
+    border-radius: 5px;
+    padding: 5px 15px;
+    background-color: var(--blueThemeColor);
+    color: white;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recommendationOfferContent > h3{
+    font-size: 24px;
+}
+
 @media (orientation: landscape) {
+
+    .RecommendationsBarWrapper{
+        height: 1000px;
+        grid-template-rows: 2fr 1fr 1fr;
+    }
+
     .RecommendationsInfoContent{
         padding: 5px 40px;
     }    
+
+    .recommendationQuoteContent{
+        padding-bottom: 0;
+    }
 }
 
-@media screen and(min-width: 960px) {
+@media screen and (min-width: 960px) {
     
-    /* .RecommendationsBarWrapper{
+    .RecommendationsBarWrapper{
         width: 100vw;
-        height: 1300px;
-    
-        background-color: rgb(228, 224, 224);
-    
-        display: grid;
+        height: 500px;
+        padding: 0 var(--pageMarginOneSideHorizontal);
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
-    } */
-
-    /* xd TEST */
-
+    }
 }
