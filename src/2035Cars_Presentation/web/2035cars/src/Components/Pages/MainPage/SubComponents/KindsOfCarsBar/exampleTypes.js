@@ -9,6 +9,7 @@ export const kindsOfCars = [
         Model : 'Model 3',
         AmountOfPlaces : 5,
         AmountOfDoors : 4,
+        Link : 'https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns'
     },
     {
         Kind : 'Economy',
@@ -18,6 +19,7 @@ export const kindsOfCars = [
         Model : 'Model 3',
         AmountOfPlaces : 5,
         AmountOfDoors : 4,
+        Link : ''
     },
     {
         Kind : 'Economy',
@@ -27,6 +29,7 @@ export const kindsOfCars = [
         Model : 'Model 3',
         AmountOfPlaces : 5,
         AmountOfDoors : 4,
+        Link : ''
     },
     {
         Kind : 'Economy',
@@ -36,5 +39,6 @@ export const kindsOfCars = [
         Model : 'Model 3',
         AmountOfPlaces : 5,
         AmountOfDoors : 4,
+        Link : ''
     },
 ]
