@@ -1,9 +1,9 @@
 .kindsOfCarBarWrapper{
     width: 100vw;
-    height: 1480px;
     border-top: solid 2px var(--greyThemeColor);
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 25px;
 }
 
 .kindsOfCarBarWrapper > h1{
@@ -19,7 +19,6 @@
 
 .kindsOfCarBarContent{
     width: 100vw;
-    height: 1300px;
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr;
@@ -29,12 +28,8 @@
 
 @media (orientation: landscape) {
 
-    .kindsOfCarBarWrapper{
-        height: 710px;
-    }
-
     .kindsOfCarBarContent{
-        height: 580px;
+        height: auto;
         grid-template-columns: 1fr 1fr;
         justify-items: center;
     }
@@ -43,21 +38,16 @@
 @media screen and (min-width: 960px) {
 
     .kindsOfCarBarWrapper{
-        height: 650px;
+        padding-bottom: 35px;
     }
     
     .kindsOfCarBarContent{
-        height: 530px;
         grid-template-columns: 1fr 1fr 1fr;
         justify-items: center;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    
-    .kindsOfCarBarWrapper{
-        height: 430px;
-    }
 
     .kindsOfCarBarContent{
         width: 80vw;
@@ -65,7 +55,6 @@
         margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
-        height: 280px;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         justify-items: center;
     }
