@@ -1,0 +1,23 @@
+.kindsOfCarBarWrapper{
+    width: 100vw;
+    height: 1400px;
+
+    border-top: solid 2px var(--greyThemeColor);
+}
+
+.kindsOfCarBarContent{
+    width: 100vw;
+    height: 1300px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@media (orientation: landscape) {
+    .kindsOfCarBarContent{
+        
+    }
+}

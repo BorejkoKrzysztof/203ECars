@@ -1,0 +1,43 @@
+.kindItemWrapper{
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border: solid 2px var(--greyThemeColor);
+    border-radius: 5px;
+}
+
+.mainPart{
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.economyInfo{
+    border: solid 2px var(--blueThemeColor);
+    border-radius: 15px;
+    padding: 5px 15px;
+    background-color: var(--blueThemeColor);
+    color: white;
+    font-weight: 700;
+}
+
+.modelTitle{
+    color: var(--darkBlueThemeColor);
+    text-align: center;
+}
+
+.infoBar{
+    width: 100%;
+    height: 15%;
+    border-top: solid 2px var(--greyThemeColor);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoBar div {
+    margin: 0 20px;
+}
