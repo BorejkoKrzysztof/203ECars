@@ -1,0 +1,63 @@
+.repairInfoWrapper{
+    width: 100%;
+    height: auto;
+    padding: 0 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.repairBigIcon{
+    margin-top: 25px;
+    font-size: 250px;
+    color: var(--greyThemeColor);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.repairTitle{
+    color: var(--darkBlueThemeColor);
+}
+
+.repairParagraph{
+    margin-top: 25px;
+    color: var(--greyThemeColor);
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+@media (orientation: landscape) {
+    
+    .repairInfoWrapper{
+        display: flex;
+        flex-direction: row-reverse;
+        padding-top: 50px;
+    }
+
+    .repairDescription{
+        width: 55%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    
+    .repairInfoWrapper{
+        padding: 90px 10vw 90px 10vw;
+    }
+
+    .repairBigIcon{
+        font-size: 250px;
+        margin-left: 30px;
+    }
+
+    .repairDescription{
+        width: 65%;
+    }
+
+    .repairTitle{
+        font-size: 40px;
+    }
+}

@@ -5,6 +5,7 @@ import EasyStepsBar from './SubComponents/EasyStepsBar/EasyStepsBar'
 import KindsOfCarBar from './SubComponents/KindsOfCarsBar/KindsOfCarBar'
 import OfferInfoBar from './SubComponents/OfferInfoBar/OfferInfoBar'
 import RecommendationsBar from './SubComponents/RecommendationsBar/RecommendationsBar'
+import RepairInfoBar from './SubComponents/RepairInfoBar/RepairInfoBar'
 
 function MainPage() {
   
@@ -19,7 +20,8 @@ function MainPage() {
       <RecommendationsBar />
       <KindsOfCarBar />
       <EasyStepsBar />
-      <div className={styles.Temporary}>MainPage</div>
+      <RepairInfoBar />
+      {/* <div className={styles.Temporary}>MainPage</div> */}
     </>
   )
 }
