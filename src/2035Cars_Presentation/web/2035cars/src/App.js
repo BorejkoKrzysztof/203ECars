@@ -10,8 +10,8 @@ function App() {
       <Router>
         <Navbar />
           <Routes>
-              <Route path='/' element={<MainPage />}/>
-              {/* <Route path='/' element={<AvailableCarsPage />} /> */}
+              {/* <Route path='/' element={<MainPage />}/> */}
+              <Route path='/' element={<AvailableCarsPage />} />
           </Routes>
         <Footer />
       </Router>

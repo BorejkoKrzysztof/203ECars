@@ -1,0 +1,218 @@
+.availableCarsWrapper{
+    margin-top: var(--navbarHeight);
+    width: 100vw;
+    height: auto
+    /* padding: 0 5vw; */
+}
+
+.AvailableCarsContent{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(97, 96, 96);
+
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.filtersWrapper{
+    background-color: green;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.locationsFilterContent, .otherSettingsFilterContent{
+    background-color: lightblue;
+    width: 100%;
+    height: 80px;
+}
+
+.locationsFilterContent{
+    margin-top: 20px;
+
+    display: flex;
+}
+
+.locationInfo{
+    width: 40%;
+    height: 100%;
+    background-color: #fff;
+
+    border: solid 2px blue;
+}
+
+.locationFormOpenButtonWrapper{
+    width: 20%;
+    height: 100%;
+    background-color: #fff;
+
+    border: solid 2px blue;
+}
+
+/* .otherSettingsFilter{
+    background-color: lightblue;
+} */
+
+.otherSettingsFilterContent{
+    width: 100%;
+    height: 80px;
+}
+
+.otherSettingsFilterContentActive{
+    height: auto;
+}
+
+.otherSettingsFilterBar{
+    width: 100%;
+    height: 80px;
+    padding: 0 20px;
+    background-color: #fff;
+
+    border: solid 2px blue;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    /* font-size: 50px; */
+}
+
+.filterBarContent{
+    /* width: 50%; */
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.filterBarContent > h3{
+    margin-left: 10px;
+}
+
+.filterArrow{
+    font-size: 50px;
+    /* transition: .5s ease-out; */
+}
+
+.filterArrowActive{
+    transform: rotate(180deg);
+}
+
+.filterFormWrapper{
+    width: 100%;
+
+    /* !!!!!!!!!!!!!!!!!! */
+    height: 600px;
+
+    background-color: #fff;
+    border: solid 2px blue;
+}
+
+.contentWrapper{
+    width: 100%;
+    height: auto;
+    background-color: yellow;
+    
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+.carItem{
+    /* position: relative; */
+    width: 95%;
+    height: 300px;
+    margin: 10px auto 10px auto;
+    background-color: #fff;
+}
+
+
+
+@media (orientation: landscape) {
+
+}
+
+@media screen and (min-width: 960px) {
+
+    .availableCarsWrapper{
+        padding: 0 5vw;
+    }
+    
+    .AvailableCarsContent{
+        grid-template-columns: 1fr 2.8fr;
+        column-gap: 10px;
+    }
+
+    .filtersWrapper{
+        background-color: green;
+        /* height: 100% */
+    }
+
+    .locationsFilterContent, .otherSettingsFilterContent{
+        margin-top: 20px;
+        background-color: lightblue;
+        width: 300px;
+
+
+        /* height: 400px; */
+        height: auto;
+    }
+
+    .locationsFilterContent{
+        flex-direction: column;
+    }
+    
+    .locationInfo{
+        width: 100%;
+        height: 160px;
+        background-color: #fff;
+    
+        /* border: solid 3px blue; */
+    }
+
+    .locationFormOpenButtonWrapper{
+        width: 100%;
+        height: 40px;
+        background-color: #fff;
+    
+        /* border: solid 3px blue; */
+    }
+
+    .otherSettingsFilterContent{
+        margin-bottom: 50px;
+    }
+
+    .otherSettingsFilterBar{
+        cursor: auto;
+    }
+
+    .filterArrow{
+        display: none;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .contentWrapper{
+        margin-top: 10px;
+        height: auto;
+    }
+
+    
+}
