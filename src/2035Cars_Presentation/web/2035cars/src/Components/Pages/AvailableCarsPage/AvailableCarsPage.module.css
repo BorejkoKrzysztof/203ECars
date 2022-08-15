@@ -24,7 +24,6 @@
 }
 
 .locationsFilterContent, .otherSettingsFilterContent{
-    background-color: lightblue;
     width: 100%;
     height: 80px;
 }
@@ -32,36 +31,80 @@
 .locationsFilterContent{
     margin-top: 20px;
     display: flex;
-    transition: height .7s ease-out;
+    transition:  .7s ease-out;
 }
 
 .locationsFilterContentActive{
     height: 0;
 }
 
+.rentCarDetail{
+    display: none;
+}
+
 .locationInfo{
     width: 40%;
     height: 100%;
-    background-color: #fff;
+    background-color: var(--lightGreyThemeColor);
+    color: white;
+    font-weight: bold;
+    border: solid 2px var(--greyThemeColor);
 
-    border: solid 2px blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    overflow: hidden;
+}
+
+.locationInfo > h2{
+    display: none;
+}
+
+.locationInfo > h6{
+    font-size: 17px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.locationInfo > p, .locationInfo > h6{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.locationInfoIcons {
+    display: none;
+    margin-right: 5px;
+}
+
+.locationInfoSeparateLine{
+    display: none;
 }
 
 .locationFormOpenButtonWrapper{
     width: 20%;
     height: 100%;
     background-color: #fff;
+}
 
-    border: solid 2px blue;
+.locationFormOpenButtonWrapper > button{
+    width: 100%;
+    height: 100%;
+
+    font-size: 18px;
+    background-color: yellowgreen;
+    border: solid 2px green;
+    color: white;
 }
 
 .locationFormWrapper{
     width: 100%;
     height: 0;
     background-color: #fff;
-
-    border: solid 2px blue;
-    transition: height .7s ease-out;
+    transition: .7s ease-out;
+    overflow: hidden;
 }
 
 .locationFormWrapperActive{
@@ -71,25 +114,28 @@
 .closeLoactionFormButtonArea{
     width: 100%;
     height: 40px;
-    background-color: pink;
+    background-color: var(--lightGreyThemeColor);
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
+    overflow: hidden;
+}
+
+.closeLoactionFormButtonArea > h5{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
 }
 
 .closeLocationFormButton{
     padding: 0;
-    margin-right: 20px;
     font-size: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    color: blue;
-    background-color: white;
+    color: var(--blueThemeColor);
+    background-color: var(--lightGreyThemeColor);
     border: none;
-
     cursor: pointer;
 }
 
@@ -159,9 +205,9 @@
 
 
 
-@media (orientation: landscape) {
+/* @media (orientation: landscape) {
 
-}
+} */
 
 @media screen and (min-width: 960px) {
 
@@ -180,29 +226,92 @@
 
     .locationsFilterContent, .otherSettingsFilterContent{
         margin-top: 20px;
-        background-color: lightblue;
         width: 300px;
         height: auto;
     }
 
     .locationsFilterContent{
         flex-direction: column;
+        border: solid 2px var(--greyThemeColor);
     }
 
     .locationsFilterContentActive{
         height: 0;
+        border: none;
+    }
+
+    .rentCarDetail{
+        width: 100%;
+        height: 40px;
+        background-color: var(--lightGreyThemeColor);
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .rentCarDetail > h5{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 20px;
     }
 
     .locationInfo{
         width: 100%;
         height: 160px;
         background-color: #fff;
+
+        color: var(--greyThemeColor);
+        border: none;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding-left: 15px;
+    }
+
+    .locationInfo > h2{
+        display: inherit;
+        margin-left: 20px;
+        color: black;
+        font-size: 18px;
+    }
+
+    .locationInfo >h6, .locationInfo >p{
+        font-weight: lighter;
+    }
+
+    .locationInfoIcons {
+        display: inherit;
+        color: black;
+        font-size: 22px;
+    }
+
+    .locationInfoSeparateLine{
+        display: inherit;
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--greyThemeColor);
+        width: 80%;
     }
 
     .locationFormOpenButtonWrapper{
         width: 100%;
         height: 40px;
         background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .locationFormOpenButtonWrapper > button{
+        width: 80px;
+        height: 36px;
+
+        background-color: yellowgreen;
+        border: solid 2px yellowgreen;
+        border-radius: 5px;
+
+        font-weight: bold;
+
+        cursor: pointer;
     }
 
     .locationFormWrapper{

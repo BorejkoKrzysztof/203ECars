@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './AvailableCarsPage.module.css'
 import { FaFilter, FaWindowClose } from 'react-icons/fa'
 import { AiOutlineArrowDown } from 'react-icons/ai'
+import { IoLocationSharp, IoTimeSharp } from 'react-icons/io5'
+import { BsFillCalendarDateFill } from 'react-icons/bs'
 
 function AvailableCarsPage() {
 
@@ -17,14 +19,42 @@ function AvailableCarsPage() {
                                     styles.locationsFilterContent
                                               :
                                     `${styles.locationsFilterContent} ${styles.locationsFilterContentActive}`}>
-            <div className={styles.locationInfo}>
-              DROP ON
+            <div className={styles.rentCarDetail}>
+              <h5>Szczegóły Wynajmu:</h5>
             </div>
             <div className={styles.locationInfo}>
-              DROP OFF
+              <h2>
+                POCZĄTEK:
+              </h2>
+              <h6>
+                  <IoLocationSharp className={styles.locationInfoIcons}/>
+                Miasto Miasto Lokacja
+              </h6>
+              <p>
+                  <BsFillCalendarDateFill className={styles.locationInfoIcons}/>
+                12.08.2022 &nbsp;
+                  <IoTimeSharp className={styles.locationInfoIcons}/>
+                10:00
+              </p>
+            </div>
+            <hr className={styles.locationInfoSeparateLine}/>
+            <div className={styles.locationInfo}>
+              <h2>
+                KONIEC:
+              </h2>
+              <h6>
+                  <IoLocationSharp className={styles.locationInfoIcons}/>
+                Miasto Miasto Lokacja
+              </h6>
+              <p>
+                  <BsFillCalendarDateFill className={styles.locationInfoIcons}/>
+                12.08.2022 &nbsp;
+                  <IoTimeSharp className={styles.locationInfoIcons}/>
+                10:00
+              </p>
             </div>
             <div className={styles.locationFormOpenButtonWrapper}>
-              <button onClick={() => { setLocationFormState(true) }}>Open</button>
+              <button onClick={() => { setLocationFormState(true) }}>EDYTUJ</button>
             </div>
           </div>
           
@@ -34,6 +64,7 @@ function AvailableCarsPage() {
                                               :
                               `${styles.locationFormWrapper} ${styles.locationFormWrapperActive}`}>
               <div className={styles.closeLoactionFormButtonArea}>
+                <h5>Edytuj datę:</h5>
                 <button className={styles.closeLocationFormButton}
                           onClick={() => { setLocationFormState(false) }}>
                   <FaWindowClose />
