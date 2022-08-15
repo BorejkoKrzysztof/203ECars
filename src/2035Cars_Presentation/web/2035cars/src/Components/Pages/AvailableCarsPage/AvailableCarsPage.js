@@ -24,7 +24,7 @@ function AvailableCarsPage() {
             </div>
             <div className={styles.locationInfo}>
               <h2>
-                POCZĄTEK:
+                POCZĄTEK :
               </h2>
               <h6>
                   <IoLocationSharp className={styles.locationInfoIcons}/>
@@ -40,7 +40,7 @@ function AvailableCarsPage() {
             <hr className={styles.locationInfoSeparateLine}/>
             <div className={styles.locationInfo}>
               <h2>
-                KONIEC:
+                KONIEC :
               </h2>
               <h6>
                   <IoLocationSharp className={styles.locationInfoIcons}/>
@@ -70,7 +70,33 @@ function AvailableCarsPage() {
                   <FaWindowClose />
                 </button>
               </div>
-              LOCATION FORM
+              <form className={styles.editDateTimeRent}>
+                  <div className={styles.locationInfoForm}>
+                    <label>POCZĄTEK :</label>
+                    <select></select>
+                  </div>
+                  <div className={styles.locationInfoForm}>
+                    <label>KONIEC :</label>
+                    <select></select>
+                  </div>
+                  <div className={styles.locationInfoForm}>
+                    <label>DATA ROZPOCZĘCIA :</label>
+                      <div>
+                        <input type='date'></input>
+                        <select></select>
+                      </div>
+                  </div>
+                  <div className={styles.locationInfoForm}>
+                    <label>DATA ZAKOŃCZENIA :</label>
+                      <div>
+                        <input type='date'></input>
+                        <select></select>
+                      </div>
+                  </div>
+                  <div className={styles.submitButtonWrapper}>
+                    <button>EDYTUJ</button>
+                  </div>
+              </form>
           </div>
 
 
