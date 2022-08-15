@@ -2,7 +2,6 @@
     margin-top: var(--navbarHeight);
     width: 100vw;
     height: auto
-    /* padding: 0 5vw; */
 }
 
 .AvailableCarsContent{
@@ -36,6 +35,10 @@
     display: flex;
 }
 
+.locationsFilterContentActive{
+    height: 0;
+}
+
 .locationInfo{
     width: 40%;
     height: 100%;
@@ -52,13 +55,47 @@
     border: solid 2px blue;
 }
 
-/* .otherSettingsFilter{
-    background-color: lightblue;
-} */
+.locationFormWrapper{
+    width: 100%;
+    height: 0;
+    background-color: #fff;
+
+    border: solid 2px blue;
+}
+
+.locationFormWrapperActive{
+    height: 400px;
+}
+
+.closeLoactionFormButtonArea{
+    width: 100%;
+    height: 40px;
+    background-color: pink;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.closeLocationFormButton{
+    padding: 0;
+    margin-right: 20px;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: blue;
+    background-color: white;
+    border: none;
+
+    cursor: pointer;
+}
 
 .otherSettingsFilterContent{
     width: 100%;
     height: 80px;
+    overflow-y: hidden;
 }
 
 .otherSettingsFilterContentActive{
@@ -77,15 +114,12 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    /* font-size: 50px; */
 }
 
 .filterBarContent{
-    /* width: 50%; */
     font-size: 22px;
     display: flex;
     align-items: center;
-    /* background-color: red; */
 }
 
 .filterBarContent > h3{
@@ -94,7 +128,6 @@
 
 .filterArrow{
     font-size: 50px;
-    /* transition: .5s ease-out; */
 }
 
 .filterArrowActive{
@@ -103,8 +136,6 @@
 
 .filterFormWrapper{
     width: 100%;
-
-    /* !!!!!!!!!!!!!!!!!! */
     height: 600px;
 
     background-color: #fff;
@@ -115,14 +146,9 @@
     width: 100%;
     height: auto;
     background-color: yellow;
-    
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
 }
 
 .carItem{
-    /* position: relative; */
     width: 95%;
     height: 300px;
     margin: 10px auto 10px auto;
@@ -148,37 +174,42 @@
 
     .filtersWrapper{
         background-color: green;
-        /* height: 100% */
     }
 
     .locationsFilterContent, .otherSettingsFilterContent{
         margin-top: 20px;
         background-color: lightblue;
         width: 300px;
-
-
-        /* height: 400px; */
         height: auto;
     }
 
     .locationsFilterContent{
         flex-direction: column;
     }
-    
+
+    .locationsFilterContentActive{
+        height: 0;
+    }
+
     .locationInfo{
         width: 100%;
         height: 160px;
         background-color: #fff;
-    
-        /* border: solid 3px blue; */
     }
 
     .locationFormOpenButtonWrapper{
         width: 100%;
         height: 40px;
         background-color: #fff;
-    
-        /* border: solid 3px blue; */
+    }
+
+    .locationFormWrapper{
+        width: 300px;
+        height: 0;
+    }
+
+    .locationFormWrapperActive{
+        height: 400px;
     }
 
     .otherSettingsFilterContent{
@@ -193,26 +224,9 @@
         display: none;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     .contentWrapper{
         margin-top: 10px;
         height: auto;
     }
-
     
 }
