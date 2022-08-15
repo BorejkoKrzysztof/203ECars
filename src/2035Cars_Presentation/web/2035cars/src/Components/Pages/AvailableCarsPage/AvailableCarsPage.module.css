@@ -31,8 +31,8 @@
 
 .locationsFilterContent{
     margin-top: 20px;
-
     display: flex;
+    transition: height .7s ease-out;
 }
 
 .locationsFilterContentActive{
@@ -61,6 +61,7 @@
     background-color: #fff;
 
     border: solid 2px blue;
+    transition: height .7s ease-out;
 }
 
 .locationFormWrapperActive{
@@ -96,10 +97,11 @@
     width: 100%;
     height: 80px;
     overflow-y: hidden;
+    transition: height .7s ease-out;
 }
 
 .otherSettingsFilterContentActive{
-    height: auto;
+    height: 400px;
 }
 
 .otherSettingsFilterBar{
