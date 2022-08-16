@@ -221,9 +221,9 @@
     width: 100%;
     height: 80px;
     padding: 0 20px;
-    background-color: #fff;
-
-    border: solid 2px blue;
+    background-color: var(--lightGreyThemeColor);
+    color: white;
+    /* border: solid 2px blue; */
 
     display: flex;
     justify-content: space-between;
@@ -254,7 +254,7 @@
     height: 600px;
 
     background-color: #fff;
-    border: solid 2px blue;
+    /* border: solid 2px blue; */
 }
 
 .contentWrapper{
@@ -395,7 +395,16 @@
     }
 
     .otherSettingsFilterBar{
+        height: 40px;
+        color: black;
         cursor: auto;
+    }
+
+    .filterBarContent{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .filterArrow{
