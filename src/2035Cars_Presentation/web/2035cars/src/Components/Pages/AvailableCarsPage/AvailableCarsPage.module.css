@@ -214,7 +214,7 @@
 }
 
 .otherSettingsFilterContentActive{
-    height: 400px;
+    height: auto;
 }
 
 .otherSettingsFilterBar{
@@ -251,11 +251,59 @@
 
 .filterFormWrapper{
     width: 100%;
-    height: 600px;
+    height: auto;
 
     background-color: #fff;
     /* border: solid 2px blue; */
 }
+
+.sliderArea{
+    /* width: 85%; */
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    padding: 0 10px;
+    margin-top: 10px;
+    z-index: 1;
+    /* height: 300px; */
+    /* background-color: silver; */
+    /* padding-top: 20px; */
+}
+
+.filterFormOptionPart{
+    width: 95%;
+    margin: 10px auto;
+}
+
+.filterFormOptionPart > h1{
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.filterFormOptionPart > p {
+    font-size: 18px;
+
+    display: flex;
+    justify-content: space-between;
+    line-height: 36px;
+    cursor: pointer;
+}
+
+.filterFormOptionPart > p > span{
+    font-size: 36px;
+    color: var(--blueThemeColor);
+}
+
+.filterFormOptionPart > select{
+    width: 120px;
+    height: 30px;
+
+    background-color: #fff;
+    border: solid 2px var(--greyThemeColor);
+}
+
+/* .filterFormWrapper :nth-last-child(1){
+    margin-bottom: 25px;
+} */
 
 .contentWrapper{
     width: 100%;
