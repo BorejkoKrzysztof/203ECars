@@ -20,23 +20,30 @@
     border: solid 2px blue;
 }
 
-.carItem > .mainPart{
+.carItemMiddle{
+    display: flex;
+    flex-direction: column;
+}
+
+.mainPart{
     width: 100%;
-    height: 150px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-
 
     border: 2px solid blue;
 }
 
 .mainPart > .carItemImage{
+    display: block;
     width: 240px;
     height: 140px;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
 }
 
-.carItem > .carItemDescription{
+.carItemDescription{
     width: 95%;
     height: auto;
     margin: 20px auto 10px auto;
@@ -62,6 +69,23 @@
     align-content: center;
 }
 
+.priceArea{
+    width: 100%;
+    height: 50px;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+
+
+    border: solid 2px blue;
+}
+
+.priceArea > h3{
+    color: darkgreen;
+}
+
 .rentCarButtonArea{
     width: 100%;
     height: 80px;
@@ -82,4 +106,90 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+@media (orientation: landscape) {
+    
+    .mainPart > .carItemImage{
+        width: 360px;
+        height: 200px;
+    }
+
+    .carItemDescription{
+        width: 85%;
+        column-gap: 0px;
+        grid-template-rows: 80px 80px 80px;
+    }
+
+    .carItemDescription > p{
+        column-gap: 0;
+        font-size: 22px;
+    }
+
+    .carItemDescription > p > span{
+        font-size: 40px;
+    }
+
+    .priceArea{
+        height: 70px;
+    
+    
+        border: solid 2px blue;
+    }
+    
+    .priceArea > h3{
+        color: darkgreen;
+        font-size: 30px;
+    }
+
+    .rentCarButtonArea{
+        height: 120px;
+        justify-content: flex-end;
+        padding-right: 30px;
+    }
+
+    .rentCarButton{
+        width: 160px;
+        height: 70px;
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .carItemMiddle{
+        flex-direction: row;
+    }
+
+    .mainPart{
+        width: 320px;
+    }
+
+    .mainPart > .carItemImage{
+        width: 240px;
+        height: 140px;
+    }
+
+    .carItemDescription{
+        width: 420px;
+        grid-template-rows: 70px 70px 70px;
+    }
+
+    .carItemDescription > p{
+        column-gap: 5px;
+        font-size: inherit;
+    }
+
+    .carItemDescription > p > span{
+        font-size: 30px;
+    }
+
+    .rentCarButtonArea{
+        height: 100px;
+    }
+
+    .rentCarButton{
+        width: 130px;
+        height: 60px;
+        font-size: 20px;
+    }
 }
