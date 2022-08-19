@@ -5,7 +5,8 @@
     background-color: #fff;
 
 
-    border: solid 2px blue;
+    border: solid 2px var(--darkBlueThemeColor);
+    border-radius: 5px;
 }
 
 .carItem > .carItemTitle{
@@ -17,7 +18,7 @@
     color: var(--darkBlueThemeColor);
 
 
-    border: solid 2px blue;
+    /* border: solid 2px blue; */
 }
 
 .carItemMiddle{
@@ -32,7 +33,7 @@
     justify-content: center;
     align-items: center;
 
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
 }
 
 .mainPart > .carItemImage{
@@ -54,7 +55,7 @@
     justify-content: center;
     align-content: center;
 
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
 }
 
 .carItemDescription > p > span{
@@ -79,7 +80,7 @@
     align-items: flex-end;
 
 
-    border: solid 2px blue;
+    /* border: solid 2px blue; */
 }
 
 .priceArea > h3{
@@ -94,7 +95,7 @@
     align-items: center;
     margin-bottom: 5px;
 
-    border: solid 2px blue;
+    /* border: solid 2px blue; */
 }
 
 .rentCarButton{
@@ -134,7 +135,7 @@
         height: 70px;
     
     
-        border: solid 2px blue;
+        /* border: solid 2px blue; */
     }
     
     .priceArea > h3{
@@ -156,6 +157,15 @@
 }
 
 @media screen and (min-width: 960px) {
+
+    .carItem > .carItemTitle{
+        height: 70px;
+    }
+
+    .carItemTitle > h1{
+        font-size: 50px;
+        /* height: 100px; */
+    }
     .carItemMiddle{
         flex-direction: row;
     }
