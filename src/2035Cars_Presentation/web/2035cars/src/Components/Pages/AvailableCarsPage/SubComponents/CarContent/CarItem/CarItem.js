@@ -54,6 +54,9 @@ function CarItem() {
                     Wbudowana nawigacja
                 </p>
             </div>
+            <div className={styles.rentCarButtonArea}>
+                <button className={styles.rentCarButton}>Wypożycz</button>
+            </div>
         </div>
     </>
   )
