@@ -2,20 +2,18 @@
     width: 100vw;
     min-height: calc(100vh - var(--navbarHeight));
     margin-top: var(--navbarHeight);
+    margin-bottom: 25px;
 }
 
 .loginContainer{
     width: 95vw;
-    height: 75vh;
+    height: auto;
     border: solid 3px var(--darkBlueThemeColor);
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
     overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 }
 
 .loginForm{
@@ -23,16 +21,24 @@
 }
 
 .loginContainer h1{
-    font-size: 60px;
+    font-size: 50px;
     text-align: center;
-    margin-top: 5vh;
-    margin-bottom: 2vh;
-    color: var(--blueThemeColor);
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: var(--darkBlueThemeColor);
     overflow-y: hidden;
 }
 
+.loginContainer h1 > span{
+    color: var(--greyThemeColor);
+}
+
+.carIcon{
+    padding-top: 10px;
+}
+
 .loginContainer div{
-    margin-bottom: 2vh;
+    margin-bottom: 40px;
 }
 
 .loginContainer form div label{
@@ -41,9 +47,9 @@
 }
 
 .loginContainer form div input{
-    font-size: 28px;
+    font-size: 30px;
     width: 80vw;
-    height: 7vh;
+    height: 36px;
     margin-left: 5vw;
     margin-right: 5vw;
     border: none;
@@ -71,18 +77,19 @@ button.loginButton{
     justify-content: center;
     align-items: center;
     width: 60vw;
-    height: 8vh;
+    height: 50px;
     font-size: 36px;
-    color: blue;
-    border: solid 3px blue;
-    background-color: var(--whiteColor);
+    color: var(--darkBlueThemeColor);
+    border: solid 3px var(--darkBlueThemeColor);
+    background-color: white;
     padding: 15px;
     overflow: hidden;
 }
 
 .registerOffer{
     text-align: center;
-    margin-top: 3.5vh;
+    margin-top: 30px;
+    margin-bottom: 20px;
     color: var(--greyThemeColor);
 }
 
@@ -100,9 +107,11 @@ button.loginButton{
     
     .loginContainer{
         width: 95vw;
-        height: 100vh;
-        margin-top: 4vh;
-        margin-bottom: 5vh;
+        height: auto;
+    }
+
+    .loginForm{
+        margin-top: 35px;
     }
 
     .loginContainer form div label{
@@ -122,17 +131,13 @@ button.loginButton{
         color: red;
     }
     
-    .buttonContainer{
-        margin-top: 4vh;
-    }
-    
     button.loginButton{
-        font-size: 28px;
+        margin-top: 35px;
     }
     
     .registerOffer{
         text-align: center;
-        margin-top: 3.5vh;
+        margin-top: 35px;
         color: var(--greyThemeColor);
     }
     
@@ -145,8 +150,6 @@ button.loginButton{
     .registerLink:visited{
         color: red;
     }
-
-
 }
 
 @media screen and (min-width: 960px) {
@@ -154,7 +157,6 @@ button.loginButton{
     .loginContainer{
         width: 65vw;
         height: 460px;
-        /* min-height: 400px; */
         margin-left: 22.5vw;
         margin-top: 55px;
     }
@@ -169,15 +171,6 @@ button.loginButton{
         margin-bottom: 5px;
     }
 
-    /* .loginContainer h1{
-        font-size: 60px;
-        text-align: center;
-        margin-top: 5vh;
-        margin-bottom: 2vh;
-        color: var(--blueThemeColor);
-        overflow-y: hidden;
-    } */
-    
     .loginContainer form div label{
         font-size: 28px;
     }
@@ -185,28 +178,15 @@ button.loginButton{
     .loginContainer form div input{
         font-size: 22px;
         width: 55vw;
-        height: 30px;
+        height: 45px;
     }
-
-    /* .loginContainer form div input{
-        font-size: 28px;
-        width: 80vw;
-        height: 7vh;
-        margin-left: 5vw;
-        margin-right: 5vw;
-        border: none;
-        border-bottom: solid 3px var(--darkBlueThemeColor);
-        outline: none;
-    } */
 
     .buttonContainer{
         margin-top: 10px;
     }
 
     .registerOffer{
-        /* text-align: center; */
-        margin-top: 12.5px;
-        /* color: var(--greyThemeColor); */
+        margin-top: 35px;
     }
 
     button.loginButton{
@@ -217,15 +197,15 @@ button.loginButton{
     }
 
     button.loginButton:hover{
-        color: green;
-        border: solid 3px blue;
+        color: var(--blueThemeColor);
+        border: solid 3px var(--blueThemeColor);
     }
 
     .registerLink:hover{
-        color: green;
+        color: var(--blueThemeColor);
     }
 
     .registerLink:visited:hover{
-        color: green;
+        color: var(--blueThemeColor);
     }
 }

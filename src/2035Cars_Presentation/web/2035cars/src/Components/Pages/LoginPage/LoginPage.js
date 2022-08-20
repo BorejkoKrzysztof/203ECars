@@ -3,6 +3,7 @@ import styles from './LoginPage.module.css';
 // import axios from "../../../axios/axiosPublicInstance";
 // import useLocalStorage from "../../../hooks/useLocalStorage";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { FaCar } from 'react-icons/fa'
 
 
 function Login({setLoggedState})
@@ -70,7 +71,13 @@ function Login({setLoggedState})
     return (
         <div className={styles.wrapper}>
             <div className={styles.loginContainer}>
-                <h1>My Tasks!</h1>
+                <h1 style={{ fontFamily: '"Quantico"'}} >
+                    <span>
+                        <FaCar className={styles.carIcon}/>
+                        /203
+                    </span>
+                    E Cars
+                </h1>
                 <form onSubmit={loginHandler} className={styles.loginForm}>
                     <div>
                         <label>Email Adress:</label>
