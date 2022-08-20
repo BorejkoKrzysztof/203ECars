@@ -39,6 +39,7 @@ function Filters() {
   return (
     <>
         <div className={styles.filtersWrapper}>
+          <div className={styles.firstFilterWrapper}>
           <div className={ !locationFormState ? 
                                     styles.locationsFilterContent
                                               :
@@ -121,6 +122,7 @@ function Filters() {
                     <button>EDYTUJ</button>
                   </div>
               </form>
+          </div>
           </div>
 
 

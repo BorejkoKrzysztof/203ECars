@@ -3,8 +3,6 @@
     height: auto;
     margin: 10px auto 10px auto;
     background-color: #fff;
-
-
     border: solid 2px var(--greyThemeColor);
     border-radius: 5px;
 }

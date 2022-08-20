@@ -6,13 +6,18 @@
     align-items: center;
 }
 
+.firstFilterWrapper{
+    width: 100%;
+    border: solid 2px var(--greyThemeColor);
+}
+
 .locationsFilterContent, .otherSettingsFilterContent{
     width: 100%;
     height: 80px;
 }
 
 .locationsFilterContent{
-    margin-top: 20px;
+    margin-top: 0;
     display: flex;
     transition:  .7s ease-out;
 }
@@ -31,8 +36,7 @@
     background-color: var(--lightGreyThemeColor);
     color: white;
     font-weight: bold;
-    border: solid 2px var(--greyThemeColor);
-
+    border-right: solid 2px var(--greyThemeColor);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,7 +83,7 @@
 
     font-size: 18px;
     background-color: yellowgreen;
-    border: solid 2px green;
+    border: none;
     color: white;
 }
 
@@ -89,15 +93,11 @@
     background-color: #fff;
     transition: .7s ease-out;
     overflow: hidden;
-    /* border-bottom: solid 2px var(--greyThemeColor); */
-    /* border-left: solid 2px var(--greyThemeColor); */
-    /* border-right: solid 2px var(--greyThemeColor); */
     border-width: 2px;
 }
 
 .locationFormWrapperActive{
     height: auto;
-    border: solid 2px var(--greyThemeColor);
 }
 
 .closeLoactionFormButtonArea{
@@ -289,6 +289,18 @@
 
 @media screen and (min-width: 960px) {
 
+    .firstFilterWrapper{
+        margin-top: 20px;
+        width: 300px;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
     .locationsFilterContent, .otherSettingsFilterContent{
         margin-top: 20px;
         width: 300px;
@@ -296,8 +308,8 @@
     }
 
     .locationsFilterContent{
+        margin-top: 0px;
         flex-direction: column;
-        border: solid 2px var(--greyThemeColor);
     }
 
     .locationsFilterContentActive{
@@ -358,7 +370,7 @@
         margin-left: auto;
         margin-right: auto;
         color: var(--greyThemeColor);
-        width: 80%;
+        width: 90%;
     }
 
     .locationFormOpenButtonWrapper{
