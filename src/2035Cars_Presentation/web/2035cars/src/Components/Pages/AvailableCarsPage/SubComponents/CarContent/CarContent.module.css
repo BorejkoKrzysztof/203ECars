@@ -1,7 +1,6 @@
 .contentWrapper{
     width: 100%;
     height: auto;
-    background-color: yellow;
 }
 
 @media screen and (min-width:960px) {

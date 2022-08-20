@@ -56,16 +56,18 @@ function CarItem() {
                     </p>
                 </div>
             </div>
-            <div className={styles.priceArea}>
-                    <p>
-                        Za {`3`} dni:
-                    </p>
-                    <h3>
-                        250.00 PLN
-                    </h3>
-            </div>
-            <div className={styles.rentCarButtonArea}>
-                <button className={styles.rentCarButton}>Wypożycz</button>
+            <div className={styles.bottomSectionCarItem}>
+                <div className={styles.priceArea}>
+                        <p>
+                            Za {`3`} dni:
+                        </p>
+                        <h3>
+                            250.00 PLN
+                        </h3>
+                </div>
+                <div className={styles.rentCarButtonArea}>
+                    <button className={styles.rentCarButton}>Wypożycz</button>
+                </div>
             </div>
         </div>
     </>

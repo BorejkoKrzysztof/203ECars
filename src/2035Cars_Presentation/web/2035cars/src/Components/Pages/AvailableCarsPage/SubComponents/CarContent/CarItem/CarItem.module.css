@@ -5,7 +5,7 @@
     background-color: #fff;
 
 
-    border: solid 2px var(--darkBlueThemeColor);
+    border: solid 2px var(--greyThemeColor);
     border-radius: 5px;
 }
 
@@ -16,9 +16,6 @@
     justify-content: center;
     align-items: center;
     color: var(--darkBlueThemeColor);
-
-
-    /* border: solid 2px blue; */
 }
 
 .carItemMiddle{
@@ -32,16 +29,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* border: 2px solid blue; */
 }
 
 .mainPart > .carItemImage{
     display: block;
     width: 240px;
     height: 140px;
-    /* margin-left: auto; */
-    /* margin-right: auto; */
 }
 
 .carItemDescription{
@@ -54,8 +47,6 @@
     column-gap: 10px;
     justify-content: center;
     align-content: center;
-
-    /* border: 2px solid blue; */
 }
 
 .carItemDescription > p > span{
@@ -78,9 +69,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
-
-
-    /* border: solid 2px blue; */
 }
 
 .priceArea > h3{
@@ -94,8 +82,6 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
-
-    /* border: solid 2px blue; */
 }
 
 .rentCarButton{
@@ -107,6 +93,11 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+.bottomSectionCarItem{
+    display: flex;
+    flex-direction: column;
 }
 
 @media (orientation: landscape) {
@@ -132,10 +123,9 @@
     }
 
     .priceArea{
+        margin-top: -5px;
         height: 70px;
-    
-    
-        /* border: solid 2px blue; */
+        padding: 0;
     }
     
     .priceArea > h3{
@@ -154,6 +144,13 @@
         height: 70px;
         font-size: 22px;
     }
+
+    .bottomSectionCarItem{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
 }
 
 @media screen and (min-width: 960px) {
@@ -164,7 +161,6 @@
 
     .carItemTitle > h1{
         font-size: 50px;
-        /* height: 100px; */
     }
     .carItemMiddle{
         flex-direction: row;

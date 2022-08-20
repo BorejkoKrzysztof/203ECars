@@ -7,82 +7,11 @@
 .AvailableCarsContent{
     width: 100%;
     height: 100%;
-    background-color: rgb(97, 96, 96);
+    /* background-color: rgb(97, 96, 96); */
 
     display: grid;
     grid-template-columns: 1fr;
 }
-
-
-/* .contentWrapper{
-    width: 100%;
-    height: auto;
-    background-color: yellow;
-}
-
-.carItem{
-    width: 95%;
-    height: 500px;
-    margin: 10px auto 10px auto;
-    background-color: #fff;
-
-    border: solid 2px blue;
-}
-
-.carItem > .carItemTitle{
-    width: 100%;
-    height: 50px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: var(--darkBlueThemeColor);
-
-    border: solid 2px blue;
-}
-
-.carItem > .mainPart{
-    width: 100%;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 2px solid blue;
-}
-
-.mainPart > .carItemImage{
-    width: 240px;
-    height: 140px;
-}
-
-.carItem > .carItemDescription{
-    width: 100%;
-    height: auto;
-    padding: 20px 10px 0 10px;
-    border: 2px solid blue;
-    display: grid;
-    
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 50px 50px 50px;
-    column-gap: 15px;
-    justify-content: center;
-    align-content: center;
-}
-
-.carItemDescription > p > span{
-    font-size: 30px;
-    color: var(--blueThemeColor);
-}
-
-.carItemDescription > p{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    column-gap: 10px;
-    align-content: center;
-} */
-
 
 
 @media screen and (min-width: 960px) {
@@ -92,13 +21,7 @@
     }
     
     .AvailableCarsContent{
-        grid-template-columns: 1fr 2.8fr;
+        grid-template-columns: 320px 2.8fr;
         column-gap: 10px;
     }
-
-    /* .contentWrapper{
-        margin-top: 10px;
-        height: auto;
-    } */
-    
 }
