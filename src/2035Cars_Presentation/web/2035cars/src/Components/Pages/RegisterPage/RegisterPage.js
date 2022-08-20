@@ -7,7 +7,7 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 
 function Register(props) {
 
-    const nickNameREGEX = /^[a-zA-z]{3,15}$/
+    const nameREGEX = /^[A-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]{2,15}$/
     const emailAdressREGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const passwordREGEX = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{7,15})");
 
@@ -15,9 +15,14 @@ function Register(props) {
     // const [token, setToken] = useLocalStorage('token', '')
     // const [refreshToken, setRefreshToken] = useLocalStorage('refreshToken', '')
 
-    const [nickName, setNickName] = useState('')
-    const [nickNameValid, setNickNameValid] = useState(false)
-    const [nickNameFocus, setNickNameFocus] = useState(false)
+    const [firstName, setFirstName] = useState('')
+    const [firstNameValid, setFirstNameValid] = useState(false)
+    const [firstNameFocus, setFirstNameFocus] = useState(false)
+
+
+    const [lastName, setLastName] = useState('')
+    const [lastNameValid, setLastNameValid] = useState(false)
+    const [lastNameFocus, setLastNameFocus] = useState(false)
 
 
     const [email, setEmail] = useState('')
@@ -35,8 +40,12 @@ function Register(props) {
     const [errorState, setErrorState] = useState(false)
 
 
-    const nickNameHandler = (e) => {
-        setNickName(e.target.value)
+    const firstNameHandler = (e) => {
+        setFirstName(e.target.value)
+    }
+
+    const lastNameHandler = (e) => {
+        setLastName(e.target.value)
     }
 
     const emailHandler = (e) => {
@@ -81,9 +90,14 @@ function Register(props) {
     }, [])
 
     useEffect(() => {
-        const result = nickNameREGEX.test(nickName)
-        setNickNameValid(result)
-    }, [nickName])
+        const result = nameREGEX.test(firstName)
+        setFirstNameValid(result)
+    }, [firstName])
+
+    useEffect(() => {
+        const result = nameREGEX.test(lastName)
+        setFirstNameValid(result)
+    }, [lastName])
 
     useEffect(() => {
         const result = emailAdressREGEX.test(email)
@@ -103,24 +117,40 @@ function Register(props) {
 
     return (
         <div className={styles.pageWrapper}>
-            <h1 className={styles.pageTitle} style={{ fontFamily: '"Noto Serif", serif' }}>Register Account for</h1>
+            <h1 className={styles.pageTitle} style={{ fontFamily: '"Noto Serif", serif' }}>Zarejestruj pracownika</h1>
             <div className={styles.formContainer}>
                 <h1 style={{ fontFamily: '"Sedgwick Ave", cursive' }} className={styles.title}>My Tasks!</h1>
                 <form onSubmit={registerHandler} className={styles.registerForm} autoComplete="off">
                     <div className={styles.inputContainer}>
-                        <label>NickName:</label>
+                        <label>Imię:</label>
                         <input type='text'
-                                onChange={nickNameHandler}
+                                onChange={firstNameHandler}
                                 required
-                                aria-invalid={nickNameValid ? "false" : "true"}
-                                aria-describedby='nickNameNote'
-                                onFocus={() => { setNickNameFocus(true) }}
-                                onBlur={() => { setNickNameFocus(false) }}></input>
+                                aria-invalid={firstNameValid ? "false" : "true"}
+                                aria-describedby='firstNameNote'
+                                onFocus={() => { setFirstNameFocus(true) }}
+                                onBlur={() => { setFirstNameFocus(false) }}></input>
 
-                        <div id="nickNameNote"
-                             className={nickNameFocus && nickName && !nickNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="firstNameNote"
+                             className={firstNameFocus && firstName && !firstNameValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>NickName length must have between 3 and 15 characters.</p>
+                                <p>Imię length must have between 3 and 15 characters.</p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Nazwisko:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Nazwisko length must have between 3 and 15 characters.</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>

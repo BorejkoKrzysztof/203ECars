@@ -8,11 +8,11 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
     text-align: center;
-    color: blue;
+    color: var(--blueThemeColor);
 }
 
 .formContainer{
-    border: solid 2px blue;
+    border: solid 3px var(--darkBlueThemeColor);
     width: 95vw;
     height: 82vh;
     margin-left: auto;
@@ -50,7 +50,7 @@ form div label{
     display: flex;
     align-items: center;
     border-radius: 15px;
-    border: solid 2px blue;
+    border: solid 2px var(--blueThemeColor);
     margin-left: 5vw;
     width: 80%;
     height: 16vh;
@@ -150,7 +150,7 @@ button.submitButton{
 
 @media screen and (min-width:960px) {
 
-        .pageTitle{
+    .pageTitle{
         text-align: center;
         margin-left: 8vw;
     }
@@ -160,7 +160,7 @@ button.submitButton{
         min-height: 400px;
         margin-left: 22.5vw;
         margin-top: 3.5vh;
-        height: 75vh;
+        height: auto;
     }
 
     .title{
@@ -170,7 +170,7 @@ button.submitButton{
     .registerForm{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-wrap: wrap;
         height: 80%;
