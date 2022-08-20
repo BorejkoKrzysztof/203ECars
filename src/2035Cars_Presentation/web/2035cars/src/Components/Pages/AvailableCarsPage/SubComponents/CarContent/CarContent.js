@@ -9,6 +9,7 @@ function CarContent() {
             <CarItem />
             <CarItem />
             <CarItem />
+            <CarItem />
         </div>
     </>
   )
