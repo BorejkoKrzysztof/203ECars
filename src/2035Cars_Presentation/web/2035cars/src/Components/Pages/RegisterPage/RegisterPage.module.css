@@ -14,7 +14,7 @@
 .formContainer{
     border: solid 3px var(--darkBlueThemeColor);
     width: 95vw;
-    height: 82vh;
+    height: 90vh;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 3vh;
@@ -26,11 +26,15 @@
 
 .title{
     font-size: 52px;
-    color: blue;
+    color: var(--darkBlueThemeColor);
     text-align: center;
     margin-top: 1vh;
     margin-bottom: 2vh;
     overflow: hidden;
+}
+
+.title > span{
+    color: var(--greyThemeColor);
 }
 
 .registerForm{
@@ -86,7 +90,7 @@ form div input{
     width: 80vw;
     height: 5.5vh;
     border: none;
-    border-bottom: solid 2px blue;
+    border-bottom: solid 2px var(--darkBlueThemeColor);
     outline: none;
 }
 
@@ -113,7 +117,7 @@ button.submitButton{
     height: 8vh;
     font-size: 36px;
     color: var(--darkBlueColor);
-    border: solid 3px blue;
+    border: solid 3px var(--darkBlueThemeColor);
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -123,7 +127,7 @@ button.submitButton{
 @media screen and (orientation: landscape) {
 
     .formContainer{
-        height: 147vh;
+        height: 155vh;
     }
 
     form div label{

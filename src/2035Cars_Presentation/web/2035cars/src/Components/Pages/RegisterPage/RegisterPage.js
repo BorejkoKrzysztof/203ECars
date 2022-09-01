@@ -119,7 +119,7 @@ function Register(props) {
         <div className={styles.pageWrapper}>
             <h1 className={styles.pageTitle} style={{ fontFamily: '"Noto Serif", serif' }}>Zarejestruj pracownika</h1>
             <div className={styles.formContainer}>
-                <h1 style={{ fontFamily: '"Sedgwick Ave", cursive' }} className={styles.title}>My Tasks!</h1>
+                <h1  style={{fontFamily: 'Quantico'}} className={styles.title}><span>203</span>E Cars</h1>
                 <form onSubmit={registerHandler} className={styles.registerForm} autoComplete="off">
                     <div className={styles.inputContainer}>
                         <label>Imię:</label>
@@ -154,7 +154,7 @@ function Register(props) {
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
-                        <label>Email Adress:</label>
+                        <label>Adres Email:</label>
                         <input type='email'
                                 onChange={emailHandler}
                                 required
@@ -170,7 +170,7 @@ function Register(props) {
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
-                        <label>Password:</label>
+                        <label>Hasło:</label>
                         <input type='password'
                                 onChange={passwordHandler}
                                 required
@@ -186,7 +186,7 @@ function Register(props) {
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
-                        <label>Confirm Password:</label>
+                        <label>Potwierdź Hasło:</label>
                         <input type='password'
                                 onChange={confirmPasswordHandler}
                                 autoComplete="off"
@@ -206,7 +206,7 @@ function Register(props) {
                                         <p className={styles.errorText}>Process failed. Try again.</p>
                                     </div>}
                     <div className={styles.buttonContainer}>
-                        <button className={styles.submitButton} type="submit">Sign Up</button>
+                        <button className={styles.submitButton} type="submit">Zarejestruj</button>
                     </div>
                 </form>
             </div>
