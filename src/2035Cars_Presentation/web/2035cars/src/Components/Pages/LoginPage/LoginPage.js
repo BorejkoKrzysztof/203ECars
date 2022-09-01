@@ -65,7 +65,7 @@ function Login({setLoggedState})
     )
 
     useEffect(() => {
-        document.title ='Login'
+        document.title ='Zaloguj się'
     }, [])
 
     return (
@@ -80,20 +80,20 @@ function Login({setLoggedState})
                 </h1>
                 <form onSubmit={loginHandler} className={styles.loginForm}>
                     <div>
-                        <label>Email Adress:</label>
+                        <label>Adres Email:</label>
                         <input type='email' onChange={accountEmailHandler}></input>
                     </div>
                     <div>
-                        <label>Password:</label>
+                        <label>Hasło:</label>
                         <input type='password' onChange={accountPasswordHandler}></input>
                     </div>
                     {loginFailed && errorMessage}
                     <div className={styles.buttonContainer}>
-                        <button className={styles.loginButton} type='submit' value='Login'>Log In</button>
+                        <button className={styles.loginButton} type='submit' value='Login'>Zaloguj</button>
                     </div>
-                    <h5 className={styles.registerOffer}>Don't have an account yet? 
+                    <h5 className={styles.registerOffer}>Nie masz jeszcze konta? 
                         <Link className={styles.registerLink} to='/register'>
-                            Register NOW!</Link>
+                            Zarejestruj się!</Link>
                     </h5>
                 </form>
             </div>
