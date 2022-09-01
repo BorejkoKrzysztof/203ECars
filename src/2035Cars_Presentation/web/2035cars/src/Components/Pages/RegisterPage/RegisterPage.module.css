@@ -229,8 +229,8 @@ button.submitButton{
     }
 
     button.submitButton:hover{
-        color: blue;
-        border: solid 3px blue;
+        color: var(--blueThemeColor);
+        border: solid 3px var(--blueThemeColor);
     }
 }
 
