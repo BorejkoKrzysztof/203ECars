@@ -1,5 +1,6 @@
 using _2035Cars_Core.Repositories;
 using _2035Cars_Infrastructure.Repositories;
+using _2035Cars_Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 
