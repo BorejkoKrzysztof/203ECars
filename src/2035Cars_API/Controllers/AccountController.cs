@@ -1,4 +1,5 @@
 using _2035Cars_Infrastructure.Commands.Account;
+using _2035Cars_Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Api.Controllers;
 
@@ -7,9 +8,11 @@ namespace _2035Cars_API.Controllers;
 [ApiController]
 public class AccountController : ApiControllerBase
 {
-    public AccountController()
+    private readonly IAccountService _service;
+
+    public AccountController(IAccountService service)
     {
-        
+        this._service = service;
     }
 
     [HttpPost("login")]
