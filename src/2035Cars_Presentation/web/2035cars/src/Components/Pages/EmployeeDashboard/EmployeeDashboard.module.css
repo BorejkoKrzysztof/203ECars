@@ -1,0 +1,6 @@
+.dashboardWrapper{
+    width: 100vw;
+    /* min-height: calc(100vh - var(--navbarHeight)); */
+    min-height: 100vh;
+    /* margin-top: var(--navbarHeight); */
+}
