@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _2035Cars_Core.Domain;
 
-public class Account : BaseIdentity
+public class Account : BaseEntity
 {
     [Required]
     [MinLength(3)]
