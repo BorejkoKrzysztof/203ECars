@@ -25,10 +25,10 @@ public class Account : BaseEntity
     [MaxLength(100)]
     public string Password { get; private set; }
 
-    [Required]
-    [MinLength(3)]
-    [MaxLength(30)]
-    public string Role { get; private set; }
+    // [Required]
+    // [MinLength(3)]
+    // [MaxLength(30)]
+    // public string Role { get; private set; }
 
     [Required]
     public DateTime RegisteredAt { get; private set; }
@@ -42,7 +42,7 @@ public class Account : BaseEntity
     }
 
     public Account Create(string firstName, string lastName, string emailAddress, 
-                            string password, string role)
+                            string password)
     {
         return new Account
         {
@@ -50,7 +50,6 @@ public class Account : BaseEntity
             LastName = lastName,
             EmailAddress = emailAddress,
             Password = password,
-            Role = role,
             RegisteredAt = DateTime.UtcNow,
             LastLoggedAt = DateTime.UtcNow
         };
