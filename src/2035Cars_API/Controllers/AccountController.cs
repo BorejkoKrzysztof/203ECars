@@ -6,7 +6,7 @@ using MyTasks.Api.Controllers;
 namespace _2035Cars_API.Controllers;
 
 [ApiController]
-public class AccountController : ApiControllerBase
+public class AccountController : Controller
 {
     private readonly IAccountService _service;
 
@@ -26,10 +26,9 @@ public class AccountController : ApiControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAccount([FromBody] RegisterRequestAccount command)
     {
-
-
-
-        return Ok();
+        await _service.RegisterAccount(command.FirstName!, command.LastName!, command.EmailAddress!,
+                                            command.Password!, command.ConfirmPassword!);
+        return Created(string.Empty, null);
     }
 
     [HttpPost("refresh-tokens")]
