@@ -41,7 +41,7 @@ public class Account : BaseEntity
         
     }
 
-    public Account Create(string firstName, string lastName, string emailAddress, 
+    public static Account Create(string firstName, string lastName, string emailAddress, 
                             string password)
     {
         return new Account
