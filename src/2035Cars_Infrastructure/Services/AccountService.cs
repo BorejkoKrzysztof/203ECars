@@ -1,5 +1,5 @@
+using _2035Cars_Core.Domain;
 using _2035Cars_Core.Repositories;
-using _2035Cars_Infrastructure.Commands.Account;
 
 namespace _2035Cars_Infrastructure.Services;
 
@@ -11,9 +11,17 @@ public class AccountService : IAccountService
     {
         this._repository = repository;
     }
-    public Task CreateAccount(RegisterRequestAccount accountInfo)
+
+    public async Task RegisterAccount(string firstName, string lastName, string emailAddress,
+                                        string password, string confirmPassword)
     {
-        // this._repository.CreateAccount()
-        throw new NotImplementedException();
+        if (!string.Equals(password, confirmPassword))
+        {
+            throw new ArgumentException("Password must match ConfirmPassword");
+        }
+
+        var newAccount = Account.Create(firstName, lastName, emailAddress,
+                                            BCrypt.Net.BCrypt.HashPassword(password));
+        await this._repository.CreateAccount(newAccount);
     }
 }
