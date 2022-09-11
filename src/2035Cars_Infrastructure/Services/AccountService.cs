@@ -29,11 +29,11 @@ public class AccountService : IAccountService
             throw new ArgumentNullException("Invalid Credentials");
         }
 
-        // var refreshToken = await this._repository.GetRefreshToken(account.Id);
-        // if (refreshToken is null)
-        // {
-        //      refreshToken = await this._repository.CreateRefreshToken(account.Id);
-        // }
+        string refreshToken = await this._repository.GetRefreshToken(account.Id);
+        if (refreshToken is null)
+        {
+             refreshToken = await this._repository.CreateRefreshToken(account.Id);
+        }
 
          var jwt = _jwtHandler.CreateToken(account.Id, account.EmailAddress);
 
@@ -41,11 +41,16 @@ public class AccountService : IAccountService
         {
             Token = jwt.Token,
             Expires = jwt.Expires,
-            // RefreshToken = refreshToken,
+            RefreshToken = refreshToken,
         };
     }
 
-    public async Task RegisterAccount(string firstName, string lastName, string emailAddress,
+    public Task<TokenDTO> RefreshJwtToken(string refreshToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<TokenDTO> RegisterAccount(string firstName, string lastName, string emailAddress,
                                         string password, string confirmPassword)
     {
         var account = await this._repository.GetByEmail(emailAddress);
@@ -62,5 +67,21 @@ public class AccountService : IAccountService
         account = Account.Create(firstName, lastName, emailAddress,
                                             BCrypt.Net.BCrypt.HashPassword(password));
         await this._repository.CreateAccount(account);
+
+        string refreshToken = await _repository.GetRefreshToken(account.Id);
+
+        if (refreshToken is null)
+        {
+            refreshToken = await _repository.CreateRefreshToken(account.Id);
+        }
+
+        var jwt = _jwtHandler.CreateToken(account.Id, account.EmailAddress);
+
+        return new TokenDTO()
+        {
+            Token = jwt.Token,
+            Expires = jwt.Expires,
+            RefreshToken = refreshToken,
+        };
     }
 }

@@ -6,6 +6,8 @@ namespace _2035Cars_Infrastructure.Services;
 public interface IAccountService
 {
     Task<TokenDTO> Login(string emailAddress, string password);
-    Task RegisterAccount(string firstName, string lastName, string emailAddress,
+    Task<TokenDTO> RegisterAccount(string firstName, string lastName, string emailAddress,
                         string password, string confirmPassword);
+
+    Task<TokenDTO> RefreshJwtToken(string refreshToken);
 }

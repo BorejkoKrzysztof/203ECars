@@ -27,4 +27,14 @@ public class AccountRepository : IAccountRepository
 
         return await Task.FromResult(account!);
     }
+
+    public Task<string> CreateRefreshToken(Guid accountId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GetRefreshToken(Guid accountId)
+    {
+        throw new NotImplementedException();
+    }
 }

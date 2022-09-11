@@ -18,25 +18,25 @@ public class AccountController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> LoginAccount([FromBody] LoginRequestAccount command)
     {
+        var tokens = await this._service.Login(command.EmailAddress!, command.Password!);
 
-
-        return Ok();
+        return Ok(tokens);
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAccount([FromBody] RegisterRequestAccount command)
     {
-        await _service.RegisterAccount(command.FirstName!, command.LastName!, command.EmailAddress!,
+        var tokens = await _service.RegisterAccount(command.FirstName!, command.LastName!, command.EmailAddress!,
                                             command.Password!, command.ConfirmPassword!);
-        return Created(string.Empty, null);
+        return Created(string.Empty, tokens);
     }
 
-    [HttpPost("refresh-tokens")]
+    [HttpPost("refreshtoken")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokensRequest command)
     {
+        var tokens = await this._service.RefreshJwtToken(command.RefreshToken!);
 
-
-        return Ok();
+        return Ok(tokens);
     }
 
 }
