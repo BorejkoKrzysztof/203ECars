@@ -7,4 +7,10 @@ public class BaseEntity
 {
     [Required]
     public Guid Id { get; set; }
+
+    [Required]
+    public DateTime CreatedDate { get; set; }
+
+    [Required]
+    public DateTime LastUpdateDate { get; set; }
 }
