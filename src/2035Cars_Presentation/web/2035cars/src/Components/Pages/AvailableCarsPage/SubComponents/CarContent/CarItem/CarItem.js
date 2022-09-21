@@ -14,7 +14,7 @@ function CarItem() {
             <div className={styles.carItemMiddle}>
                 <div className={styles.mainPart}>
                     <img className={styles.carItemImage}
-                        src={process.env.PUBLIC_URL + '/Images/ExampleCars/Przechwytywanie.jpg'}
+                        src={process.env.PUBLIC_URL + '/Images/ExampleCars/Jaguar I Pace.png'}
                         alt={`car`} />
                 </div>
                 <div className={styles.carItemDescription}>

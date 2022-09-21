@@ -13,9 +13,9 @@ function App() {
         <Navbar />
           <Routes>
               {/* <Route path='/' element={<MainPage />}/> */}
-              {/* <Route path='/' element={<AvailableCarsPage />} /> */}
+              <Route path='/' element={<AvailableCarsPage />} />
               {/* <Route path='/' element={<LoginPage />}/> */}
-              <Route path='/' element={<RegisterPage />}/>
+              {/* <Route path='/' element={<RegisterPage />}/> */}
           </Routes>
         <Footer />
       </Router>
