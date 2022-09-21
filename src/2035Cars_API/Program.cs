@@ -1,7 +1,4 @@
 using System.Text;
-using _2035Cars_Core.Repositories;
-using _2035Cars_Infrastructure.Repositories;
-using _2035Cars_Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -37,8 +34,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IAccountService, AccountService>();
+// builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+// builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 

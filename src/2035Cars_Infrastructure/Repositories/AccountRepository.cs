@@ -1,40 +1,30 @@
-using _2035Cars_Core.Domain;
-using _2035Cars_Core.Repositories;
-using _2035Cars_Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
+// using _2035Cars_Core.Domain;
+// using _2035Cars_Infrastructure.Repositories;
+// using _2035Cars_Infrastructure.Database;
+// using Microsoft.EntityFrameworkCore;
+// using _2035Cars_Infrastructure.Interfaces;
 
-namespace _2035Cars_Infrastructure.Repositories;
+// namespace _2035Cars_Infrastructure.Repositories;
 
-public class AccountRepository : IAccountRepository
-{
-    private readonly CarsDbContext context;
+// public class AccountRepository : RepositoryBase<Account>, IAccountRepository
+// {
+//     public AccountRepository(CarsDbContext dbContext) : base(dbContext)
+//     {
+//     }
 
-    public AccountRepository(CarsDbContext context)
-    {
-        this.context = context;
-    }
+//     public Task<string> CreateRefreshTokenAsync(Guid accountId)
+//     {
+//         throw new NotImplementedException();
+//     }
 
-    public async Task CreateAccount(Account account)
-    {
-        await this.context.Accounts.AddAsync(account);
-        await this.context.SaveChangesAsync();
-    }
+//     public async Task<Account> GetByEmailAsync(string emailAddress)
+//     {
+//         return await this._dbContext.Accounts.
+//                     FirstOrDefaultAsync(x => string.Equals(x.EmailAddress, emailAddress));
+//     }
 
-    public async Task<Account> GetByEmail(string emailAddress)
-    {
-        var account = this.context.Accounts
-                        .FirstOrDefault(x => string.Equals(x.EmailAddress, emailAddress));
-
-        return await Task.FromResult(account!);
-    }
-
-    public Task<string> CreateRefreshToken(Guid accountId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string> GetRefreshToken(Guid accountId)
-    {
-        throw new NotImplementedException();
-    }
-}
+//     public Task<string> GetRefreshTokenAsync(Guid accountId)
+//     {
+//         throw new NotImplementedException();
+//     }
+// }
