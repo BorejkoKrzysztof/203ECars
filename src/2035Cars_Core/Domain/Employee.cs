@@ -33,14 +33,14 @@ namespace _2035Cars_Core.Domain
             
         }
 
-        public Employee(Person person, Address address, Account account, Department department, BuisnessPosition position, DateTime lastLoggedAt, Rental rental)
+        public Employee(Person person, Address address, Account account, Department department, BuisnessPosition position, Rental rental)
         {
             Person = person ?? throw new ArgumentNullException(nameof(person));
             Address = address ?? throw new ArgumentNullException(nameof(address));
             Account = account ?? throw new ArgumentNullException(nameof(account));
             Department = department;
             Position = position;
-            LastLoggedAt = lastLoggedAt;
+            LastLoggedAt = DateTime.UtcNow;
             Rental = rental ?? throw new ArgumentNullException(nameof(rental));
             // CreatedDate = DateTime.UtcNow;
             // LastUpdateDate = DateTime.UtcNow;
