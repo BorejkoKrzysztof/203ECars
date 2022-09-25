@@ -1,20 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace _2035Cars_Core.ValueObjects
 {
     public class Account : ValueObject
     {
+        [Required]
+        [MinLength(5)]
+        [MaxLength(35)]
         public string EmailAddress { get; private set; }
+
+        [Required]
+        [MinLength(15)]
         public string Password { get; private set; }
         
-
-        public Account()
-        {
-        }
-
-
         public Account(string emailAddress, string password)
         {
-            EmailAddress = emailAddress;
-            Password = password;
+            EmailAddress = string.IsNullOrEmpty(emailAddress) ? throw new ArgumentNullException(nameof(emailAddress)) : emailAddress;
+            Password = string.IsNullOrEmpty(password) ? throw new ArgumentNullException(nameof(password)) : password;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

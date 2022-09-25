@@ -1,20 +1,30 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace _2035Cars_Core.ValueObjects
 {
     public class Person : ValueObject
     {
+        [Required]
+        [MinLength(3)]
+        [MaxLength(70)]
         public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string PhoneNumber { get; private set; }
 
-        public Person()
-        {
-        }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(70)]
+        public string LastName { get; private set; }
+
+        [Required]
+        [MinLength(9)]
+        [MaxLength(35)]
+        [RegularExpression("[0-9]")]
+        public string PhoneNumber { get; private set; }
 
         public Person(string firstName, string lastName, string phoneNumber)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
+            FirstName = string.IsNullOrEmpty(firstName) ? throw new ArgumentNullException(nameof(firstName)) : firstName;
+            LastName = string.IsNullOrEmpty(lastName) ? throw new ArgumentNullException(nameof(lastName)) : lastName;
+            PhoneNumber = string.IsNullOrEmpty(phoneNumber) ? throw new ArgumentNullException(nameof(phoneNumber)) : phoneNumber;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

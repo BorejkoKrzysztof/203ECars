@@ -10,7 +10,7 @@ namespace _2035Cars_Infrastructure.Database
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<RentalLocation> RentalLocations { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
@@ -20,6 +20,7 @@ namespace _2035Cars_Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Setting Value Objects
             modelBuilder.Entity<Car>().OwnsOne(o => o.Equipment);
 
             modelBuilder.Entity<Client>().OwnsOne(o => o.Address);
@@ -30,7 +31,11 @@ namespace _2035Cars_Infrastructure.Database
             modelBuilder.Entity<Employee>().OwnsOne(o => o.Account);
             modelBuilder.Entity<Employee>().OwnsOne(o => o.Person);
 
-            modelBuilder.Entity<RentalLocation>().OwnsOne(o => o.Address);
+            modelBuilder.Entity<Rental>().OwnsOne(o => o.Address);
+
+            // Setting Relations beetwen entities
+            modelBuilder.Entity<Car>().HasOne(p => p.Rental).WithMany(p => p.Cars);
+            modelBuilder.Entity<Employee>().HasOne(p => p.Rental).WithMany(p => p.Employees);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
