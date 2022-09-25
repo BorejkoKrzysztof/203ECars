@@ -23,11 +23,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(string.Empty, number, city, zipCode);
+                Address address = new Address(string.Empty, number, city, zipCode);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(null!, number, city, zipCode);
+                Address address = new Address(null!, number, city, zipCode);
             });
         }
 
@@ -36,11 +36,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, string.Empty, city, zipCode);
+                Address address = new Address(street, string.Empty, city, zipCode);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, null!, city, zipCode);
+                Address address = new Address(street, null!, city, zipCode);
             });
         }
 
@@ -49,11 +49,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, number, string.Empty, zipCode);
+                Address address = new Address(street, number, string.Empty, zipCode);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, number, null!, zipCode);
+                Address address = new Address(street, number, null!, zipCode);
             });
         }
 
@@ -62,11 +62,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, number, city, string.Empty);
+                Address address = new Address(street, number, city, string.Empty);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Address account = new Address(street, number, city, null!);
+                Address address = new Address(street, number, city, null!);
             });
         }
 

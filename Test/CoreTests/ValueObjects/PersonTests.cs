@@ -21,11 +21,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person(string.Empty, lastName, phoneNumber);
+                Person person = new Person(string.Empty, lastName, phoneNumber);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person(null!, lastName, phoneNumber);
+                Person person = new Person(null!, lastName, phoneNumber);
             });
         }
 
@@ -34,11 +34,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person(firstName, string.Empty, phoneNumber);
+                Person person = new Person(firstName, string.Empty, phoneNumber);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person( firstName, null!, phoneNumber);
+                Person person = new Person( firstName, null!, phoneNumber);
             });
         }
 
@@ -47,11 +47,11 @@ namespace Test.CoreTests.ValueObjects
         {
             // Assert
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person(firstName, lastName, string.Empty);
+                Person person = new Person(firstName, lastName, string.Empty);
             });
 
             Assert.Throws<ArgumentNullException>(() => {
-                Person account = new Person( firstName, lastName, null!);
+                Person person = new Person( firstName, lastName, null!);
             });
         }
 
