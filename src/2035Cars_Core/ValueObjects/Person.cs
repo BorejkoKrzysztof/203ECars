@@ -17,7 +17,7 @@ namespace _2035Cars_Core.ValueObjects
         [Required]
         [MinLength(9)]
         [MaxLength(35)]
-        [RegularExpression("[0-9]")]
+        [Phone]
         public string PhoneNumber { get; private set; }
 
         public Person(string firstName, string lastName, string phoneNumber)

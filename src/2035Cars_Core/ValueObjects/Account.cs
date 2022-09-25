@@ -7,6 +7,7 @@ namespace _2035Cars_Core.ValueObjects
         [Required]
         [MinLength(5)]
         [MaxLength(35)]
+        [EmailAddress]
         public string EmailAddress { get; private set; }
 
         [Required]
