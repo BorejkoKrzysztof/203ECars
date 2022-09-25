@@ -33,6 +33,10 @@ namespace _2035Cars_Core.Domain
         [Required]
         public bool Finished { get; private set; }
 
+        public Order()
+        {
+            
+        }
 
         public Order(long publishEmployeeId, long clientId, long carId, long fromRental, long toRental, DateTime startDate, DateTime endDate, decimal costOfRental)
         {

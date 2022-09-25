@@ -46,6 +46,10 @@ namespace _2035Cars_Core.Domain
         public long RentalId { get; private set; }
         public Rental Rental { get; private set; }
 
+        public Car()
+        {
+            
+        }
 
         public Car(string brand, string model, CarType carType, CarEquipment equipment, DriveOfCar driveType, int amountOfDoor, int amountOfSeats, decimal priceForOneHour, byte[] image, Rental rental)
         {

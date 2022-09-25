@@ -18,6 +18,11 @@ namespace _2035Cars_Core.Domain
         [Required]
         public List<Employee> Employees { get; private set; }
 
+        public Rental()
+        {
+            
+        }
+
         public Rental(string title, Address address)
         {
             Title = string.IsNullOrEmpty(title) ? throw new ArgumentNullException(nameof(title)) : title;

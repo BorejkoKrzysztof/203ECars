@@ -14,6 +14,12 @@ namespace _2035Cars_Core.Domain
         [Required]
         public DateTime ExpiryDate { get; private set; }
 
+        public RefreshToken()
+        {
+            
+        }
+
+        
         public RefreshToken(long userId, string token)
         {
             UserId = userId;

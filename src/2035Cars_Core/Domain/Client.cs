@@ -14,6 +14,11 @@ namespace _2035Cars_Core.Domain
         [Required]
         public Person Person { get; private set; }
 
+        public Client()
+        {
+            
+        }
+
         public Client(Account account, Address address, Person person)
         {
             Account = account ?? throw new ArgumentNullException(nameof(account));

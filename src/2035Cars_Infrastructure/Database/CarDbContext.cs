@@ -1,5 +1,4 @@
 using _2035Cars_Core.Domain;
-using _2035Cars_Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace _2035Cars_Infrastructure.Database

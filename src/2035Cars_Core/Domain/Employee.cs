@@ -28,6 +28,11 @@ namespace _2035Cars_Core.Domain
         public long RentalId { get; private set; }
         public Rental Rental { get; private set; }
 
+        public Employee()
+        {
+            
+        }
+
         public Employee(Person person, Address address, Account account, Department department, BuisnessPosition position, DateTime lastLoggedAt, Rental rental)
         {
             Person = person ?? throw new ArgumentNullException(nameof(person));
