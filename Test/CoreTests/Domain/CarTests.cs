@@ -112,5 +112,36 @@ namespace Test.CoreTests.Domain
             Assert.IsInstanceOf<Car>(newCar);
             Assert.NotNull(newCar);
         }
+
+        [Test]
+        public void RentCar_ShouldModifyIsRentedProperty()
+        {
+            // Arrange
+            Car newCar = new Car(brand, model, carType, carEquipment, 
+                                    driveOfCar, amountOfDoor, amountOfSeats, 
+                                    priceForOneHour, carImage, rental);
+
+            // Act
+            newCar.RentCar();
+
+            // Assert
+            Assert.AreEqual(true, newCar.IsRented);
+        }
+
+        [Test]
+        public void FinishRental_ShouldModifyIsRentedProperty()
+        {
+            // Arrange
+            Car newCar = new Car(brand, model, carType, carEquipment, 
+                                    driveOfCar, amountOfDoor, amountOfSeats, 
+                                    priceForOneHour, carImage, rental);
+            newCar.RentCar();
+
+            // Act
+            newCar.FinishRental();
+
+            // Assert
+            Assert.AreEqual(false, newCar.IsRented);
+        }
     }
 }
