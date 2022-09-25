@@ -15,5 +15,10 @@ namespace _2035Cars_Infrastructure.Repositories
         {
             return await this._dbContext.Rentals.ToListAsync();
         }
+
+        public async Task<List<string>> ReadAllRentalCities()
+        {
+            return await this._dbContext.Rentals.Select(x => x.Address.City).ToListAsync();
+        }
     }
 }
