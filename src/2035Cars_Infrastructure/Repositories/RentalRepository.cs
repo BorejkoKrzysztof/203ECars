@@ -16,6 +16,14 @@ namespace _2035Cars_Infrastructure.Repositories
             return await this._dbContext.Rentals.ToListAsync();
         }
 
+        public async Task<List<string>> ReadAllLocationsByCityAsync(string rentalCity)
+        {
+            return await this._dbContext.Rentals
+                                .Where(x => string.Equals(x.Address.City, rentalCity))
+                                .Select(x => x.Title)
+                                .ToListAsync();
+        }
+
         public async Task<List<string>> ReadAllRentalCitiesAsync()
         {
             return await this._dbContext.Rentals.Select(x => x.Address.City).ToListAsync();
