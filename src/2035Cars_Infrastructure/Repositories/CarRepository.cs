@@ -37,8 +37,8 @@ namespace _2035Cars_Infrastructure.Repositories
         }
 
         public async Task<List<Car>> GetAllSelectedCars(string city, string rentalTitle,
-                                                    CarEquipment desiredCarEquipment, int fuelTypeOption = -1,
-                                                    int carBodyOption = -1, int pageNumber = 0,
+                                                    CarEquipment desiredCarEquipment, int fuelTypeOption = 0,
+                                                    int carBodyOption = 0, int pageNumber = 0,
                                                     int pageSize = 5, decimal minPrice = 0,
                                                     decimal maxPrice =  0, int amountOfDoor = 0,
                                                     int amountOfSeats = 0)
@@ -48,10 +48,10 @@ namespace _2035Cars_Infrastructure.Repositories
                                             string.Equals(x.Rental.Title, rentalTitle) &&
                                             CarEquipment.ComparePreferableOptions(desiredCarEquipment, x.Equipment));
 
-            if (carBodyOption > -1)
+            if (carBodyOption > 0)
                 cars.Where(x => x.CarType == (CarType)carBodyOption);
                 
-            if (fuelTypeOption > -1)
+            if (fuelTypeOption > 0)
                 cars.Where(x => x.DriveType == (DriveOfCar)fuelTypeOption);
 
             if (minPrice > 0)
