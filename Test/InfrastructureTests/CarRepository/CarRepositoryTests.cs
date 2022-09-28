@@ -1,4 +1,4 @@
-namespace Test.InfrastructureTests.BaseRepository
+namespace Test.InfrastructureTests.CarRepository
 {
     public class CarRepositoryTests
     {

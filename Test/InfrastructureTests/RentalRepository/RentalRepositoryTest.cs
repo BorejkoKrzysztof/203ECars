@@ -1,4 +1,4 @@
-namespace Test.InfrastructureTests.BaseRepository
+namespace Test.InfrastructureTests.RentalRepository
 {
     public class RentalRepositoryTests
     {
