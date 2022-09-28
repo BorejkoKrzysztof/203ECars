@@ -11,10 +11,6 @@ namespace _2035Cars_Infrastructure.Interfaces
 
         Task<List<Car>> GetAllCarsByCarTypeAsync(CarType carType, int pageNumber, int pageSize);
 
-        
-        // TODO: Metoda, która zwraca liste na strone availablecars z warunkami wyszukiwania +
-        // paginacja
-
         Task<List<Car>> GetAllSelectedCars(string city,
                                             string rentalTitle,
                                             CarEquipment desiredCarEquipment,
