@@ -1,4 +1,4 @@
-namespace _2035Cars_Infrastructure.DTO;
+namespace _2035Cars_Application.DTO;
 
 public class JwtDTO
 {
