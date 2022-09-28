@@ -32,4 +32,29 @@ public class CarEquipment : ValueObject
         yield return HasAutomaticGearBox;
         yield return HasBuildInNavigation;
     }
+
+    
+    public static bool ComparePreferableOptions(CarEquipment preferableEquipment, CarEquipment comparingEquipment)
+    {
+        bool result = false;
+
+        if (preferableEquipment.HasAirCooling)
+                result = preferableEquipment.HasAirCooling
+                                    .Equals(comparingEquipment.HasAirCooling);
+
+        if (preferableEquipment.HasAutomaticGearBox)
+                result = preferableEquipment.HasAutomaticGearBox
+                                    .Equals(comparingEquipment.HasAutomaticGearBox);
+
+        if (preferableEquipment.HasBuildInNavigation)
+                result = preferableEquipment.HasBuildInNavigation
+                                    .Equals(comparingEquipment.HasBuildInNavigation);
+
+        if (preferableEquipment.HasHeatingSeat)
+                result = preferableEquipment.HasHeatingSeat
+                                    .Equals(comparingEquipment.HasHeatingSeat);
+
+
+        return result;
+    }
 }

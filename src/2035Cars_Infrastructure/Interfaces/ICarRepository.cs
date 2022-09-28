@@ -1,5 +1,6 @@
 using _2035Cars_Core.Domain;
 using _2035Cars_Core.Enums;
+using _2035Cars_Core.ValueObjects;
 
 namespace _2035Cars_Infrastructure.Interfaces
 {
@@ -14,11 +15,15 @@ namespace _2035Cars_Infrastructure.Interfaces
         // TODO: Metoda, która zwraca liste na strone availablecars z warunkami wyszukiwania +
         // paginacja
 
-        // // // // // // Task<List<Car>> GetAllSelectedCars(string city, 
-        // // // // // //                                     string rentalTitle, 
-        // // // // // //                                     decimal minPrice = 0M, 
-        // // // // // //                                     decimal maxPrice = decimal.MaxValue,
-        // // // // // //                                     bool hasAirConditioning = false,
-        // // // // // //                                     bool has );
+        Task<List<Car>> GetAllSelectedCars(string city,
+                                            string rentalTitle,
+                                            CarEquipment desiredCarEquipment,
+                                            int fuelTypeOption,
+                                            int pageNumber,
+                                            int pageSize,
+                                            decimal minPrice,
+                                            decimal maxPrice,
+                                            int amountOfDoor,
+                                            int amountOfSeats);
     }
 }
