@@ -36,7 +36,7 @@ public class CarEquipment : ValueObject
     
     public static bool ComparePreferableOptions(CarEquipment preferableEquipment, CarEquipment comparingEquipment)
     {
-        bool result = false;
+        bool result = true;
 
         if (preferableEquipment.HasAirCooling)
                 result = preferableEquipment.HasAirCooling
