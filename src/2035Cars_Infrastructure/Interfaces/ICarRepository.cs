@@ -19,6 +19,7 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             string rentalTitle,
                                             CarEquipment desiredCarEquipment,
                                             int fuelTypeOption,
+                                            int carBodyOption,
                                             int pageNumber,
                                             int pageSize,
                                             decimal minPrice,
