@@ -15,6 +15,11 @@ namespace _2035Cars_Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("LocalConnectionString"));
             });
 
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IRentalRepository, RentalRepository>();
 
             return services;
