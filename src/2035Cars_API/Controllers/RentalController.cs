@@ -17,20 +17,26 @@ namespace _2035Cars_API.Controllers
 
         [HttpGet("cities")]
         [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalCities()
         {
             var rentalCities = await this._service.GetRentalCities();
 
+            if (rentalCities is null)
+                return NotFound();
 
             return Ok(rentalCities);
         }
 
         [HttpGet("locations/{city}")]
         [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalLocations(string city)
         {
             var rentalLocations = await this._service.GetRentalLocations(city);
 
+            if (rentalLocations is null)
+                return NotFound();
 
             return Ok(rentalLocations);
         }
