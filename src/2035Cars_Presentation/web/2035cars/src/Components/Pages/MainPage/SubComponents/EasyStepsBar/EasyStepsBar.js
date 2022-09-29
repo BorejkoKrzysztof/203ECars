@@ -7,12 +7,12 @@ import { AiFillCar } from 'react-icons/ai'
 function EasyStepsBar() {
   return (
     <div className={styles.easyStepsWrapper}>
-        <h1 className={styles.title}>Easy booking</h1>
+        <h1 className={styles.title}>Łatwa rejestracja</h1>
         <p className={styles.companyDescription}>
-            &nbsp; In 203E Cars, we strive to make sure that our customers can rent a car without too 
-            much effort or paperwork. We value your time, so make just a few clicks from any device. 
+            &nbsp; W 203E Cars staramy się, aby nasi klienci mogli wypożyczyć samochód bez zbytniego 
+            wiele wysiłku i formalności. Cenimy Twój czas, dlatego wykonaj tylko kilka kliknięć z dowolnego urządzenia. 
             <span>
-                Use our form at the top of the page.
+                Skorzystaj z naszego formularza na górze strony.
             </span>
         </p>
         <div className={styles.descriptionsItemsSteps}>
@@ -21,8 +21,8 @@ function EasyStepsBar() {
                     <FaSearch />
                 </div>
                 <div>
-                    <h3>Search</h3>
-                    <h5>Choose your location</h5>
+                    <h3>Szukaj</h3>
+                    <h5>Wybierz lokalizacje</h5>
                 </div>
             </div>
             <div className={styles.step}>
@@ -30,8 +30,8 @@ function EasyStepsBar() {
                     <BsFillHandIndexThumbFill />
                 </div>
                 <div>
-                    <h3>Select</h3>
-                    <h5>Select the best car</h5>
+                    <h3>Wybierz</h3>
+                    <h5>Wybierz najlepsze auto</h5>
                 </div>
             </div>
             <div className={styles.step}>
@@ -39,8 +39,8 @@ function EasyStepsBar() {
                     <AiFillCar />
                 </div>
                 <div>
-                    <h3>Book</h3>
-                    <h5>Reserve your car</h5>
+                    <h3>Rezerwuj</h3>
+                    <h5>Zarezerwuj swój samochód</h5>
                 </div>
             </div>
         </div>

@@ -14,9 +14,9 @@ function RecommendationsBar() {
                     <FaHandshake className={styles.recomInfoIcon}/>
                 </div>
                 <div className={styles.recomInfoDescription}>
-                    <h4>Leading Car Rental in EU</h4>
-                    <p>We are the largest rental company in Europe. 
-                        We are trusted by millions of customers.
+                    <h4>Wiodąca wypożyczalnia samochodów w Polsce</h4>
+                    <p>Jesteśmy największą wypożyczalnią w Polsce. 
+                        Zaufały nam miliony klientów.
                     </p>
                 </div>
             </div>
@@ -25,9 +25,9 @@ function RecommendationsBar() {
                     <IoCarSportSharp className={styles.recomInfoIcon}/>
                 </div>
                 <div className={styles.recomInfoDescription}>
-                    <h4>Rental fleet for all kinds of travelers</h4>
+                    <h4>Wszystkie typy aut</h4>
                     <p>
-                        From compact families, single travelers to large groups, there is a car for everyone.
+                    Od kompaktowych, rodzinnych, po sportowe kabriolety, jest tu samochód dla każdego.
                     </p>
                 </div>
             </div>
@@ -36,9 +36,9 @@ function RecommendationsBar() {
                     <MdPriceCheck className={styles.recomInfoIcon}/>
                 </div>
                 <div className={styles.recomInfoDescription}>
-                    <h4>Cheapest rental cars for all countries</h4>
+                    <h4>Najtańsza wypożyczalnia w kraju</h4>
                     <p>
-                    Save more with discounted car rental prices for locations at all major cities and airports.
+                    Oszczędzaj więcej dzięki obniżonym cenom wynajmu samochodów w lokalizacji we wszystkich większych miastach i na lotniskach.
                     </p>
                 </div>
             </div>
@@ -46,7 +46,7 @@ function RecommendationsBar() {
         <div className={`${styles.recommendationQuoteWrapper} ${styles.cardRecommendationContent}`}>
             <div className={styles.recommendationQuoteContent}>
                 <h1 className={styles.recommendationsRate}>4.8/5</h1>
-                <h3 className={styles.recommendationRateText}>Amazing</h3>
+                <h3 className={styles.recommendationRateText}>Wspaniała</h3>
                 <div className={styles.recommendationStars}>
                     <ImStarFull />
                     <ImStarFull />
@@ -55,27 +55,27 @@ function RecommendationsBar() {
                     <ImStarHalf />
                 </div>
                 <p className={styles.recommendationQuoteSource}>
-                    Based on 
+                    Na podstawie
                     <span>
-                        1200+ reviews
+                        1200+ ocen
                     </span>
                 </p>
             </div>
         </div>
         <div className={`${styles.recommendationOfferWrapper} ${styles.cardRecommendationContent}`}>
             <div className={styles.recommendationOfferContent}>
-                <h2>Rent a car</h2>
+                <h2>Wynajmij auto</h2>
                 <h3>
-                    Anywhere from Europe
+                    Dowolne miasto
                 </h3>
                 <h4>
-                    Choose from 300+ cars
+                    Wybierz spośród 300 aut
                 </h4>
                 <img src={process.env.PUBLIC_URL + '/Images/ExampleCars/Przechwytywanie.jpg'} alt='car'/>
                 <a 
                 // TODO Przekierowanie do banner
                 >  
-                    BOOK A CAR
+                    ZAREZERWUJ
                 </a>
             </div>
         </div>

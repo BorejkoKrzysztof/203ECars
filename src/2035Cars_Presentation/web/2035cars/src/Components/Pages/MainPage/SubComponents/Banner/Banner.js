@@ -49,7 +49,7 @@ useEffect(() => {
 
 const fieldsForOtherCityLeave = 
             <div className={styles.OtherCityLeaveSpace}>
-                <label>Drop-off location:</label>
+                <label>Końcowa lokalizacja:</label>
                 <div className={styles.inputsArea}>
                     <div>
                         <select id='CountryLeave'
@@ -90,11 +90,11 @@ const fieldsForOtherCityLeave =
     <div className={`${styles.bannerWrapper} ${styles[`bannerWrapperBgc${sliderState}`]}`}>
         <div className={styles.bannerContent}>
             <div className={styles.formLabelContainer}>
-                <h1 className={styles.formTitle}>Search your car</h1>
+                <h1 className={styles.formTitle}>SZUKAJ AUTA</h1>
             </div>
             <div className={styles.formContainer}>
                 <form>
-                    <label>Pick-up location:</label>
+                    <label>Początkowa lokalizacja:</label>
                     <div className={styles.inputsArea}>
                         <div>
                             <select id='Country' 
@@ -131,7 +131,7 @@ const fieldsForOtherCityLeave =
                     </div>
                     <div className={styles.mobile}>
                         <p className={styles.otherCityLabel}>
-                            Do you want to leave a car in another place?
+                            Chcesz zostawić samochód w innym miejscu?
                         </p>
                         <div id='OtherCityLeaveOption'
                             className={styles.centerOptions}>
@@ -140,14 +140,14 @@ const fieldsForOtherCityLeave =
                                                                     : 
                                                 `${styles.spanRadioButton} ${styles.spanRadioButtonActive}`}
                                     onClick={() => { SetOtherCityLeaveOptionHandler(false) }}>
-                                    NO
+                                    NIE
                                 </span>
                                 <span className={!otherCityLeaveOption ? 
                                                         styles.spanRadioButton 
                                                                     : 
                                                 `${styles.spanRadioButton} ${styles.spanRadioButtonActive}`}
                                     onClick={() => { SetOtherCityLeaveOptionHandler(true) }}>
-                                    YES
+                                    TAK
                                 </span>
                         </div>
                     </div>
@@ -155,7 +155,7 @@ const fieldsForOtherCityLeave =
                     { otherCityLeaveOption && fieldsForOtherCityLeave}
                     <div className={styles.timeInputsArea}>
                         <div className={styles.formTimeWrapper}>
-                            <label>FROM:</label>
+                            <label>OD:</label>
                             <div>
                                 <input type='date' ></input>
                                 <select>
@@ -172,7 +172,7 @@ const fieldsForOtherCityLeave =
                             </div>
                         </div>
                         <div className={styles.formTimeWrapper}>
-                            <label>TO:</label>
+                            <label>DO:</label>
                             <div>
                             <input type='date' ></input>
                                 <select>
@@ -195,7 +195,7 @@ const fieldsForOtherCityLeave =
                                            `${styles.formSubmitButton} ${styles.formSubmitButtonMargin}`
                                             :
                                             `${styles.formSubmitButton}`}>
-                            SEARCH CAR
+                            SZUKAJ
                         </button>
                     </div>
                 </form>

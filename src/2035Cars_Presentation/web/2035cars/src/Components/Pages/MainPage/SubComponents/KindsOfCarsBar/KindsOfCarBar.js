@@ -8,9 +8,9 @@ function KindsOfCarBar() {
 
   return (
     <div className={styles.kindsOfCarBarWrapper}>
-        <h1>We have all what you need</h1>
+        <h1>Mamy wszystko, czego potrzebujesz</h1>
         <p>
-            Convertibles, luxury cars, SUVs and sports cars are some of the most popular
+            Kabriolety, samochody luksusowe, SUV-y i samochody sportowe to jedne z najpopularniejszych
         </p>
         <div className={styles.kindsOfCarBarContent}>
             {kindsOfCars.map((item, index) => {

@@ -9,15 +9,15 @@ function OfferInfoBar() {
     <div className={styles.OfferInfoBarWrapper}>
         <div>
             <MdFreeCancellation />
-            <h5 className={styles.offerDescription}>Free Cancelations</h5>
+            <h5 className={styles.offerDescription}>Bezpłatne odwołania</h5>
         </div>
         <div>
             <BiHide />
-            <h5 className={styles.offerDescription}>No Hidden Charges</h5>
+            <h5 className={styles.offerDescription}>Brak ukrytych opłat</h5>
         </div>
         <div>
             <GiRotaryPhone />
-            <h5 className={styles.offerDescription}>Support 24/7</h5>
+            <h5 className={styles.offerDescription}>Wsparcie 24/7</h5>
         </div>
     </div>
   )

@@ -10,12 +10,12 @@ function RepairInfoBar() {
         </div>
         <div className={styles.repairDescription}>
             <h1 className={styles.repairTitle}>
-                We will Repair your car if it breaks down during your trip!
+                Naprawimy Twój samochód, jeśli zepsuje się podczas podróży!
             </h1>
             <p className={styles.repairParagraph}>
-                203E Car has rentals in most cities so if your car breaks down during your trip, 
-                our mechanic will come to you and try to repair the car on the spot. 
-                If a quick repair is not possible you will get a replacement car.
+                203E Cars posiada wypożyczalnie w większości miast, więc jeśli Twój samochód zepsuje się podczas podróży, 
+                nasz mechanik przyjedzie do Ciebie i spróbuje naprawić samochód na miejscu. 
+                Jeśli szybka naprawa nie będzie możliwa otrzymasz samochód zastępczy.
             </p>
         </div>
     </div>
