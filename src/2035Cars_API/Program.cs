@@ -36,8 +36,23 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Adding Services
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+
+// Configuring CORS
+builder.Services.AddCors(cfg => {
+    
+    cfg.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        });
+
+    cfg.AddPolicy("productionPolicy", policy => {
+       policy.WithOrigins(builder.Configuration["CorsSetting:AllowedOrigin"]); 
+    });
+});
 
 var app = builder.Build();
 
@@ -49,6 +64,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors();   
+}
+else if (app.Environment.IsProduction())
+{
+    app.UseCors("productionPolicy");
+}
 
 app.UseAuthorization();
 
