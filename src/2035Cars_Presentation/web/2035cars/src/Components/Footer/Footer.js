@@ -17,9 +17,9 @@ function Footer() {
               &nbsp;/ 203E Cars
             </h1>
             <p className={styles.footerDescriptionParagraph}>
-                Find the cheapest car rental deals in the Entire EU. Search, 
-                compare and book to hire a car at economical rates. Save environment by
-                choosing electric car.
+                Znajdź najtańsze oferty wynajmu samochodów w całej UE. Wyszukaj, 
+                porównaj i zarezerwuj, aby wynająć samochód w korzystnych cenach. Oszczędzaj środowisko
+                wybierając samochód elektryczny.
             </p>
           </div>
           <div>
@@ -48,7 +48,7 @@ function Footer() {
           </div>
         </div>
         <div className={styles.postDescription}>
-              <h4>2023 203ECars All Rights Reserved</h4>
+              <h4>2023 203ECars Wszelkie Prawa Zastrzeżone</h4>
         </div>
     </div>
   )
