@@ -21,9 +21,9 @@ namespace _2035Cars_Application.Interfaces
                 rentalCities = await this._repository.ReadAllRentalCitiesAsync();
                 this._logger.LogInformation("List of rental cities is downloaded");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _logger.LogError("Unable to download list of rental cities");
+                _logger.LogError($"Unable to download list of rental cities - Exception: {ex.Message}");
                 return null!;
             }
 
@@ -32,6 +32,9 @@ namespace _2035Cars_Application.Interfaces
 
         public async Task<List<string>> GetRentalLocations(string city)
         {
+            if (string.IsNullOrEmpty(city))
+                throw new ArgumentNullException(nameof(city), "City parameter is null or empty string");
+            
             List<string> rentalLocations;
 
             try
@@ -39,9 +42,9 @@ namespace _2035Cars_Application.Interfaces
                 rentalLocations = await this._repository.ReadAllLocationsByCityAsync(city);
                 this._logger.LogInformation("List of rental locations is downloaded");
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                _logger.LogError("Unable to download list of rental locations");
+                _logger.LogError($"Unable to download list of rental locations - Exception: {ex.Message}");
                 return null!;
             }
 
