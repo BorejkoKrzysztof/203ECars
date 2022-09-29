@@ -163,33 +163,9 @@
         width: 100vw;
         height: 500px;
 
-        background: lightgray;
+        background-image: url('../../../../../../public/Images/Cities/Warsaw-min.png');
         background-repeat: no-repeat;
         background-size: 100vw 800px;
-    }
-
-    .bannerWrapperBgc1{
-        background-image: url('../../../../../../public/Images/Cities/Barcelona-min.jpg');
-        background-position: 0 -50px;
-    }
-
-    .bannerWrapperBgc2{
-        background-image: url('../../../../../../public/Images/Cities/Berlin-min.jpg');
-        background-position: 0 -190px;
-    }
-
-    .bannerWrapperBgc3{
-        background-image: url('../../../../../../public/Images/Cities/Prague-min.png');
-        background-position: 0 -200px;
-    }
-
-    .bannerWrapperBgc4{
-        background-image: url('../../../../../../public/Images/Cities/Warsaw-min.png');
-        background-position: 0 -200px;
-    }
-
-    .bannerWrapperBgc5{
-        background-image: url('../../../../../../public/Images/Cities/Zurich-min.jpg');
         background-position: 0 -200px;
     }
 

@@ -7,7 +7,6 @@ function Banner() {
 const [countries, setCountries] = useState([{Label: 'Select Country', Value: ''}])
 const [cities, setCities] = useState([{Label: 'Select City', Value: ''}])
 const [otherCityLeaveOption, setOtherCityLeaveOption] = useState(false)
-const [sliderState, setSliderState] = useState(1)
 
 const CountryFormSubmitHandler = () => {
 
@@ -28,24 +27,6 @@ const CityLeaveFormSubmitHandler = () => {
 const SetOtherCityLeaveOptionHandler = (value) => {
     setOtherCityLeaveOption(value)
 }
-
-const AutoChangeSliderStateHandler = () => {
-    if (sliderState === 5)
-    {
-        setSliderState(1)
-        return
-    }
-
-    var value = sliderState + 1
-    setSliderState(value)
-}
-
-useEffect(() => {
-    const timer = setTimeout(AutoChangeSliderStateHandler, 180000);
-    
-    return () => clearTimeout(timer)
-}, [sliderState])
-
 
 const fieldsForOtherCityLeave = 
             <div className={styles.OtherCityLeaveSpace}>
@@ -87,7 +68,7 @@ const fieldsForOtherCityLeave =
             </div>
 
   return (
-    <div className={`${styles.bannerWrapper} ${styles[`bannerWrapperBgc${sliderState}`]}`}>
+    <div className={`${styles.bannerWrapper}`}>
         <div className={styles.bannerContent}>
             <div className={styles.formLabelContainer}>
                 <h1 className={styles.formTitle}>SZUKAJ AUTA</h1>
@@ -200,28 +181,6 @@ const fieldsForOtherCityLeave =
                     </div>
                 </form>
             </div>
-        </div>
-        <div className={styles.radioButtonsSliderContainer}>
-            <input type='radio' 
-                            name='sliderClick' 
-                            onChange={() => { setSliderState(1) }} 
-                            checked={sliderState == 1}/>
-            <input type='radio' 
-                            name='sliderClick' 
-                            onChange={() => { setSliderState(2) }} 
-                            checked={sliderState === 2}/>
-            <input type='radio' 
-                            name='sliderClick' 
-                            onChange={() => { setSliderState(3) }} 
-                            checked={sliderState === 3}/>
-            <input type='radio' 
-                            name='sliderClick' 
-                            onChange={() => { setSliderState(4) }} 
-                            checked={sliderState === 4}/>
-            <input type='radio' 
-                            name='sliderClick' 
-                            onChange={() => { setSliderState(5) }} 
-                            checked={sliderState === 5}/>
         </div>
     </div>
   )
