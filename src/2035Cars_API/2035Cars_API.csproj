@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\2035Cars_Infrastructure\2035Cars_Infrastructure.csproj" />
     <ProjectReference Include="..\2035Cars_Core\2035Cars_Core.csproj" />
+    <ProjectReference Include="..\2035Cars_Application\2035Cars_Application.csproj" />
   </ItemGroup>
 
 </Project>
