@@ -1,4 +1,5 @@
 using System.Text;
+using _2035Cars_Application;
 using _2035Cars_Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -36,8 +37,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
-// builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-// builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

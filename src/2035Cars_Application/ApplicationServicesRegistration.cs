@@ -1,13 +1,15 @@
-// using Microsoft.Extensions.DependencyInjection;
+using _2035Cars_Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-// namespace _2035Cars_Application
-// {
-//     public static class InfrastructureServicesRegistration
-//     {
-//         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
-//         {
+namespace _2035Cars_Application
+ {
+     public static class ApplicationServicesRegistration
+     {
+         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+         {
+            services.AddScoped<IRentalService, RentalService>();
 
-//             return services;
-//         }
-//     }
-// }
+             return services;
+         }
+     }
+}
