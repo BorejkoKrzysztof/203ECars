@@ -20,6 +20,17 @@ namespace _2035Cars_Core.ValueObjects
             Password = string.IsNullOrEmpty(password) ? throw new ArgumentNullException(nameof(password)) : password;
         }
 
+         public void UpdateEmailAddress(string emailAddress)
+         {
+            this.EmailAddress = emailAddress;
+         }
+
+         public void UpdatePassword(string password)
+         {
+            this.Password = password;
+         }
+                                
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return EmailAddress;
