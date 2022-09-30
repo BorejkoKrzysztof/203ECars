@@ -13,14 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//  Adding Authentication
+//  Add Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-// Adding Jwt Bearer
+// Add Jwt Bearer
 .AddJwtBearer(options =>
 {
     options.SaveToken = true;
@@ -36,11 +36,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Adding Services
+// Add Services
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
-// Configuring CORS
+// Configure CORS
 builder.Services.AddCors(cfg => {
     
     cfg.AddPolicy(name: "developmentPolicy",
