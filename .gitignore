@@ -110,3 +110,13 @@ Test/obj/Debug/net6.0/Test.GlobalUsings.g.cs
 Test/obj/Debug/net6.0/Test.pdb
 Test/obj/Debug/net6.0/ref/Test.dll
 Test/obj/Debug/net6.0/refint/Test.dll
+Test/bin/Debug/net6.0/2035Cars_Application.dll
+Test/bin/Debug/net6.0/2035Cars_Application.pdb
+Test/bin/Debug/net6.0/2035Cars_Infrastructure.dll
+Test/bin/Debug/net6.0/2035Cars_Infrastructure.pdb
+Test/bin/Debug/net6.0/AutoMapper.dll
+Test/bin/Debug/net6.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+Test/bin/Debug/net6.0/Castle.Core.dll
+Test/bin/Debug/net6.0/Moq.dll
+Test/bin/Debug/net6.0/2035Cars_Infrastructure.dll
+Test/bin/Debug/net6.0/2035Cars_Infrastructure.pdb
