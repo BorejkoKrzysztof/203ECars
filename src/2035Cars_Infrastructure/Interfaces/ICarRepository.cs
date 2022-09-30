@@ -11,7 +11,7 @@ namespace _2035Cars_Infrastructure.Interfaces
 
         Task<List<Car>> GetAllCarsByCarTypeAsync(CarType carType, int pageNumber, int pageSize);
 
-        Task<List<Car>> GetAllSelectedCars(string city,
+        Task<List<Car>> GetAllSelectedCarsAsync(string city,
                                             string rentalTitle,
                                             CarEquipment desiredCarEquipment,
                                             int fuelTypeOption,

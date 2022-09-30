@@ -19,6 +19,7 @@ namespace _2035Cars_Infrastructure.Repositories
             var cars = this._dbContext.Rentals
             .First(x => string.Equals(x.Address.City, city) && string.Equals(x.Title, rentalTitle))
             .Cars
+            .Where(x => !x.IsRented)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToList();
@@ -36,7 +37,7 @@ namespace _2035Cars_Infrastructure.Repositories
                                         .ToListAsync();
         }
 
-        public async Task<List<Car>> GetAllSelectedCars(string city, string rentalTitle,
+        public async Task<List<Car>> GetAllSelectedCarsAsync(string city, string rentalTitle,
                                                     CarEquipment desiredCarEquipment, int fuelTypeOption = 0,
                                                     int carBodyOption = 0, int pageNumber = 0,
                                                     int pageSize = 5, decimal minPrice = 0,
