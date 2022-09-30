@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.18.2" />
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\2035Cars_Core\2035Cars_Core.csproj" />
     <ProjectReference Include="..\src\2035Cars_Infrastructure\2035Cars_Infrastructure.csproj" />
+    <ProjectReference Include="..\src\2035Cars_Application\2035Cars_Application.csproj" />
   </ItemGroup>
 
 </Project>

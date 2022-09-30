@@ -4,6 +4,76 @@
     "C:\\xampp\\htdocs\\2035Cars\\Test\\Test.csproj": {}
   },
   "projects": {
+    "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\2035Cars_Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\2035Cars_Application.csproj",
+        "projectName": "2035Cars_Application",
+        "projectPath": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\2035Cars_Application.csproj",
+        "packagesPath": "C:\\Users\\Inżynierka\\.nuget\\packages\\",
+        "outputPath": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Inżynierka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Infrastructure\\2035Cars_Infrastructure.csproj": {
+                "projectPath": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Infrastructure\\2035Cars_Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Core\\2035Cars_Core.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -182,6 +252,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\2035Cars_Application.csproj": {
+                "projectPath": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Application\\2035Cars_Application.csproj"
+              },
               "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Core\\2035Cars_Core.csproj": {
                 "projectPath": "C:\\xampp\\htdocs\\2035Cars\\src\\2035Cars_Core\\2035Cars_Core.csproj"
               },
@@ -201,6 +274,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[6.0.9, )"
