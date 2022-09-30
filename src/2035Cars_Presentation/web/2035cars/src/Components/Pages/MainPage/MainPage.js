@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import styles from './MainPage.module.css'
+// import styles from './MainPage.module.css'
 import Banner from './SubComponents/Banner/Banner'
 import EasyStepsBar from './SubComponents/EasyStepsBar/EasyStepsBar'
 import KindsOfCarBar from './SubComponents/KindsOfCarsBar/KindsOfCarBar'
@@ -10,7 +10,7 @@ import RepairInfoBar from './SubComponents/RepairInfoBar/RepairInfoBar'
 function MainPage() {
   
   useEffect(() => {
-    document.title ='203E Cars - Main Page'
+    document.title ='203E Cars - Strona Główna'
   }, [])
   
   return (
@@ -21,7 +21,6 @@ function MainPage() {
       <KindsOfCarBar />
       <EasyStepsBar />
       <RepairInfoBar />
-      {/* <div className={styles.Temporary}>MainPage</div> */}
     </>
   )
 }
