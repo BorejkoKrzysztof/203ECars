@@ -162,7 +162,7 @@
     .bannerWrapper{
         width: 100vw;
         height: 500px;
-
+        background: white;
         background-image: url('../../../../../../public/Images/Cities/Warsaw-min.png');
         background-repeat: no-repeat;
         background-size: 100vw 800px;
