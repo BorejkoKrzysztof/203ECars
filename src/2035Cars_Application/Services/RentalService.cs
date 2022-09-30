@@ -1,8 +1,9 @@
+using _2035Cars_Application.Interfaces;
 using _2035Cars_Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 
-namespace _2035Cars_Application.Interfaces
+namespace _2035Cars_Application.Services
 {
     public class RentalService : IRentalService
     {

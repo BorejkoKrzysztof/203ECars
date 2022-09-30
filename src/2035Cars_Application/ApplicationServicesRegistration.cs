@@ -1,6 +1,7 @@
 using System.Reflection;
 using _2035Cars_Application.Interfaces;
 using _2035Cars_Application.Mapping;
+using _2035Cars_Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace _2035Cars_Application
