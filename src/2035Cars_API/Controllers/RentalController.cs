@@ -40,5 +40,19 @@ namespace _2035Cars_API.Controllers
 
             return Ok(rentalLocations);
         }
+
+
+
+        // FAKE FAKE        ====> do usuniecie pozniej
+        [HttpGet("fakecities")]
+        public IActionResult GetFakeCities()
+        {
+            var cities = new List<string>();
+            cities.Add("Warszawa");
+            cities.Add("Wroclaw");
+            cities.Add("Poznań");
+
+            return Ok(cities);
+        }
     }
 }
