@@ -1,4 +1,5 @@
 using _2035Cars_Infrastructure.Interfaces;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 
 namespace _2035Cars_Application.Interfaces
@@ -7,11 +8,13 @@ namespace _2035Cars_Application.Interfaces
     {
         private readonly IRentalRepository _repository;
         private readonly ILogger<RentalService> _logger;
+        private readonly IMapper _mapper;
 
-        public RentalService(IRentalRepository repository, ILogger<RentalService> logger)
+        public RentalService(IRentalRepository repository, ILogger<RentalService> logger, IMapper mapper)
         {
             this._repository = repository;
             this._logger = logger;
+            this._mapper = mapper;
         }
         public async Task<List<string>> GetRentalCitiesAsync()
         {
