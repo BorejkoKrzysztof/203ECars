@@ -33,7 +33,10 @@ namespace _2035Cars_Application.Interfaces
         public async Task<List<string>> GetRentalLocationsAsync(string city)
         {
             if (string.IsNullOrEmpty(city))
+            {
+                this._logger.LogError(nameof(city), "City parameter is null or empty string");
                 throw new ArgumentNullException(nameof(city), "City parameter is null or empty string");
+            }
             
             List<string> rentalLocations;
 
