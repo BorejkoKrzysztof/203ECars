@@ -10,7 +10,7 @@ function EasyStepsBar() {
         <h1 className={styles.title}>Łatwa rejestracja</h1>
         <p className={styles.companyDescription}>
             &nbsp; W 203E Cars staramy się, aby nasi klienci mogli wypożyczyć samochód bez zbytniego 
-            wiele wysiłku i formalności. Cenimy Twój czas, dlatego wykonaj tylko kilka kliknięć z dowolnego urządzenia. 
+             wysiłku i formalności. Cenimy Twój czas, dlatego wykonaj tylko kilka kliknięć z dowolnego urządzenia. 
             <span>
                 Skorzystaj z naszego formularza na górze strony.
             </span>
