@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react'
+import axios from '../../../../../Axios/axiosDefault.js'
 import styles from './Banner.module.css'
 import possibleHours from './hoursToSelect.js'
 
 function Banner() {
 
-const [countries, setCountries] = useState([{Label: 'Select Country', Value: ''}])
-const [cities, setCities] = useState([{Label: 'Select City', Value: ''}])
+const [cities, setCities] = useState([{Label: 'Wybierz miasto', Value: ''}])
+const [locations, setLocations] = useState([{Label: 'Wybierz lokacje', Value: ''}])
 const [otherCityLeaveOption, setOtherCityLeaveOption] = useState(false)
+
+const GetCities = async () => {
+    try {
+        const response = await axios.get('/rental/fakecities');
+        setCities(response.data);
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const CountryFormSubmitHandler = () => {
 
@@ -37,7 +47,7 @@ const fieldsForOtherCityLeave =
                                 className={styles.fullWidthField}
                                 onChange={CountryLeaveFormSubmitHandler}>
                             {
-                                countries.map((item, index) => {
+                                locations.map((item, index) => {
                                     return (
                                         <option key={index}
                                                 value={item.Value}>
@@ -67,6 +77,11 @@ const fieldsForOtherCityLeave =
                 </div>
             </div>
 
+
+  useEffect(() => {
+    GetCities();
+  },[])
+
   return (
     <div className={`${styles.bannerWrapper}`}>
         <div className={styles.bannerContent}>
@@ -82,7 +97,7 @@ const fieldsForOtherCityLeave =
                                     className={styles.fullWidthField}
                                     onChange={CountryFormSubmitHandler}>
                                 {
-                                    countries.map((item, index) => {
+                                    locations.map((item, index) => {
                                         return (
                                             <option key={index}
                                                     value={item.Value}>
