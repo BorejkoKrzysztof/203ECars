@@ -20,7 +20,7 @@ namespace _2035Cars_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalCities()
         {
-            var rentalCities = await this._service.GetRentalCities();
+            var rentalCities = await this._service.GetRentalCitiesAsync();
 
             if (rentalCities is null)
                 return NotFound();
@@ -33,7 +33,7 @@ namespace _2035Cars_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalLocations(string city)
         {
-            var rentalLocations = await this._service.GetRentalLocations(city);
+            var rentalLocations = await this._service.GetRentalLocationsAsync(city);
 
             if (rentalLocations is null)
                 return NotFound();

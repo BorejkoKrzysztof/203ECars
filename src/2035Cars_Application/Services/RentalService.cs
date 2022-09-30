@@ -13,7 +13,7 @@ namespace _2035Cars_Application.Interfaces
             this._repository = repository;
             this._logger = logger;
         }
-        public async Task<List<string>> GetRentalCities()
+        public async Task<List<string>> GetRentalCitiesAsync()
         {
             List<string> rentalCities;
             try
@@ -30,7 +30,7 @@ namespace _2035Cars_Application.Interfaces
             return rentalCities;
         }
 
-        public async Task<List<string>> GetRentalLocations(string city)
+        public async Task<List<string>> GetRentalLocationsAsync(string city)
         {
             if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException(nameof(city), "City parameter is null or empty string");
