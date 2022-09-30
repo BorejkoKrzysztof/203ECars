@@ -43,14 +43,14 @@ builder.Services.AddApplicationServices();
 // Configuring CORS
 builder.Services.AddCors(cfg => {
     
-    cfg.AddDefaultPolicy(
+    cfg.AddPolicy(name: "developmentPolicy",
         policy =>
         {
             policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
 
-    cfg.AddPolicy("productionPolicy", policy => {
-       policy.WithOrigins(builder.Configuration["CorsSetting:AllowedOrigin"]); 
+    cfg.AddPolicy(name: "productionPolicy", policy => {
+       policy.WithOrigins(builder.Configuration["CorsSetting:AllowedOrigin"]);
     });
 });
 
@@ -67,7 +67,7 @@ app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors();   
+    app.UseCors("developmentPolicy");   
 }
 else if (app.Environment.IsProduction())
 {
