@@ -151,7 +151,7 @@ const fieldsForOtherCityLeave =
                     { otherCityLeaveOption && fieldsForOtherCityLeave}
                     <div className={styles.timeInputsArea}>
                         <div className={styles.formTimeWrapper}>
-                            <label>OD:</label>
+                            <label>Od:</label>
                             <div>
                                 <input type='date' ></input>
                                 <select>
@@ -168,7 +168,7 @@ const fieldsForOtherCityLeave =
                             </div>
                         </div>
                         <div className={styles.formTimeWrapper}>
-                            <label>DO:</label>
+                            <label>Do:</label>
                             <div>
                             <input type='date' ></input>
                                 <select>
