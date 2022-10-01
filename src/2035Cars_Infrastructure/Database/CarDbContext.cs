@@ -45,6 +45,7 @@ namespace _2035Cars_Infrastructure.Database
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.UtcNow;
+                        entry.Entity.LastUpdateDate = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastUpdateDate = DateTime.UtcNow;
