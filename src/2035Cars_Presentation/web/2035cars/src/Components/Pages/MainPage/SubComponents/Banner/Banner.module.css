@@ -167,6 +167,9 @@
         background-repeat: no-repeat;
         background-size: 100vw 800px;
         background-position: 0 -200px;
+        animation-name: showBannerWithOpacity;
+        animation-duration: .4s;
+        animation-timing-function:  ease-out;
     }
 
     .bannerContent{
@@ -241,5 +244,28 @@
 
     .radioButtonsSliderContainer input{
         cursor: pointer;
+    }
+}
+
+
+@keyframes showBannerWithOpacity {
+    0%{
+        opacity: 0;
+    }
+
+    25%{
+        opacity: .25;
+    }
+
+    50%{
+        opacity: 0.5;
+    }
+
+    75%{
+        opacity: 0.75;
+    }
+
+    100%{
+        opacity: 1;
     }
 }
