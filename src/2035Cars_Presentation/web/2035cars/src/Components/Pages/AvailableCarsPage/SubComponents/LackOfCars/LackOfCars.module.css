@@ -1,0 +1,86 @@
+.lackOfCarsWrapper{
+    width: auto;
+    height: 70vh;
+}
+
+.lackOfCarsContent{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-areas:    "header"
+                            "description"
+                            "icon";
+}
+
+.lackTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: header;
+    font-size: 20px;
+    text-align: center;
+    color: var(--blueThemeColor);
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.lackParagraph{
+    grid-area: description;
+    font-size: 20px;
+    color: var(--greyThemeColor);
+}
+
+.sadIcon{
+    grid-area: icon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blueThemeColor);
+}
+
+p.lackIcon{
+    font-size: 120px;
+}
+
+@media screen and (orientation: landscape) {
+    .lackOfCarsWrapper{
+        height: 90vh;
+    }
+
+    .lackParagraph{
+        padding: 20px 20px 0 20px;
+    }
+}
+
+
+@media screen and (min-width: 960px) {
+    .lackOfCarsWrapper{
+        margin-top: var(--navbarHeight);
+        height: 70vh;
+        border: solid 3px var(--greyThemeColor);
+        border-radius: 5px;
+    }
+
+    .lackOfCarsContent{
+        grid-template-areas:  "header header header"
+                              "description description icon"
+                              "description description icon"
+                              "description description icon";
+    }
+
+    .lackTitle{
+        font-size: 25px;
+    }
+
+    .lackParagraph{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 32px;
+        padding-top: 0;
+    }
+
+    p.lackIcon{
+        font-size: 250px;
+    }
+}
