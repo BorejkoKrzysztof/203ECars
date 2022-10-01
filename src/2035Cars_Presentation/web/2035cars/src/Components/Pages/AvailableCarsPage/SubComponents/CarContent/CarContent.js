@@ -11,7 +11,8 @@ function CarContent() {
             <CarItem />
             <CarItem />
             <CarItem />
-            <PageButton amountOfPages = {7}/>
+            <PageButton amountOfPages = {7}
+                        currentPage = {1}/>
         </div>
     </>
   )
