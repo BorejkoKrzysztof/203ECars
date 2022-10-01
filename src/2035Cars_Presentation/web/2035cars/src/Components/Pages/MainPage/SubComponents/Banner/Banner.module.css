@@ -168,7 +168,7 @@
         background-size: 100vw 800px;
         background-position: 0 -200px;
         animation-name: showBannerWithOpacity;
-        animation-duration: .4s;
+        animation-duration: .3s;
         animation-timing-function:  ease-out;
     }
 
