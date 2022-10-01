@@ -1,14 +1,15 @@
 .pageButtonWrapper{
-    width: 100vw;
+    width: auto;
     height: 100px;
     margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pageButtonContent{
     width: 350px;
     height: 100px;
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,4 +46,10 @@
     font-size: 40px;
     color: var(--blueThemeColor);
     margin-top: 45px;
+}
+
+@media screen and (min-width: 960px) {
+    .pageButtonWrapper{
+        justify-content: flex-end ;
+    }
 }
