@@ -31,7 +31,7 @@ function Filters() {
     setSliderVal(data)
 
     // console.log(sliderVal[0])
-    // console.log(sliderVal[1])
+    // console.log(sliderVal[1
   }
 
   const getText = (value) => `${value}`
@@ -79,7 +79,8 @@ function Filters() {
               </p>
             </div>
             <div className={styles.locationFormOpenButtonWrapper}>
-              <button onClick={() => { setLocationFormState(true) }}>EDYTUJ</button>
+              <button className={styles.themeButton} 
+                  onClick={() => { setLocationFormState(true) }}>EDYTUJ</button>
             </div>
           </div>
           
@@ -119,7 +120,7 @@ function Filters() {
                       </div>
                   </div>
                   <div className={styles.submitButtonWrapper}>
-                    <button>EDYTUJ</button>
+                    <button className={styles.submitButton}>EDYTUJ</button>
                   </div>
               </form>
           </div>
