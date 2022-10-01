@@ -1,0 +1,43 @@
+.loadingCircleWrapper{
+    width: 100%;
+    min-height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circleParagraph{
+    font-size: 80px;
+    font-weight: bold;
+    color: var(--blueThemeColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: rotateCircle 2.5s linear infinite;
+}
+
+@media screen and (orientation: landscape) {
+    
+    .loadingCircleWrapper{
+        min-height: 40vh;
+    }
+}
+
+@media screen and (min-width: 960px) {
+
+    .loadingCircleWrapper{
+        margin-top: var(--navbarHeight);
+        height: 70vh;
+    }
+}
+
+@keyframes rotateCircle {
+    0%{
+        transform: rotate(-360deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
