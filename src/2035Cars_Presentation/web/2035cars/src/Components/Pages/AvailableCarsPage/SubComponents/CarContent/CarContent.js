@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './CarContent.module.css'
 import CarItem from './CarItem/CarItem'
+import PageButton from './PageButtons/PageButton'
 
 function CarContent() {
   return (
@@ -10,6 +11,7 @@ function CarContent() {
             <CarItem />
             <CarItem />
             <CarItem />
+            <PageButton amountOfPages = {7}/>
         </div>
     </>
   )
