@@ -283,6 +283,10 @@ button.submitButton:hover{
     border: solid 2px var(--greyThemeColor);
 }
 
+.filterButtonSpaceBottom{
+    margin-bottom: 20px;
+}
+
 
 @media (orientation: landscape) {
 
