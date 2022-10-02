@@ -3,11 +3,11 @@ import styles from './CarFeaturesFilter.module.css'
 import Slider from '@mui/material/Slider'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineArrowDown, AiOutlineCheckSquare, AiFillCheckSquare } from 'react-icons/ai'
+import { speedDialActionClasses } from '@mui/material'
 
 function CarFeaturesFilter() {
 
   const [filterFormState, setFilterFormState] = useState(false)
-  // const [locationFormState, setLocationFormState] = useState(false)
 
   const [suvCarTypeChecked, setSuvCarTypeChecked] = useState(false)
   const [sportCarTypeChecked, setSportCarTypeChecked] = useState(false)
@@ -26,9 +26,20 @@ function CarFeaturesFilter() {
 
   const updateSlider = (e, data) => {
     setSliderVal(data)
+  }
 
-    // console.log(sliderVal[0])
-    // console.log(sliderVal[1
+  function RenderCheckableElement(stateVar, setStateVar, nameOfOption) {
+
+    return (
+      <p onClick={() => setStateVar(!stateVar)}>
+                    {nameOfOption}
+                    <span>
+                      {
+                          !stateVar ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
+                      }  
+                    </span>  
+      </p>
+    )
   }
 
   const getText = (value) => `${value}`
@@ -63,92 +74,22 @@ function CarFeaturesFilter() {
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Typ nadwozia:</h1>
-                  <p onClick={() => setSuvCarTypeChecked(!suvCarTypeChecked)}>
-                    Suv
-                    <span>
-                      {
-                          !suvCarTypeChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setSportCarTypeChecked(!sportCarTypeChecked)}>
-                    Sportowy
-                    <span>
-                      {
-                          !sportCarTypeChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setConvertibleCarTypeChecked(!convertibleCarTypeChecked)}>
-                    Kabriolet
-                    <span>
-                      {
-                          !convertibleCarTypeChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setSedanCarTypeChecked(!sedanCarTypeChecked)}>
-                    Sedan
-                    <span>
-                      {
-                          !sedanCarTypeChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
+                  {RenderCheckableElement(suvCarTypeChecked, setSuvCarTypeChecked, 'Suv')}
+                  {RenderCheckableElement(sportCarTypeChecked, setSportCarTypeChecked, 'Sportowy')}
+                  {RenderCheckableElement(convertibleCarTypeChecked, setConvertibleCarTypeChecked, 'Kabriolet')}
+                  {RenderCheckableElement(sedanCarTypeChecked, setSedanCarTypeChecked, 'Sedan')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Wyposażenie</h1>
-                  <p onClick={() => setAirConditioningChecked(!airConditioningChecked)}>
-                    Klimatyzacja
-                    <span>
-                      {
-                          !airConditioningChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setHeatedSeatChecked(!heatedSeatChecked)}>
-                    Podgrzewane fotele
-                    <span>
-                      {
-                          !heatedSeatChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setAutomaticGearBoxChecked(!automaticGearBoxChecked)}>
-                    Automatyczna skrzynia biegów
-                    <span>
-                      {
-                          !automaticGearBoxChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setNavigationChecked(!navigationChecked)}>
-                    Wbudowana nawigacja
-                    <span>
-                      {
-                          !navigationChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
+                  {RenderCheckableElement(airConditioningChecked, setAirConditioningChecked, 'Klimatyzacja')}
+                  {RenderCheckableElement(heatedSeatChecked, setHeatedSeatChecked, 'Podgrzewane fotele')}
+                  {RenderCheckableElement(automaticGearBoxChecked, setAutomaticGearBoxChecked, 'Automatyczna skrzynia biegów')}
+                  {RenderCheckableElement(navigationChecked, setNavigationChecked, 'Wbudowana nawigacja')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Typ napędu</h1>
-                  <p onClick={() => setHybridFuelChecked(!hybridFuelChecked)}>
-                    Hybrydowy
-                    <span>
-                      {
-                          !hybridFuelChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
-                  <p onClick={() => setElectricFuelChecked(!electricFuelChecked)}>
-                    W pełni elektryczny
-                    <span>
-                      {
-                          !electricFuelChecked ? <AiOutlineCheckSquare /> : <AiFillCheckSquare />
-                      }  
-                    </span>  
-                  </p>
+                  {RenderCheckableElement(hybridFuelChecked, setHybridFuelChecked, 'Hybrydowy')}
+                  {RenderCheckableElement(electricFuelChecked, setElectricFuelChecked, 'W pełni elektryczny')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Ilość drzwi</h1>
