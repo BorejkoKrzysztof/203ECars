@@ -229,6 +229,11 @@
         margin-top: calc(70px + 16px);
     }
 
+    .formSubmitButton:hover{
+        background-color: var(--yellowGreenHoverThemeColor);
+        border-color: var(--yellowGreenHoverThemeColor);
+    }
+
     .formSubmitButtonSpace{
         justify-content: flex-end;
     }
