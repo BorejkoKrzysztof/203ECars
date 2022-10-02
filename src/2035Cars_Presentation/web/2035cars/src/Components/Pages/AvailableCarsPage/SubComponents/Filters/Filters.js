@@ -256,6 +256,9 @@ function Filters() {
                       <option value={5}>5</option>
                   </select>
                 </div>
+                <div className={`${styles.submitButtonWrapper} ${styles.filterButtonSpaceBottom}`}>
+                    <button className={styles.submitButton}>SZUKAJ</button>
+                </div>
             </div>
           </div>
         </div>
