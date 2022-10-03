@@ -79,11 +79,14 @@
 }
 
 .sliderArea{
-    height: 50px;
-    background-color: yellow;
+    height: 40px;
+    /* background-color: yellow; */
     /* padding: 0 10px; */
     /* margin-top: 10px; */
     z-index: 1;
+
+    display: flex;
+    justify-content: center;
 }
 
 .submitButtonWrapper{

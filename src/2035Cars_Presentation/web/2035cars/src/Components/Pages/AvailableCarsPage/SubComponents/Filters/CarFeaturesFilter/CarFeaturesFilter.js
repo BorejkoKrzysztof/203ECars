@@ -4,6 +4,7 @@ import Slider from '@mui/material/Slider'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineArrowDown, AiOutlineCheckSquare, AiFillCheckSquare } from 'react-icons/ai'
 import { speedDialActionClasses } from '@mui/material'
+import { borderRadius } from '@mui/system'
 
 function CarFeaturesFilter() {
 
@@ -23,9 +24,21 @@ function CarFeaturesFilter() {
   const [electricFuelChecked, setElectricFuelChecked] = useState(false)
 
   const [sliderVal, setSliderVal] = useState([0,100])
+  const minDistance = 15
 
-  const updateSlider = (e, data) => {
-    setSliderVal(data)
+  const updateSlider = (e, data, activeThumb) => {
+    // setSliderVal(data)
+
+    if (!Array.isArray(data)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setSliderVal([Math.min(data[0], sliderVal[1] - minDistance), sliderVal[1]]);
+    } else {
+      setSliderVal([sliderVal[0], Math.max(data[1], sliderVal[0] + minDistance)]);
+    }
+    
   }
 
   function RenderCheckableElement(stateVar, setStateVar, nameOfOption) {
@@ -63,11 +76,32 @@ function CarFeaturesFilter() {
                   <h1>Cena: </h1>
                   <div className={styles.sliderArea}>
                     <Slider
-                      step={10}
+                      sx={{
+                        width: "95%",
+                        "& span:nth-of-type(3)": {
+                          marginLeft: "12.5px"
+                        },
+                        "& span:nth-of-type(4)": {
+                          marginLeft: "-13px"
+                        },
+                        "& .MuiSlider-thumb": {
+                        height: 24,
+                        width: 24,
+                        overflow: "hidden",
+                      },
+                      "& .MuiSlider-rail": {
+                        width: "100%",
+                        height: "6px",
+                      },
+                      "& .MuiSlider-track": {
+                        width: "100%",
+                        height: "6px",
+                      }, }}
+                      disableSwap
+                      step={5}
                       value={sliderVal}
                       onChange={updateSlider}
                       getAriaValueText = {getText}
-                      valueLabelDisplay='on'
                     />
                   </div>
                   <h4>Od: {sliderVal[0]} Do: {sliderVal[1]}</h4>
