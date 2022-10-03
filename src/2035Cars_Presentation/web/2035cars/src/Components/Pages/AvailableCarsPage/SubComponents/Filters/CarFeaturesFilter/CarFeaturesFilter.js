@@ -82,7 +82,7 @@ function CarFeaturesFilter() {
                           marginLeft: "12.5px"
                         },
                         "& span:nth-of-type(4)": {
-                          marginLeft: "-13px"
+                          marginLeft: "-12px"
                         },
                         "& .MuiSlider-thumb": {
                         height: 24,
