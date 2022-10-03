@@ -3,8 +3,6 @@ import styles from './CarFeaturesFilter.module.css'
 import Slider from '@mui/material/Slider'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineArrowDown, AiOutlineCheckSquare, AiFillCheckSquare } from 'react-icons/ai'
-import { speedDialActionClasses } from '@mui/material'
-import { borderRadius } from '@mui/system'
 
 function CarFeaturesFilter() {
 
