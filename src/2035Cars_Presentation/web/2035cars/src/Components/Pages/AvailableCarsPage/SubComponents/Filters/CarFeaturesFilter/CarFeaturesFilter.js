@@ -27,8 +27,6 @@ function CarFeaturesFilter() {
   const minDistance = 15
 
   const updateSlider = (e, data, activeThumb) => {
-    // setSliderVal(data)
-
     if (!Array.isArray(data)) {
       return;
     }
