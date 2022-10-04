@@ -14,7 +14,7 @@ function ContactPage() {
     <div className={styles.contactWrapper}>
         <ContactInfoBar />
         <ContactForm />
-        {/* <ContactInfo /> */}
+        <ContactInfo />
     </div>
   )
 }
