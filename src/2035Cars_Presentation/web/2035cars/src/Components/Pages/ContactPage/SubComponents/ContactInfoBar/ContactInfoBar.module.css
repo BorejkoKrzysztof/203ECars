@@ -1,0 +1,76 @@
+.contactInfoBarWrapper{
+    width: 100%;
+    min-height: 320px;
+    background-color: var(--lightBlueThemeColor);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.contactTitleWrapper{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.contactTitle{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: white;
+}
+
+.contactDescriptionWrapper{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.contactDescription{
+    color: white;
+}
+
+.iconsWrapper{
+    color: white;
+    width: 95%;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.phoneIcon{
+    font-size: 80px;
+}
+
+.envelopIcon{
+    font-size: 100px;
+}
+
+.emailIcon{
+    font-size: 100px;
+}
+
+@media screen and (orientation: landscape) {
+    
+    .contactInfoBarWrapper{
+        min-height: 260px;
+    }
+
+    .contactDescription{
+        text-align: center;
+    }
+}
+
+/* @media screen and (min-width: 960px) {
+    
+    .contactDescription{
+        text-align: center;
+    }
+} */
