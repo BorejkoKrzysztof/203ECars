@@ -1,0 +1,167 @@
+.contactFormWrapper{
+    margin: 25px auto;
+    padding: 10px;
+    width: 90%;
+    border: solid 2px var(--lightGreyThemeColor);
+}
+
+.contactFormTitle{
+    color: var(--blueThemeColor);
+}
+
+.contactFormMain{
+    padding: 5px;
+    
+}
+
+.contactFormInputArea{
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.contactFormInputArea > label {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.contactFormInputArea > input.contactInput {
+    height: 40px;
+    font-size: 20px;
+    border: solid 2px var(--lightGreyThemeColor);
+}
+
+.contactFormInputArea > input.contactInput:focus {
+    outline: none;
+}
+
+.contactFormInputArea > textarea {
+    height: 200px;
+    border: solid 2px var(--lightGreyThemeColor);
+    font-size: 18px;
+    resize: none;
+}
+
+.contactFormInputArea > textarea:focus {
+    outline: none;
+}
+
+.formButtonsArea{
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.formButtonsArea > button{
+    width: 80px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.sendButton{
+    background-color: yellowgreen;
+    border: solid 2px yellowgreen;
+    color: white;
+}
+
+.sendButton:hover {
+    background-color: var(--yellowGreenHoverThemeColor);
+    border-color: var(--yellowGreenHoverThemeColor);
+}
+
+.resetButton{
+    background-color: var(--redButtonThemeColor);
+    border: solid 2px var(--redButtonThemeColor);
+    color: white;
+}
+
+.resetButton:hover {
+    background-color: var(--redButtonHoverThemeColor);
+    border-color: var(--redButtonHoverThemeColor);
+}
+
+@media screen and (orientation: landscape) {
+ 
+    .contactFormTitle{
+        padding-left: 65px;
+    }
+
+    .contactFormMain{
+        padding: 5px 65px;
+    }
+
+    .formButtonsArea{
+        height: 70px;
+    }
+    
+    .formButtonsArea > button{
+        width: 140px;
+        height: 70px;
+        font-size: 32px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    
+    .contactFormWrapper{
+        width: 100%;
+    }
+
+    .contactFormInputArea > label {
+        margin-bottom: 2px;
+    }
+    
+    .contactFormInputArea > input.contactInput {
+        height: 40px;
+    }
+
+    .contactFormMain {
+        display: grid;
+        column-gap: 65px;
+        grid-template-areas:    "name message message"
+                                "emailAddress message message"
+                                "phoneNumber message message"
+                                "reservationNumber message message"
+                                "buttonsArea buttonsArea buttonsArea"
+    }
+
+    .contactFormInputArea:nth-of-type(1) {
+        grid-area: name;
+    }
+
+    .contactFormInputArea:nth-of-type(2) {
+        grid-area: emailAddress;
+    }
+
+    .contactFormInputArea:nth-of-type(3) {
+        grid-area: phoneNumber;
+    }
+
+    .contactFormInputArea:nth-of-type(4) {
+        grid-area: reservationNumber;
+    }
+
+    .contactFormInputArea:nth-of-type(5) {
+        grid-area: message;
+    }
+
+    .formButtonsArea {
+        grid-area: buttonsArea;
+    }
+
+    .contactFormInputArea > textarea {
+        height: 300px;
+    }
+
+    .formButtonsArea{
+        height: 60px;
+    }
+    
+    .formButtonsArea > button{
+        width: 120px;
+        height: 60px;
+        font-size: 26px;
+    }
+}
