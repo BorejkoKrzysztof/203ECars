@@ -6,6 +6,7 @@ import MainPage from './Components/Pages/MainPage/MainPage';
 import AvailableCarsPage from './Components/Pages/AvailableCarsPage/AvailableCarsPage';
 import LoginPage from './Components/Pages/LoginPage/LoginPage'
 import RegisterPage from './Components/Pages/RegisterPage/RegisterPage'
+import ContactPage from './Components/Pages/ContactPage/ContactPage';
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
         <Navbar />
           <Routes>
               {/* <Route path='/' element={<MainPage />}/> */}
-              <Route path='/' element={<AvailableCarsPage />} />
+              {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
+              <Route path='/' element={<ContactPage />}/>
           </Routes>
         <Footer />
       </Router>

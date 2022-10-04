@@ -1,0 +1,14 @@
+.contactWrapper{
+    margin-top: var(--navbarHeight);
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (min-width: 960px) {
+    
+    .contactWrapper{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
