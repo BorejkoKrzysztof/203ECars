@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Footer from './Components/Footer/Footer';
@@ -10,17 +11,19 @@ import ContactPage from './Components/Pages/ContactPage/ContactPage';
 
 function App() {
   return (
+    <>
       <Router>
         <Navbar />
           <Routes>
-              {/* <Route path='/' element={<MainPage />}/> */}
+              <Route path='/' element={<MainPage />}/>
               {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
-              <Route path='/' element={<ContactPage />}/>
+              {/* <Route path='/' element={<ContactPage />}/> */}
           </Routes>
         <Footer />
       </Router>
+      </>
   );
 }
 
