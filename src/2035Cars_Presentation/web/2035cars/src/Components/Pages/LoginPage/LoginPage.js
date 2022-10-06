@@ -8,8 +8,8 @@ import { FaCar } from 'react-icons/fa'
 
 function Login({setLoggedState})
 {
-    const location = useLocation()
-    const from = location.state?.from?.pathname || '/'
+    // const location = useLocation()
+    // const from = location.state?.from?.pathname || '/'
 
     const [loginFailed, setLoginFailed] = useState(false)
     const [accountEmail, setAccountEmail] = useState('')
