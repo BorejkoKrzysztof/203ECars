@@ -121,4 +121,8 @@ button.formSubmitButton:hover{
     .personalDataArea > input {
         font-size: 22px;
     }
+
+    .formSubmitButton{
+        font-size: 32px;
+    }
 }
