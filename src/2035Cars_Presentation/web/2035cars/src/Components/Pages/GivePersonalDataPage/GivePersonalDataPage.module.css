@@ -1,0 +1,124 @@
+.personalDataWrapper{
+    margin-top: var(--navbarHeight);
+    width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "image"
+                          "form";
+    row-gap: 30px;
+    justify-items: center;
+    align-content: flex-start;
+}
+
+.imageMainPart{
+    margin-top: 25px;
+    grid-area: image;
+}
+
+.paragraphTitle{
+    text-align: center;
+}
+
+.formPart{
+    grid-area: form;
+}
+
+.imageMainPart > h1 {
+    text-align: center;
+}
+
+.carItemImage {
+    margin-top: 20px;
+}
+
+.personalDataArea{
+    display: flex;
+    flex-direction: column;
+}
+
+.personalDataArea > label {
+    text-align:left;
+    font-size: 24px;
+}
+
+.personalDataArea > input {
+    font-size: 24px;
+    border: solid 2px var(--greyThemeColor);
+}
+
+.personalDataArea > input:focus{
+    outline: none;
+}
+
+.buttonWrapper{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formSubmitButton{
+    padding: 5px;
+    text-align: center;
+    font-size: 24px;
+
+    background-color: yellowgreen;
+    border: solid 2px yellowgreen;
+    color: white;
+    cursor: pointer;
+}
+
+button.formSubmitButton:hover{
+    background-color: var(--yellowGreenHoverThemeColor);
+    border-color: var(--yellowGreenHoverThemeColor);
+}
+
+@media screen and (orientation: landscape) {
+    
+    .personalDataWrapper{
+        margin-top: 35px;
+        grid-template-areas: "image form";
+        align-content: center;
+        row-gap: 0;
+    }
+
+    .imageMainPart{
+        margin-top: 0;
+        grid-area: image;
+    }
+
+    .personalDataArea > label {
+        font-size: 18px;
+    }
+    
+    .personalDataArea > input {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    
+    .personalDataWrapper{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .carItemImage{
+        width: 369px;
+        height: 216px;
+    }
+
+    .formPart{
+        margin-top: 20px;
+    }
+
+
+    .personalDataArea > label {
+        font-size: 22px;
+    }
+    
+    .personalDataArea > input {
+        font-size: 22px;
+    }
+}
