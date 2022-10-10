@@ -13,11 +13,11 @@ function App() {
       <Router>
         <Navbar />
           <Routes>
-              {/* <Route path='/' element={<MainPage />}/> */}
+              <Route path='/' element={<MainPage />}/>
               {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
-              <Route path='/' element={<ContactPage />}/>
+              {/* <Route path='/' element={<ContactPage />}/> */}
           </Routes>
         <Footer />
       </Router>
