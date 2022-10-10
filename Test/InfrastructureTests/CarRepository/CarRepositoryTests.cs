@@ -183,7 +183,7 @@ namespace Test.InfrastructureTests.CarRepository
 
             // Assert
             Assert.ThrowsAsync<InvalidOperationException>(async () => {
-                var id = await this.repository.GetAllSelectedCarsAsync(city, rentalTitle, desiredEquipment);
+                var id = await this.repository.GetAllSelectedCarsByCityAndLocationAsync(city, rentalTitle, desiredEquipment);
             });
         }
 
@@ -203,7 +203,7 @@ namespace Test.InfrastructureTests.CarRepository
 
             // Act
             var collectionFromDB = await this.repository
-                            .GetAllSelectedCarsAsync(city, rentalTitle, desiredEquipment);
+                            .GetAllSelectedCarsByCityAndLocationAsync(city, rentalTitle, desiredEquipment);
 
             // Assert
             Assert.IsInstanceOf<List<Car>>(collectionFromDB);

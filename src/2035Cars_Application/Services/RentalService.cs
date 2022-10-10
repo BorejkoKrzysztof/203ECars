@@ -37,6 +37,18 @@ namespace _2035Cars_Application.Services
 
         public async Task<RentalBasicInfo> GetRentalInfo(string city, string location)
         {
+            if (string.IsNullOrEmpty(city))
+            {
+                this._logger.LogError(nameof(city), "City parameter is null or empty string");
+                throw new ArgumentNullException(nameof(city), "City parameter is null or empty string");
+            }
+
+            if (string.IsNullOrEmpty(location))
+            {
+                this._logger.LogError(nameof(location), "location parameter is null or empty string");
+                throw new ArgumentNullException(nameof(location), "location parameter is null or empty string");
+            }
+
             RentalBasicInfo rentalInfo;
             try
             {

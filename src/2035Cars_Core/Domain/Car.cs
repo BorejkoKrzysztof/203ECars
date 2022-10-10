@@ -38,6 +38,8 @@ namespace _2035Cars_Core.Domain
         [Required]
         public bool IsRented { get; set; }
 
+        public DateTime RentedTo { get; set; }
+
         [Required]
         public byte[] Image { get; set; }
 
