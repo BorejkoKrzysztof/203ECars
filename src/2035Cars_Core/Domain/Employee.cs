@@ -7,43 +7,43 @@ namespace _2035Cars_Core.Domain
     public class Employee : BaseEntity
     {
         [Required]
-        public Person Person { get; private set; }
+        public Person Person { get; set; }
 
         [Required]
-        public Address Address { get; private set; }
+        public Address Address { get; set; }
 
         [Required]
-        public Account Account { get; private set; }
+        public Account Account { get; set; }
 
         [Required]
-        public Department Department { get; private set; }
+        public Department Department { get; set; }
 
         [Required]
-        public BuisnessPosition Position { get; private set; }
+        public BuisnessPosition Position { get; set; }
 
         [Required]
-        public DateTime LastLoggedAt { get; private set; }
+        public DateTime LastLoggedAt { get; set; }
 
         [Required]
-        public long RentalId { get; private set; }
-        public Rental Rental { get; private set; }
+        public long RentalId { get; set; }
+        public virtual Rental Rental { get; set; }
 
         public Employee()
         {
             
         }
 
-        public Employee(Person person, Address address, Account account, Department department, BuisnessPosition position, Rental rental)
-        {
-            Person = person ?? throw new ArgumentNullException(nameof(person));
-            Address = address ?? throw new ArgumentNullException(nameof(address));
-            Account = account ?? throw new ArgumentNullException(nameof(account));
-            Department = department;
-            Position = position;
-            LastLoggedAt = DateTime.UtcNow;
-            Rental = rental ?? throw new ArgumentNullException(nameof(rental));
-            // CreatedDate = DateTime.UtcNow;
-            // LastUpdateDate = DateTime.UtcNow;
-        }
+        // public Employee(Person person, Address address, Account account, Department department, BuisnessPosition position, Rental rental)
+        // {
+        //     Person = person ?? throw new ArgumentNullException(nameof(person));
+        //     Address = address ?? throw new ArgumentNullException(nameof(address));
+        //     Account = account ?? throw new ArgumentNullException(nameof(account));
+        //     Department = department;
+        //     Position = position;
+        //     LastLoggedAt = DateTime.UtcNow;
+        //     Rental = rental ?? throw new ArgumentNullException(nameof(rental));
+        //     // CreatedDate = DateTime.UtcNow;
+        //     // LastUpdateDate = DateTime.UtcNow;
+        // }
     }
 }

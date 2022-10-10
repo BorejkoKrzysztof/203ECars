@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace _2035Cars_Infrastructure.Database.Migrations
 {
-    public partial class Init : Migration
+    public partial class FixArchitecture : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,12 +15,7 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Account_EmailAddress = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
-                    Account_Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address_Street = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Address_Number = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Address_City = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Address_ZipCode = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Person_FirstName = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Person_LastName = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Person_PhoneNumber = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),

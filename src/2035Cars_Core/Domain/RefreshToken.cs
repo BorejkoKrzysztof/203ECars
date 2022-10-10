@@ -6,13 +6,13 @@ namespace _2035Cars_Core.Domain
     public class RefreshToken : BaseEntity
     {
         [Required]
-        public long UserId { get; private set; }
+        public long UserId { get; set; }
 
         [Required]
-        public string Token { get; private set; }
+        public string Token { get; set; }
 
         [Required]
-        public DateTime ExpiryDate { get; private set; }
+        public DateTime ExpiryDate { get; set; }
 
         public RefreshToken()
         {

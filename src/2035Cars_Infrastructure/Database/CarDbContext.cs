@@ -22,8 +22,6 @@ namespace _2035Cars_Infrastructure.Database
             // Setting Value Objects
             modelBuilder.Entity<Car>().OwnsOne(o => o.Equipment);
 
-            modelBuilder.Entity<Client>().OwnsOne(o => o.Address);
-            modelBuilder.Entity<Client>().OwnsOne(o => o.Account);
             modelBuilder.Entity<Client>().OwnsOne(o => o.Person);
 
             modelBuilder.Entity<Employee>().OwnsOne(o => o.Address);

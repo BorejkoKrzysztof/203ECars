@@ -12,8 +12,8 @@ using _2035Cars_Infrastructure.Database;
 namespace _2035Cars_Infrastructure.Database.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20220925122049_Init")]
-    partial class Init
+    [Migration("20221010113730_FixArchitecture")]
+    partial class FixArchitecture
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,10 @@ namespace _2035Cars_Infrastructure.Database.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
@@ -274,61 +278,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
 
             modelBuilder.Entity("_2035Cars_Core.Domain.Client", b =>
                 {
-                    b.OwnsOne("_2035Cars_Core.ValueObjects.Account", "Account", b1 =>
-                        {
-                            b1.Property<long>("ClientId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("EmailAddress")
-                                .IsRequired()
-                                .HasMaxLength(35)
-                                .HasColumnType("nvarchar(35)");
-
-                            b1.Property<string>("Password")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ClientId");
-
-                            b1.ToTable("Clients");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClientId");
-                        });
-
-                    b.OwnsOne("_2035Cars_Core.ValueObjects.Address", "Address", b1 =>
-                        {
-                            b1.Property<long>("ClientId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(70)
-                                .HasColumnType("nvarchar(70)");
-
-                            b1.Property<string>("Number")
-                                .IsRequired()
-                                .HasMaxLength(25)
-                                .HasColumnType("nvarchar(25)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(70)
-                                .HasColumnType("nvarchar(70)");
-
-                            b1.Property<string>("ZipCode")
-                                .IsRequired()
-                                .HasMaxLength(70)
-                                .HasColumnType("nvarchar(70)");
-
-                            b1.HasKey("ClientId");
-
-                            b1.ToTable("Clients");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClientId");
-                        });
-
                     b.OwnsOne("_2035Cars_Core.ValueObjects.Person", "Person", b1 =>
                         {
                             b1.Property<long>("ClientId")
@@ -356,12 +305,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");
                         });
-
-                    b.Navigation("Account")
-                        .IsRequired();
-
-                    b.Navigation("Address")
-                        .IsRequired();
 
                     b.Navigation("Person")
                         .IsRequired();
@@ -375,28 +318,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("_2035Cars_Core.ValueObjects.Account", "Account", b1 =>
-                        {
-                            b1.Property<long>("EmployeeId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("EmailAddress")
-                                .IsRequired()
-                                .HasMaxLength(35)
-                                .HasColumnType("nvarchar(35)");
-
-                            b1.Property<string>("Password")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("EmployeeId");
-
-                            b1.ToTable("Employees");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EmployeeId");
-                        });
-
                     b.OwnsOne("_2035Cars_Core.ValueObjects.Address", "Address", b1 =>
                         {
                             b1.Property<long>("EmployeeId")
@@ -449,6 +370,28 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                                 .IsRequired()
                                 .HasMaxLength(35)
                                 .HasColumnType("nvarchar(35)");
+
+                            b1.HasKey("EmployeeId");
+
+                            b1.ToTable("Employees");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeId");
+                        });
+
+                    b.OwnsOne("_2035Cars_Core.ValueObjects.Account", "Account", b1 =>
+                        {
+                            b1.Property<long>("EmployeeId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("EmailAddress")
+                                .IsRequired()
+                                .HasMaxLength(35)
+                                .HasColumnType("nvarchar(35)");
+
+                            b1.Property<string>("Password")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("EmployeeId");
 
