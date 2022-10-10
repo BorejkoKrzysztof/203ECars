@@ -1,6 +1,6 @@
 namespace _2035Cars_Application.Commands
 {
-    public class PreferableCarFeatures
+    public class PreferableCarFeaturesCommand
     {
         public DateTime AvailableFrom { get; set; }
         // public DateTime AvailableTo { get; set; }
