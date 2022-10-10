@@ -10,6 +10,9 @@ namespace _2035Cars_Core.Domain
         public string Title { get; set; }
 
         [Required]
+        public string ShortTitle { get; set; }
+
+        [Required]
         public Address Address { get; set; }
 
         [Required]
