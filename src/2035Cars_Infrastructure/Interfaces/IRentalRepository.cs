@@ -7,5 +7,7 @@ namespace _2035Cars_Infrastructure.Interfaces
         Task<List<string>> ReadAllRentalCitiesAsync();
 
         Task<List<string>> ReadAllLocationsByCityAsync(string rentalCity);
+
+        Task<object> GetRentalByCityAndLocationAsync(string city,string location);
     }
 }

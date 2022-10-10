@@ -1,4 +1,5 @@
 using System.Net;
+using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Api.Controllers;
@@ -39,6 +40,20 @@ namespace _2035Cars_API.Controllers
                 return NotFound();
 
             return Ok(rentalLocations);
+        }
+
+
+        [HttpGet("{city}/{location}")]
+        [ProducesResponseType(typeof(RentalBasicInfo), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRentalBasicInfo([FromRoute]string city, [FromRoute]string location)
+        {
+            var rentalInfo = await this._service.GetRentalInfo(city, location);
+
+            if (rentalInfo is null)
+                    return NotFound();
+
+            return Ok(rentalInfo);
         }
 
 

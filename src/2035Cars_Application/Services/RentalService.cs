@@ -1,3 +1,4 @@
+using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
 using _2035Cars_Infrastructure.Interfaces;
 using AutoMapper;
@@ -32,6 +33,24 @@ namespace _2035Cars_Application.Services
             }
 
             return rentalCities;
+        }
+
+        public async Task<RentalBasicInfo> GetRentalInfo(string city, string location)
+        {
+            RentalBasicInfo rentalInfo;
+            try
+            {
+                rentalInfo = (RentalBasicInfo) 
+                    await this._repository.GetRentalByCityAndLocationAsync(city, location);
+                this._logger.LogInformation($"RentalBasicInfo with city {city} and location {location} is downloaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Unable to download rentalBasicInfo - Exception: {ex.Message}");
+                return null!;
+            }
+
+            return rentalInfo;
         }
 
         public async Task<List<string>> GetRentalLocationsAsync(string city)
