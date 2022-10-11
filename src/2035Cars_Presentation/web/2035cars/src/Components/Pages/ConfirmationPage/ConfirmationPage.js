@@ -13,7 +13,9 @@ function ConfirmationPage() {
         <div className={styles.confirmationInfoContent}>
             <h2>Marka Model</h2>
             <h2>Od 21.12.22 12:20</h2>
+            <h2>Z miasto lokacja</h2>
             <h2>Do 21.12.22 13:30</h2>
+            <h2>Do miasto lokacja</h2>
             <h2>Cena 250 PLN</h2>
             <h2>Imie Nazwisko</h2>
             <h2>AdresEmail</h2>

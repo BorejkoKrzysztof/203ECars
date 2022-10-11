@@ -5,8 +5,8 @@ namespace _2035Cars_Core.Domain
 {
     public class Order : BaseEntity
     {
-        [Required]
-        public long PublishEmployeeId { get; set; }
+        // [Required]
+        // public long PublishEmployeeId { get; set; }
 
         // [Required]
         // [ForeignKey("PublishEmployeeId")]
@@ -15,28 +15,28 @@ namespace _2035Cars_Core.Domain
         public long? AcceptEmployeeId { get; set; }
 
         // [ForeignKey("AcceptEmployeeId")]
-        // public virtual Employee? AcceptEmployee { get; set; }
+        public virtual Employee? AcceptEmployee { get; set; }
 
         [Required]
         public long ClientId { get; set; }
 
-        // [Required]
+        [Required]
         // [ForeignKey("ClientId")]
-        // public virtual Client Client { get; set; }
+        public virtual Client Client { get; set; }
 
         [Required]
         public long CarId { get; set; }
 
         // [Required]
         // [ForeignKey("CarId")]
-        // public virtual Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         [Required]
         public long FromRentalId { get; set; }
 
         // [Required]
         // [ForeignKey("FormRentalId")]
-        // public virtual Rental FormRental { get; set; }
+        // public virtual Rental FromRental { get; set; }
 
         [Required]
         public long ToRentalId { get; set; }
@@ -56,6 +56,9 @@ namespace _2035Cars_Core.Domain
 
         [Required]
         public bool Finished { get; set; }
+
+        [Required]
+        public Guid UniqueOrderNumber { get; set; }
 
         public Order()
         {

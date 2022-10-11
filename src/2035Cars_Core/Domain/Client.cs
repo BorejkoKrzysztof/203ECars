@@ -17,6 +17,9 @@ namespace _2035Cars_Core.Domain
         [Required]
         public Person Person { get; set; }
 
+        [Required]
+        public List<Order> Orders { get; set; }
+
         public Client()
         {
             

@@ -4,6 +4,9 @@ namespace _2035Cars_Infrastructure.Interfaces
 {
     public interface IOrderRepository : IRepositoryBase<Order>
     {
-        
+        Task<long> OrderTransactionForExistingUser(
+            Car car,
+            Order order
+        );
     }
 }

@@ -7,17 +7,22 @@ import AvailableCarsPage from './Components/Pages/AvailableCarsPage/AvailableCar
 import LoginPage from './Components/Pages/LoginPage/LoginPage'
 import RegisterPage from './Components/Pages/RegisterPage/RegisterPage'
 import ContactPage from './Components/Pages/ContactPage/ContactPage';
+import GivePersonalDataPage from './Components/Pages/GivePersonalDataPage/GivePersonalDataPage.js'
+import ConfirmationPage from './Components/Pages/ConfirmationPage/ConfirmationPage.js'
 
 function App() {
   return (
       <Router>
         <Navbar />
           <Routes>
-              <Route path='/' element={<MainPage />}/>
+              {/* <Route path='/' element={<MainPage />}/> */}
               {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
               {/* <Route path='/' element={<ContactPage />}/> */}
+
+              {/* <Route path='/' element={<GivePersonalDataPage />} /> */}
+              <Route path='/' element={<ConfirmationPage />} />
           </Routes>
         <Footer />
       </Router>

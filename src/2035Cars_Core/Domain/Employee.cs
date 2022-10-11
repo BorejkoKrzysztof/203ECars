@@ -25,6 +25,9 @@ namespace _2035Cars_Core.Domain
         public DateTime LastLoggedAt { get; set; }
 
         [Required]
+        public virtual List<Order> AcceptedOrders { get; set; }
+
+        [Required]
         public long RentalId { get; set; }
         public virtual Rental Rental { get; set; }
 

@@ -13,6 +13,7 @@ namespace _2035Cars_Application
             services.AddSingleton(RentalProfile.Initialize());
             services.AddScoped<IRentalService, RentalService>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
          }

@@ -27,7 +27,7 @@ namespace _2035Cars_API.Controllers
                                             ([FromRoute]int pageNumber,
                                             [FromRoute]string city, 
                                             [FromRoute]string location, 
-                                            [FromBody]PreferableCarFeatures carFeatures)
+                                            [FromBody]PreferableCarFeaturesCommand carFeatures)
         {
             var carsCollection = 
                 await this._service
@@ -43,18 +43,18 @@ namespace _2035Cars_API.Controllers
 
         [HttpGet("cars/{pageNumber}/{rentalId}")]
         [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetCarsByCityAndLocation
                                             ([FromRoute]int pageNumber,
                                              [FromRoute]long rentalId,
-                                             [FromBody]PreferableCarFeatures carFeatures)
+                                             [FromBody]PreferableCarFeaturesCommand carFeatures)
         {
             var carsCollection = 
                 await this._service.GetCollectionOfCarsByRentalId
                                         (rentalId, carFeatures, pageNumber, pageSize);
 
             if (carsCollection is null)
-                return ValidationProblem();
+                return BadRequest();
 
             return Ok(carsCollection);
         }

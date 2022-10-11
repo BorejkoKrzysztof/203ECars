@@ -40,5 +40,13 @@ namespace _2035Cars_Infrastructure.Repositories
                                     .Distinct()
                                     .ToListAsync();
         }
+
+        public async Task<long> ReturnRentalIdAsync(string city, string location)
+        {
+            long id = this._dbContext.Rentals.First(x => x.Address.City == city &&
+                                                    x.Title == location).Id;
+
+            return await Task.FromResult(id);
+        }
     }
 }

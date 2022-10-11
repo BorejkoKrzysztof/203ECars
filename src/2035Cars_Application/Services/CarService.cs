@@ -24,7 +24,7 @@ namespace _2035Cars_Application.Services
         public async Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalCityAndLocation
                                                             (string city,
                                                             string location, 
-                                                            PreferableCarFeatures carFeatures,
+                                                            PreferableCarFeaturesCommand carFeatures,
                                                             int pageNumber,
                                                             int pageSize)
         {
@@ -96,7 +96,7 @@ namespace _2035Cars_Application.Services
 
         public async Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalId
                                                 (long id, 
-                                                PreferableCarFeatures carFeatures, 
+                                                PreferableCarFeaturesCommand carFeatures, 
                                                 int pageNumber, 
                                                 int pageSize)
         {

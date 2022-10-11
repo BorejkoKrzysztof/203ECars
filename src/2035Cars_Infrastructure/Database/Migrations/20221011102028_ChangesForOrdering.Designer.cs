@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _2035Cars_Infrastructure.Database;
 
@@ -11,9 +12,10 @@ using _2035Cars_Infrastructure.Database;
 namespace _2035Cars_Infrastructure.Database.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    partial class CarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221011102028_ChangesForOrdering")]
+    partial class ChangesForOrdering
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +147,7 @@ namespace _2035Cars_Infrastructure.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<long?>("AcceptEmployeeId")
+                    b.Property<long>("AcceptEmployeeId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("CarId")
@@ -184,8 +186,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AcceptEmployeeId");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("ClientId");
 
@@ -427,12 +427,8 @@ namespace _2035Cars_Infrastructure.Database.Migrations
             modelBuilder.Entity("_2035Cars_Core.Domain.Order", b =>
                 {
                     b.HasOne("_2035Cars_Core.Domain.Employee", "AcceptEmployee")
-                        .WithMany("AcceptedOrders")
-                        .HasForeignKey("AcceptEmployeeId");
-
-                    b.HasOne("_2035Cars_Core.Domain.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId")
+                        .HasForeignKey("AcceptEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -443,8 +439,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("AcceptEmployee");
-
-                    b.Navigation("Car");
 
                     b.Navigation("Client");
                 });
@@ -491,11 +485,6 @@ namespace _2035Cars_Infrastructure.Database.Migrations
             modelBuilder.Entity("_2035Cars_Core.Domain.Client", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("_2035Cars_Core.Domain.Employee", b =>
-                {
-                    b.Navigation("AcceptedOrders");
                 });
 
             modelBuilder.Entity("_2035Cars_Core.Domain.Rental", b =>

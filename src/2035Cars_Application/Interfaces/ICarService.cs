@@ -9,12 +9,12 @@ namespace _2035Cars_Application.Interfaces
         Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalCityAndLocation
                                                             (string city, 
                                                             string location, 
-                                                            PreferableCarFeatures carFeatures,
+                                                            PreferableCarFeaturesCommand carFeatures,
                                                             int pageNumber,
                                                             int pageSize);
         Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalId
                                                 (long id, 
-                                                PreferableCarFeatures carFeatures,
+                                                PreferableCarFeaturesCommand carFeatures,
                                                 int pageNumber,
                                                 int pageSize);
     }

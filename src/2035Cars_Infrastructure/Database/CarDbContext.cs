@@ -33,6 +33,9 @@ namespace _2035Cars_Infrastructure.Database
             // Setting Relations beetwen entities
             modelBuilder.Entity<Car>().HasOne(p => p.Rental).WithMany(p => p.Cars);
             modelBuilder.Entity<Employee>().HasOne(p => p.Rental).WithMany(p => p.Employees);
+        
+            // modelBuilder.Entity<Order>().HasOne(x => x.FromRental)
+            //                             .HasForeignKey(x => x.FromRentalId);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
