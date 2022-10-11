@@ -56,7 +56,12 @@ namespace _2035Cars_Application.Services
                                         carFeatures.DesiredAmountOfSeats
                                     );
 
+
                 this._logger.LogInformation($"List Of Cars for rental in {city}, {location} is downloaded");
+
+                // Count Total Price For Renting
+                var hours = (carFeatures.OrderTo.ToUniversalTime() - DateTime.UtcNow).TotalHours;
+                cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
 
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);
 

@@ -3,7 +3,7 @@ namespace _2035Cars_Application.Commands
     public class PreferableCarFeaturesCommand
     {
         public DateTime AvailableFrom { get; set; }
-        // public DateTime AvailableTo { get; set; }
+        public DateTime OrderTo { get; set; }
 
         public decimal MinimumPrice { get; set; }
         public decimal MaximumPrice { get; set; }
