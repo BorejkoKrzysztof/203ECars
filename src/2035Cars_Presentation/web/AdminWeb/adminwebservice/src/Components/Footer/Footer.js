@@ -5,13 +5,12 @@ import {
   MDBCol,
   MDBRow
 } from 'mdb-react-ui-kit';
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 
-export default function App() {
+export default function Footer() {
   return (
     <MDBFooter bgColor='dark' className='text-center text-lg-left'>
       <MDBContainer className='p-4'>
-        <MDBRow>
+        <MDBRow style={{ display: "flex", justifyContent: "center" }}>
           <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
             <h5 className='text-uppercase text-light'>Links</h5>
 
@@ -69,9 +68,9 @@ export default function App() {
         </MDBRow>
       </MDBContainer>
 
-      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+      <div className='text-center p-3 text-light' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
         &copy; {new Date().getFullYear()} Copyright:{' '}
-        <a className='text-dark' href='https://mdbootstrap.com/'>
+        <a className='text-light' href='https://mdbootstrap.com/'>
           MDBootstrap.com
         </a>
       </div>
