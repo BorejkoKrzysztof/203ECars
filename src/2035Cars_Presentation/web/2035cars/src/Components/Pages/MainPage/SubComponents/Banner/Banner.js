@@ -9,55 +9,64 @@ const [cities, setCities] = useState([{Label: 'Wybierz miasto', Value: ''}])
 const [locations, setLocations] = useState([{Label: 'Wybierz lokacje', Value: ''}])
 const [otherCityLeaveOption, setOtherCityLeaveOption] = useState(false)
 
+
+const [selectedCityFrom, setSelectedCityFrom] = useState()
+const [selectedLocationFrom, setSelectedLocationFrom] = useState()
+
+const [selectedCityTo, setSelectedCityTo] = useState()
+const [selectedLocationTo, setSelectedLocationTo] = useState()
+
 const GetCities = async () => {
     try {
-        const response = await axios.get('/rental/fakecities');
+        const response = await axios.get('/rental/cities');
         setCities(response.data);
     } catch (error) {
         console.log(error)
     }
 }
 
-const CountryFormSubmitHandler = () => {
-
+const GetLocations = async (city) => {
+    try {
+        const response = await axios.get(`rental/locations/${city}`)
+        setLocations(response.data)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const CityFormSubmitHandler= () => {
-    
+const CityFromFormSubmitHandler = (event) => {
+    setSelectedCityFrom(event.target.value)
+    GetLocations(event.target.value)
 }
 
-const CountryLeaveFormSubmitHandler = () => {
-
+const LocationFromFormSubmitHandler= (event) => {
+    setSelectedLocationFrom(event.target.value)
 }
 
-const CityLeaveFormSubmitHandler = () => {
-
+const CityLeaveFormSubmitHandler = (event) => {
+    setSelectedCityTo(event.target.value)
+    GetLocations(event.target.value)
 }
+
+const LocationLeaveFormSubmitHandler = (event) => {
+    setSelectedLocationTo(event.target.value)
+}
+
 
 const SetOtherCityLeaveOptionHandler = (value) => {
     setOtherCityLeaveOption(value)
+}
+
+const formHandler = async (event) => {
+    event.preventDefault();
+
+    // tutaj ustawie ciasteczka
 }
 
 const fieldsForOtherCityLeave = 
             <div className={styles.OtherCityLeaveSpace}>
                 <label>Końcowa lokalizacja:</label>
                 <div className={styles.inputsArea}>
-                    <div>
-                        <select id='CountryLeave'
-                                className={styles.fullWidthField}
-                                onChange={CountryLeaveFormSubmitHandler}>
-                            {
-                                locations.map((item, index) => {
-                                    return (
-                                        <option key={index}
-                                                value={item.Value}>
-                                            {item.Label}
-                                        </option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
                     <div>
                         <select id='CityLeave'
                                 className={styles.fullWidthField}
@@ -74,12 +83,30 @@ const fieldsForOtherCityLeave =
                             }
                         </select>
                     </div>
+                    <div>
+                        <select id='LocationLeave'
+                                className={styles.fullWidthField}
+                                onChange={LocationLeaveFormSubmitHandler}>
+                            {
+                                locations.map((item, index) => {
+                                    return (
+                                        <option key={index}
+                                                value={item.Value}>
+                                            {item.Label}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
 
 
   useEffect(() => {
     GetCities();
+
+    // tutaj powinienem usunac ciasteczko "mozna isc dalej"
   },[])
 
   return (
@@ -89,15 +116,15 @@ const fieldsForOtherCityLeave =
                 <h1 className={styles.formTitle}>SZUKAJ AUTA</h1>
             </div>
             <div className={styles.formContainer}>
-                <form>
+                <form onSubmit={formHandler}>
                     <label>Początkowa lokalizacja:</label>
                     <div className={styles.inputsArea}>
                         <div>
-                            <select id='Country' 
+                            <select id='CityFrom' 
                                     className={styles.fullWidthField}
-                                    onChange={CountryFormSubmitHandler}>
+                                    onChange={CityFromFormSubmitHandler}>
                                 {
-                                    locations.map((item, index) => {
+                                    cities.map((item, index) => {
                                         return (
                                             <option key={index}
                                                     value={item.Value}>
@@ -109,11 +136,11 @@ const fieldsForOtherCityLeave =
                             </select>
                         </div>
                         <div>
-                            <select id='City'
+                            <select id='LocationFrom'
                                     className={styles.fullWidthField}
-                                    onChange={CityFormSubmitHandler}>
+                                    onChange={LocationFromFormSubmitHandler}>
                                 {
-                                    cities.map((item, index) => {
+                                    locations.map((item, index) => {
                                         return (
                                             <option key={index}
                                                     value={item.Value}>
@@ -186,7 +213,7 @@ const fieldsForOtherCityLeave =
                         </div>
                     </div>
                     <div className={styles.formSubmitButtonSpace}>
-                        <button className={!otherCityLeaveOption 
+                        <button type='submit' className={!otherCityLeaveOption 
                                             ? 
                                            `${styles.formSubmitButton} ${styles.formSubmitButtonMargin}`
                                             :
