@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../../../../Axios/axiosDefault.js'
 import styles from './Banner.module.css'
 import possibleHours from './hoursToSelect.js'
+import Cookie from 'universal-cookie'
 
 function Banner() {
 
@@ -15,6 +16,22 @@ const [selectedLocationFrom, setSelectedLocationFrom] = useState()
 
 const [selectedCityTo, setSelectedCityTo] = useState()
 const [selectedLocationTo, setSelectedLocationTo] = useState()
+
+const [dateFrom, setDateFrom] = useState()
+const [hourFrom, setHourFrom] = useState()
+
+const [dateTo, setDateTo] = useState()
+const [hourTo, setHourTo] = useState()
+
+const RemoveCookie = (cookieName) => {
+    const cookies = new Cookie()
+
+    const selectedCookie = cookies.get(`${cookieName}`)
+
+    if (selectedCookie !== undefined) {
+        cookies.remove(`${cookieName}`, { path: '/' })
+    }
+}
 
 const GetCities = async () => {
     try {
@@ -52,6 +69,21 @@ const LocationLeaveFormSubmitHandler = (event) => {
     setSelectedLocationTo(event.target.value)
 }
 
+const SetDateFromHandler = (event) => {
+    setDateFrom(event.target.data)
+}
+
+const setHourFromHandler = (event) => {
+    setHourFrom(event.target.value)
+}
+
+const SetDateToHandler = (event) => {
+    setDateTo(event.target.data)
+}
+
+const setHourToHandler = (event) => {
+    setHourTo(event.target.value)
+}
 
 const SetOtherCityLeaveOptionHandler = (value) => {
     setOtherCityLeaveOption(value)
@@ -60,7 +92,25 @@ const SetOtherCityLeaveOptionHandler = (value) => {
 const formHandler = async (event) => {
     event.preventDefault();
 
-    // tutaj ustawie ciasteczka
+
+    const cookies = new Cookie()
+    cookies.set('selectedCityFrom', `${selectedCityFrom}`, { path: '/' })
+    cookies.set('selectedLocationFrom', `${selectedLocationFrom}`, { path: '/' })
+    cookies.set('dateFrom', `${dateFrom}`, { path: '/' })
+    cookies.set('hourFrom', `${hourFrom}`, { path: '/' })
+    cookies.set('dateTo', `${dateTo}`, { path: '/' })
+    cookies.set('hourTo', `${hourTo}`, { path: '/' })
+
+    if (!otherCityLeaveOption) {
+        cookies.set('selectedCityTo', `${selectedCityFrom}`, { path: '/' })
+        cookies.set('selectedLocationTo', `${selectedLocationFrom}`, { path: '/' })
+    }
+    else {
+        cookies.set('selectedCityTo', `${selectedCityTo}`, { path: '/' })
+        cookies.set('selectedLocationTo', `${selectedLocationTo}`, { path: '/' })
+    }
+
+    // window.location.href = '/'
 }
 
 const fieldsForOtherCityLeave = 
@@ -104,10 +154,17 @@ const fieldsForOtherCityLeave =
 
 
   useEffect(() => {
-    GetCities();
+    RemoveCookie('selectedCityFrom')
+    RemoveCookie('selectedLocationFrom')
+    RemoveCookie('selectedCityTo')
+    RemoveCookie('selectedLocationTo')
+    RemoveCookie('dateFrom')
+    RemoveCookie('hourFrom')
+    RemoveCookie('dateTo')
+    RemoveCookie('hourTo')
 
-    // tutaj powinienem usunac ciasteczko "mozna isc dalej"
-  },[])
+    GetCities();
+  }, [])
 
   return (
     <div className={`${styles.bannerWrapper}`}>
@@ -180,8 +237,8 @@ const fieldsForOtherCityLeave =
                         <div className={styles.formTimeWrapper}>
                             <label>Od:</label>
                             <div>
-                                <input type='date' ></input>
-                                <select>
+                                <input type='date' onChange={SetDateFromHandler}></input>
+                                <select onChange={setHourFromHandler}>
                                     {
                                         possibleHours.map((item, index) => {
                                             return (
@@ -197,8 +254,8 @@ const fieldsForOtherCityLeave =
                         <div className={styles.formTimeWrapper}>
                             <label>Do:</label>
                             <div>
-                            <input type='date' ></input>
-                                <select>
+                            <input type='date' onChange={SetDateToHandler}></input>
+                                <select onChange={setHourToHandler}>
                                     {
                                         possibleHours.map((item, index) => {
                                             return (
