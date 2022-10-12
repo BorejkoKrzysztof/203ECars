@@ -41,7 +41,7 @@ namespace _2035Cars_Core.Domain
         public DateTime RentedTo { get; set; }
 
         [Required]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         [Required]
         // [ForeignKey("Rental")]

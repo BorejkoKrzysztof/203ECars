@@ -12,6 +12,6 @@ namespace _2035Cars_Application.DTO
         public bool HasHeatingSeats { get; set; }
         public bool HasAutomaticGearBox { get; set; }
         public bool HasBuildInNavigation { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
     }
 }
