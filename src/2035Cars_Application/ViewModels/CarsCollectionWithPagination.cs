@@ -8,5 +8,6 @@ namespace _2035Cars_application.ViewModels
         // public int amountOfAllCars { get; set; }
         public int amountOfPages { get; set; }
         public int currentPage { get; set; }
+        public double amountOfHours { get; set; }
     }
 }

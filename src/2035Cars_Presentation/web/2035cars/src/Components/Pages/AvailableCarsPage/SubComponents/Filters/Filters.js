@@ -4,7 +4,7 @@ import TimeAndLocationsFilter from './TimeAndLocationFilter/TimeAndLocationsFilt
 import CarFeaturesFilter from './CarFeaturesFilter/CarFeaturesFilter'
 
 
-function Filters() {
+function Filters(props) {
 
   return (
     <>

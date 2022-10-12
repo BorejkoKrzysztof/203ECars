@@ -61,6 +61,7 @@ namespace _2035Cars_Application.Services
 
                 // Count Total Price For Renting
                 var hours = (carFeatures.OrderTo.ToUniversalTime() - DateTime.UtcNow).TotalHours;
+                result.amountOfHours = hours;
                 cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
 
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);

@@ -7,7 +7,7 @@ function KindsOfCarBar() {
 
 
   return (
-    <div className={styles.kindsOfCarBarWrapper}>
+    <div className={styles.kindsOfCarBarWrapper} id='carsTypes'>
         <h1>Mamy wszystko, czego potrzebujesz</h1>
         <p>
             Kabriolety, samochody luksusowe, SUV-y i samochody sportowe to jedne z najpopularniejszych
