@@ -4,6 +4,7 @@ namespace _2035Cars_Core.Enums
     {
         Sales,
         Customer_Service,
-        Marketing
+        Marketing,
+        Management
     }
 }

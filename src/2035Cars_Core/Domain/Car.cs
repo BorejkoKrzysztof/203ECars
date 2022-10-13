@@ -38,17 +38,17 @@ namespace _2035Cars_Core.Domain
         [Required]
         public bool IsRented { get; set; }
 
-        public DateTime RentedTo { get; set; }
+        public DateTime? RentedTo { get; set; }
 
         [Required]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
         [Required]
         // [ForeignKey("Rental")]
         public long RentalId { get; set; }
         public virtual Rental Rental { get; set; }
 
-        protected Car()
+        public Car()
         {
             
         }

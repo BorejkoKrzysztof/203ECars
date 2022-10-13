@@ -22,8 +22,8 @@ function App() {
 
 
 
-
-              <Route path='/' element={<AvailableCarsPage />} />
+              <Route path='/' element={<ContactPage />}/>
+              {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
               {/* <Route path='/' element={<GivePersonalDataPage />} /> */}

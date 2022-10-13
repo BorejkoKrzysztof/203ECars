@@ -1,11 +1,14 @@
 using System.Text;
 using _2035Cars_Application;
 using _2035Cars_Infrastructure;
+using _2035Cars_Infrastructure.Database.Seeder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDirectoryBrowser();
 
 // Add services to the container.
 
@@ -71,6 +74,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.SeedExtension(builder.Environment.WebRootPath);
 
 if (app.Environment.IsDevelopment())
 {
