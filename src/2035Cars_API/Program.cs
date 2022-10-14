@@ -77,7 +77,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.SeedExtension(builder.Environment.WebRootPath);
+// app.SeedExtension(builder.Environment.WebRootPath);
 
 if (app.Environment.IsDevelopment())
 {
