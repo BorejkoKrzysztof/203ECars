@@ -13,10 +13,10 @@ namespace _2035Cars_Infrastructure.Database.Seeder
             var services = scope.ServiceProvider;
 
             var context = services.GetRequiredService<CarDbContext>();
-            
+
             using var transaction = context.Database.BeginTransaction();
 
-            if(!context.Rentals.Any() && !context.Cars.Any() && !context.Employees.Any())
+            if (!context.Rentals.Any() && !context.Cars.Any() && !context.Employees.Any())
             {
                 var seeder = new Seeder(context, webPath);
                 seeder.SeedRentals();
@@ -26,6 +26,12 @@ namespace _2035Cars_Infrastructure.Database.Seeder
             {
                 var seeder = new Seeder(context, webPath);
                 seeder.SeedClients();
+            }
+
+            if (!context.Orders.Any())
+            {
+                var seeder = new Seeder(context, webPath);
+                seeder.SeedOrders();
             }
 
             transaction.Commit();

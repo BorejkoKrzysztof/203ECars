@@ -508,7 +508,7 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                             AmountOfSeats = 5,
                             PriceForOneHour = 320.00M,
                             IsRented = false,
-                            Image = ConvertImage(@$"{this._wwwRootPath}\images\Hyundai_Ioniq.png"),
+                            Image = ConvertImage(@$"{this._wwwRootPath}\images\Hyundai_Ioniq_5.png"),
                             CreatedDate = DateTime.UtcNow,
                             LastUpdateDate = DateTime.UtcNow,
                         },
@@ -987,7 +987,7 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                     {
                         new Car()
                         {
-                            Brand = "Hyundaui",
+                            Brand = "Hyundai",
                             Model = "Ioniq",
                             Equipment = new CarEquipment(false, false, false, false),
                             CarType = CarType.Sedan,
@@ -996,7 +996,7 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                             AmountOfSeats = 4,
                             PriceForOneHour = 100.00M,
                             IsRented = false,
-                            Image = ConvertImage(@$"{this._wwwRootPath}\images\Hyundai_Ioniq.png"),
+                            Image = ConvertImage(@$"{this._wwwRootPath}\images\Hyundai_Ioniq_5.png"),
                             CreatedDate = DateTime.UtcNow,
                             LastUpdateDate = DateTime.UtcNow,
                         },

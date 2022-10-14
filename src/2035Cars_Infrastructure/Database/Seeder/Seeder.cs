@@ -18,14 +18,14 @@ namespace _2035Cars_Infrastructure.Database.Seeder
         private readonly CarDbContext _dbContext;
         private readonly string _wwwRootPath;
 
-        
+
 
         public void SeedRentals()
         {
             _dbContext.Database.EnsureCreated();
 
-            if (!_dbContext.Rentals.Any() && 
-                !_dbContext.Cars.Any() && 
+            if (!_dbContext.Rentals.Any() &&
+                !_dbContext.Cars.Any() &&
                 !_dbContext.Employees.Any())
             {
                 var rentalSeeder = new RentalData(this._wwwRootPath);
@@ -39,7 +39,7 @@ namespace _2035Cars_Infrastructure.Database.Seeder
         {
             this._dbContext.Database.EnsureCreated();
 
-            if(!_dbContext.Clients.Any())
+            if (!_dbContext.Clients.Any())
             {
                 var carSeeder = new ClientsData();
 
@@ -52,15 +52,24 @@ namespace _2035Cars_Infrastructure.Database.Seeder
         {
             this._dbContext.Database.EnsureCreated();
 
-            if(!_dbContext.Orders.Any())
+            if (!_dbContext.Orders.Any())
             {
                 var rentals = this._dbContext.Rentals.Include(x => x.Cars)
                                                      .Include(x => x.Employees)
                                                      .ToList();
-                                                     
+
                 var clients = this._dbContext.Clients.ToList();
 
                 var orderSeeder = new OrderData(rentals, clients);
+
+                this._dbContext.Orders.AddRange(orderSeeder.GetOrders());
+                this._dbContext.SaveChanges();
+
+                this._dbContext.Rentals.UpdateRange(rentals);
+                this._dbContext.SaveChanges();
+
+                this._dbContext.Clients.UpdateRange(clients);
+                this._dbContext.SaveChanges();
             }
         }
     }
