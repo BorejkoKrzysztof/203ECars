@@ -16,22 +16,30 @@ namespace _2035Cars_Infrastructure.Database.Seeder
 
             using var transaction = context.Database.BeginTransaction();
 
-            if (!context.Rentals.Any() && !context.Cars.Any() && !context.Employees.Any())
+            try
             {
-                var seeder = new Seeder(context, webPath);
-                seeder.SeedRentals();
-            }
+                if (!context.Rentals.Any() && !context.Cars.Any() && !context.Employees.Any())
+                {
+                    var seeder = new Seeder(context, webPath);
+                    seeder.SeedRentals();
+                }
 
-            if (!context.Clients.Any())
-            {
-                var seeder = new Seeder(context, webPath);
-                seeder.SeedClients();
-            }
+                if (!context.Clients.Any())
+                {
+                    var seeder = new Seeder(context, webPath);
+                    seeder.SeedClients();
+                }
 
-            if (!context.Orders.Any())
+                if (!context.Orders.Any())
+                {
+                    var seeder = new Seeder(context, webPath);
+                    seeder.SeedOrders();
+                }
+            }
+            catch (System.Exception ex)
             {
-                var seeder = new Seeder(context, webPath);
-                seeder.SeedOrders();
+                System.Console.WriteLine($"ERROR: {ex.Message}");
+                throw;
             }
 
             transaction.Commit();
