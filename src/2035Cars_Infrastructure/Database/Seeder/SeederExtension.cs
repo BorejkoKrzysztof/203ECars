@@ -35,14 +35,14 @@ namespace _2035Cars_Infrastructure.Database.Seeder
                     var seeder = new Seeder(context, webPath);
                     seeder.SeedOrders();
                 }
+
+                transaction.Commit();
             }
             catch (System.Exception ex)
             {
                 System.Console.WriteLine($"ERROR: {ex.Message}");
                 throw;
             }
-
-            transaction.Commit();
 
             return app;
         }
