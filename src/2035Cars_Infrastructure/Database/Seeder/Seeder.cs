@@ -3,6 +3,7 @@ using _2035Cars_Core.Domain;
 using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Database.Seeder.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace _2035Cars_Infrastructure.Database.Seeder
 {
@@ -34,7 +35,7 @@ namespace _2035Cars_Infrastructure.Database.Seeder
             }
         }
 
-        public void SeedCars()
+        public void SeedClients()
         {
             this._dbContext.Database.EnsureCreated();
 
@@ -53,7 +54,13 @@ namespace _2035Cars_Infrastructure.Database.Seeder
 
             if(!_dbContext.Orders.Any())
             {
-                
+                var rentals = this._dbContext.Rentals.Include(x => x.Cars)
+                                                     .Include(x => x.Employees)
+                                                     .ToList();
+                                                     
+                var clients = this._dbContext.Clients.ToList();
+
+                var orderSeeder = new OrderData(rentals, clients);
             }
         }
     }
