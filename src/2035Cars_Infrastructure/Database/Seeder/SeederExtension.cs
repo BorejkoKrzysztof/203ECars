@@ -14,34 +14,45 @@ namespace _2035Cars_Infrastructure.Database.Seeder
 
             var context = services.GetRequiredService<CarDbContext>();
 
-            using var transaction = context.Database.BeginTransaction();
+            bool rentalsExists = context.Rentals.Any();
+            bool carsExists = context.Cars.Any();
+            bool employeesExists = context.Employees.Any();
+            bool clientsExists = context.Clients.Any();
+            bool ordersExists = context.Orders.Any();
 
-            try
+            if(!rentalsExists && !carsExists && !employeesExists
+                ||  !clientsExists
+                ||  !ordersExists )
             {
-                if (!context.Rentals.Any() && !context.Cars.Any() && !context.Employees.Any())
-                {
-                    var seeder = new Seeder(context, webPath);
-                    seeder.SeedRentals();
-                }
+                using var transaction = context.Database.BeginTransaction();
 
-                if (!context.Clients.Any())
+                try
                 {
-                    var seeder = new Seeder(context, webPath);
-                    seeder.SeedClients();
-                }
+                    if (!rentalsExists && !carsExists && !employeesExists)
+                    {
+                        var seeder = new Seeder(context, webPath);
+                        seeder.SeedRentals();
+                    }
 
-                if (!context.Orders.Any())
+                    if (!clientsExists)
+                    {
+                        var seeder = new Seeder(context, webPath);
+                        seeder.SeedClients();
+                    }
+
+                    if (!ordersExists)
+                    {
+                        var seeder = new Seeder(context, webPath);
+                        seeder.SeedOrders();
+                    }
+
+                    transaction.Commit();
+                }
+                catch (System.Exception ex)
                 {
-                    var seeder = new Seeder(context, webPath);
-                    seeder.SeedOrders();
+                    System.Console.WriteLine($"ERROR: {ex.Message}");
+                    throw;
                 }
-
-                transaction.Commit();
-            }
-            catch (System.Exception ex)
-            {
-                System.Console.WriteLine($"ERROR: {ex.Message}");
-                throw;
             }
 
             return app;

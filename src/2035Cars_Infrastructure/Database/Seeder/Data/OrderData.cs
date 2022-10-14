@@ -28,7 +28,9 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                 EndDate = new DateTime(2022, 2, 14, 10, 0, 0),
                 CostOfRental = 1200.00M,
                 Finished = true,
-                UniqueOrderNumber = Guid.NewGuid()
+                UniqueOrderNumber = Guid.NewGuid(),
+                CreatedDate = DateTime.UtcNow,
+                LastUpdateDate = DateTime.UtcNow
             });
 
             orders.Add(new Order()
@@ -42,7 +44,9 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                 EndDate = new DateTime(2022, 4, 25, 10, 0, 0),
                 CostOfRental = 2800.00M,
                 Finished = true,
-                UniqueOrderNumber = Guid.NewGuid()
+                UniqueOrderNumber = Guid.NewGuid(),
+                CreatedDate = DateTime.UtcNow,
+                LastUpdateDate = DateTime.UtcNow
             });
 
             orders.Add(new Order()
@@ -56,7 +60,9 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                 EndDate = new DateTime(2022, 4, 25, 10, 0, 0),
                 CostOfRental = 3000.00M,
                 Finished = true,
-                UniqueOrderNumber = Guid.NewGuid()
+                UniqueOrderNumber = Guid.NewGuid(),
+                CreatedDate = DateTime.UtcNow,
+                LastUpdateDate = DateTime.UtcNow
             });
 
             orders.Add(new Order()
@@ -70,7 +76,9 @@ namespace _2035Cars_Infrastructure.Database.Seeder.Data
                 EndDate = new DateTime(2022, 1, 25, 10, 0, 0),
                 CostOfRental = 3000.00M,
                 Finished = true,
-                UniqueOrderNumber = Guid.NewGuid()
+                UniqueOrderNumber = Guid.NewGuid(),
+                CreatedDate = DateTime.UtcNow,
+                LastUpdateDate = DateTime.UtcNow
             });
 
             return orders;
