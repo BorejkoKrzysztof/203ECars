@@ -1,0 +1,212 @@
+.wrapper{
+    width: 100vw;
+    min-height: calc(100vh - var(--navbarHeight));
+    margin-top: var(--navbarHeight);
+    margin-bottom: 25px;
+}
+
+.loginContainer{
+    width: 95vw;
+    height: auto;
+    border: solid 3px var(--darkBlueThemeColor);
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    overflow-y: hidden;
+}
+
+.loginForm{
+    overflow-y: hidden;
+}
+
+.loginContainer h1{
+    font-size: 50px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: var(--darkBlueThemeColor);
+    overflow-y: hidden;
+}
+
+.loginContainer h1 > span{
+    color: var(--greyThemeColor);
+    /* vertical-align: text-top; */
+}
+
+/* .carIcon{
+    padding-top: 10px;
+} */
+
+.loginContainer div{
+    margin-bottom: 40px;
+}
+
+.loginContainer form div label{
+    font-size: 36px;
+    margin-left: 5vw;
+}
+
+.loginContainer form div input{
+    font-size: 30px;
+    width: 80vw;
+    height: 36px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    border: none;
+    border-bottom: solid 3px var(--darkBlueThemeColor);
+    outline: none;
+}
+
+.credentialsError{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button.loginButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 50px;
+    font-size: 36px;
+    color: var(--darkBlueThemeColor);
+    border: solid 3px var(--darkBlueThemeColor);
+    background-color: white;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.registerOffer{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: var(--greyThemeColor);
+}
+
+.registerLink{
+    margin-left: 1vw;
+    color: red;
+    font-size: 18px;
+}
+
+.registerLink:visited{
+    color: red;
+}
+
+@media screen and (orientation: landscape) {
+    
+    .loginContainer{
+        width: 95vw;
+        height: auto;
+    }
+
+    .loginForm{
+        margin-top: 35px;
+    }
+
+    .loginContainer form div label{
+        font-size: 30px;
+    }
+    
+    .loginContainer form div input{
+        font-size: 24px;
+    }
+    
+    .credentialsError{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: red;
+    }
+    
+    button.loginButton{
+        margin-top: 35px;
+    }
+    
+    .registerOffer{
+        text-align: center;
+        margin-top: 35px;
+        color: var(--greyThemeColor);
+    }
+    
+    .registerLink{
+        margin-left: 1vw;
+        color: red;
+        font-size: 18px;
+    }
+    
+    .registerLink:visited{
+        color: red;
+    }
+}
+
+@media screen and (min-width: 960px) {
+
+    .loginContainer{
+        width: 65vw;
+        height: 460px;
+        margin-left: 22.5vw;
+        margin-top: 55px;
+    }
+
+    .loginContainer h1{
+        font-size: 50px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    .loginContainer div{
+        margin-bottom: 5px;
+    }
+
+    .loginContainer form div label{
+        font-size: 28px;
+    }
+    
+    .loginContainer form div input{
+        font-size: 22px;
+        width: 55vw;
+        height: 45px;
+    }
+
+    .buttonContainer{
+        margin-top: 10px;
+    }
+
+    .registerOffer{
+        margin-top: 35px;
+    }
+
+    button.loginButton{
+        cursor: pointer;
+        width: 25vw;
+        height: 50px;
+        font-size: 26px;
+    }
+
+    button.loginButton:hover{
+        color: var(--blueThemeColor);
+        border: solid 3px var(--blueThemeColor);
+    }
+
+    .registerLink:hover{
+        color: var(--blueThemeColor);
+    }
+
+    .registerLink:visited:hover{
+        color: var(--blueThemeColor);
+    }
+}
