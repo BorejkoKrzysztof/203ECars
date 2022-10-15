@@ -22,6 +22,10 @@ function CarCard() {
             </CardTitle>
         </CardBody>
         <CardBody className={styles.carCardButtonContent}>
+        <a className={`btn btn-primary ${styles.greenLink} ${styles.buttonLink}`}
+                href="#">
+                Zobacz
+            </a>
             <a className={`btn btn-primary ${styles.blueLink} ${styles.buttonLink}`}
                 href="#">
                 Edytuj

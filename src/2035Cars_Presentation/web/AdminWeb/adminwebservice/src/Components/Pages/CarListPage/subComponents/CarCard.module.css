@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
 
-    width: 90px;
+    width: 70px;
 }
 
 .blueLink{
@@ -28,4 +28,14 @@
 .blueLink:hover{
     background-color: var(--darkBlueThemeColor);
     border-color: var(--darkBlueThemeColor);
+}
+
+.greenLink{
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+}
+
+.greenLink:hover{
+    background-color: var(--yellowGreenHoverThemeColor);
+    border-color: var(--yellowGreenHoverThemeColor);
 }
