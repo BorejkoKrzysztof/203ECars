@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Register from './Components/Pages/RegisterPage/RegisterPage';
 import EmployeeListPage from './Components/Pages/EmployeeListPage/EmployeeListPage';
 import EmployeeDetails from './Components/Pages/EmployeeDetails/EmployeeDetails';
+import CarListPage from './Components/Pages/CarListPage/CarListPage';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           {/* <Route path='/' element={<LoginPage />}/> */}
           {/* <Route path='/rejestracja' element={<Register />} /> */}
           {/* <Route path='/' element={<EmployeeListPage />} /> */}
-          <Route path='/' element={<EmployeeDetails />} />
+          {/* <Route path='/' element={<EmployeeDetails />} /> */}
+          <Route path='/' element={<CarListPage />} />
         </Routes>
       <Footer />
     </Router>
