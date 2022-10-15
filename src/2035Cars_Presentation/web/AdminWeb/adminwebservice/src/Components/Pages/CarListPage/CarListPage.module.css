@@ -45,6 +45,16 @@
     background-color: red;
 }
 
+.colorButtonLink{
+    background-color: var(--blueThemeColor);
+    border-color: var(--blueThemeColor);
+}
+
+.colorButtonLink:hover{
+    background-color: var(--darkBlueThemeColor);
+    border-color: var(--darkBlueThemeColor);
+}
+
 @media screen and (orientation: landscape) {
     
     .wrapper{
@@ -69,6 +79,12 @@
                              "carContent"
                              "carContent"
                              "pagination";
+    }
+
+    .pageDescription{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .paginationArea{

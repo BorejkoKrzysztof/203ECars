@@ -12,6 +12,20 @@
     margin-bottom: 10px;
 }
 
-/* @media screen and (orientation: landscape) {
-    
-} */
+.buttonLink{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90px;
+}
+
+.blueLink{
+    background-color: var(--blueThemeColor);
+    border-color: var(--blueThemeColor);
+}
+
+.blueLink:hover{
+    background-color: var(--darkBlueThemeColor);
+    border-color: var(--darkBlueThemeColor);
+}

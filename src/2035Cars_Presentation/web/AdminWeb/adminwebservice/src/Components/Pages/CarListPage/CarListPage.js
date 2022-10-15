@@ -12,6 +12,9 @@ function CarListPage() {
     <div className={styles.wrapper}>
         <div className={styles.pageDescription}>
             <p>Tutaj możesz znaleźć informacje nt. floty samochodów oraz modyfikować je i usuwać.</p>
+            <a className={`btn btn-primary ${styles.colorButtonLink}`} style={{ marginLeft: "5px" }}>
+                Dodaj nowy samochód
+            </a>
         </div>
         <div className={styles.cars}>
             <CarCard />
