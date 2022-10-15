@@ -8,6 +8,7 @@ import EmployeeListPage from './Components/Pages/EmployeeListPage/EmployeeListPa
 import EmployeeDetails from './Components/Pages/EmployeeDetails/EmployeeDetails';
 import CarListPage from './Components/Pages/CarListPage/CarListPage';
 import CarDetailsPage from './Components/Pages/CarDetailsPage/CarDetailsPage';
+import AddCarPage from './Components/Pages/AddCarPage/AddCarPage';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           {/* <Route path='/' element={<EmployeeListPage />} /> */}
           {/* <Route path='/' element={<EmployeeDetails />} /> */}
           {/* <Route path='/' element={<CarListPage />} /> */}
-          <Route path='/' element={<CarDetailsPage />}/>
+          {/* <Route path='/' element={<CarDetailsPage />}/> */}
+          <Route path='/' element={<AddCarPage />}/>
         </Routes>
       <Footer />
     </Router>
