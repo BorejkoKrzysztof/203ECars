@@ -1,0 +1,320 @@
+.pageWrapper{
+    width: 100vw;
+    min-height: calc(100vh - var(--navbarHeight));
+    margin-top: var(--navbarHeight);
+}
+
+.pageTitle{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    text-align: center;
+    color: var(--blueThemeColor);
+}
+
+.formContainer{
+    border: solid 3px var(--darkBlueThemeColor);
+    width: 95vw;
+    height: 90vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title{
+    font-size: 52px;
+    color: var(--darkBlueThemeColor);
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    overflow: hidden;
+}
+
+.title > span{
+    color: var(--greyThemeColor);
+}
+
+.registerForm{
+    overflow: hidden;
+}
+
+form.registerForm div label{
+    font-size: 30px;
+    margin-left: 5vw;
+}
+
+.offScreen{
+    display: none;
+}
+
+.errorDescription{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    border: solid 2px var(--blueThemeColor);
+    margin-left: 5vw;
+    width: 80%;
+    height: 16vh;
+    background-color: white;
+    color: var(--lightBlueColor);
+    position: absolute;
+    overflow: hidden;
+}
+
+.warningIcons{
+    display: block;
+    width: 20%;
+    font-weight: bold;
+    margin-left: 2vw;
+    margin-right: 4vw;
+    font-weight: bold;
+    color: red;
+    font-size: 40px;
+    overflow: hidden;
+}
+
+.errorDescription p {
+    font-size: 16px;
+    display: block;
+    width: 80%;
+}
+
+form.registerForm div input{
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 1vh;
+    font-size: 24px;
+    width: 80vw;
+    height: 5.5vh;
+    border: none;
+    border-bottom: solid 2px var(--darkBlueThemeColor);
+    outline: none;
+}
+
+.errorBanner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorText{
+    color: red;
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+}
+
+button.submitButton{
+    width: 50vw;
+    height: 8vh;
+    font-size: 36px;
+    color: var(--darkBlueColor);
+    border: solid 3px var(--darkBlueThemeColor);
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (orientation: landscape) {
+
+    .formContainer{
+        height: 155vh;
+    }
+
+    form.registerForm div label{
+        font-size: 30px;
+    }
+
+    form.registerForm div input{
+        font-size: 26px;
+        height: 10vh;
+    }
+
+    .errorDescription{
+        height: 25vh;
+    }
+
+    .buttonContainer{
+        margin-top: 5vh;
+    }
+
+    button.submitButton{
+        height: 14vh;
+    }
+}
+
+@media screen and (min-width:960px) {
+
+    .pageTitle{
+        text-align: center;
+        margin-left: 8vw;
+    }
+
+    .formContainer{
+        width: 65vw;
+        min-height: 400px;
+        margin-left: 22.5vw;
+        margin-top: 3.5vh;
+        height: auto;
+    }
+
+    .title{
+        font-size: 46px;
+    }
+
+    .registerForm{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        height: 80%;
+    }
+
+    .inputContainer{
+        flex: 1, 1;
+    }
+
+    .inputContainer, .buttonContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        height: 35%;
+    }
+
+    form.registerForm div input{
+        font-size: 18px;
+        width: 24vw;
+        height: 8vh;
+    }
+
+    .errorDescription{
+        margin-top: 30vh;
+        margin-left: 4.7vw;
+        width: 25%;
+        height: 16.5vh;
+    }
+
+    .errorDescription p {
+        margin-right: 1vw;
+        word-wrap: break-word;
+        font-size: 11px;
+    }
+
+    .buttonContainer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-bottom: 5vh;
+    }
+
+    button.submitButton{
+        width: 25vw;
+        height: 6vh;
+        min-height: 50px;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    button.submitButton:hover{
+        color: var(--blueThemeColor);
+        border: solid 3px var(--blueThemeColor);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    
+    .errorDescription p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1350px) {
+
+    .errorDescription p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-height: 600px) {
+        
+    .errorDescription{
+        margin-top: 35vh;
+    }
+
+    .errorDescription p {
+        font-size: 12px;
+    }
+   
+}
+
+@media screen and (min-width: 960px) and (max-height: 480px) {
+    
+    .errorDescription{
+        margin-top: 35vh;
+    }
+
+    .errorDescription p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-height: 400px) {
+
+    .errorDescription{
+        margin-top: 36vh;
+        min-height: 60px;
+    }
+
+    .errorDescription p {
+        font-size: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 960px) and (max-height: 360px) {
+
+    .errorDescription{
+        margin-top: 37vh;
+    }    
+}
+
+@media screen and (min-width: 960px) and (max-height: 325px) {
+
+    .errorDescription{
+        margin-top: 38vh;
+    }    
+}
+
+@media screen and (min-width: 960px) and (max-height: 300px) {
+
+    .errorDescription{
+        margin-top: 48vh;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-height: 250px) {
+
+    .errorDescription{
+        margin-top: 60vh;
+    }  
+}
+
+@media screen and (min-width: 960px) and (max-height: 225px) {
+
+    .errorDescription{
+        margin-top: 85vh;
+    }
+}
