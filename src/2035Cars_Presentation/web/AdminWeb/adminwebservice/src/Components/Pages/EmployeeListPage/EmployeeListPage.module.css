@@ -1,0 +1,82 @@
+.wrapper{
+    min-height: 100vh;
+    padding-top: 30px;
+    overflow-x: hidden;
+}
+
+.employeePageTitle{
+    text-align: center;
+}
+
+.employeeTableListArea{
+    margin-top: 20px;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerRow{
+    text-align: center;
+}
+
+.buttonStyle{
+    font-size: 16px;
+    color: var(--darkBlueThemeColor);
+    border: solid 2px var(--darkBlueThemeColor);
+    background-color: white;
+    overflow: hidden;
+}
+
+.buttonStyle:hover{
+    border-color: var(--blueThemeColor);
+    color: var(--blueThemeColor);
+}
+
+.buttonStylePagination{
+    font-size: 16px;
+    color: var(--darkBlueThemeColor);
+    border-top: solid 2px var(--darkBlueThemeColor);
+    border-bottom: solid 2px var(--darkBlueThemeColor);
+    border-left: solid 1px var(--darkBlueThemeColor);
+    border-right: solid 1px var(--darkBlueThemeColor);
+    background-color: white;
+    overflow: hidden;
+}
+
+.buttonStylePagination > a{
+    color: var(--darkBlueThemeColor);
+}
+.buttonStylePagination:hover{
+    border-color: var(--blueThemeColor)
+}
+
+.buttonStylePagination > a:hover{
+    background-color: #fff;
+    color: var(--blueThemeColor);
+}
+
+.paginationArea{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100vw;
+    left: auto;
+    right: auto;
+    bottom: 0;
+}
+
+@media screen and (min-width: 960px) {
+    .employeeTableListArea{
+        width: 70vw;
+    }
+
+    .detailsButton:hover{
+        color: var(--blueThemeColor);
+        border-color: var(--blueThemeColor);
+    }
+
+    .paginationArea{
+        width: 90vw;
+        justify-content: flex-end;
+    }
+}
