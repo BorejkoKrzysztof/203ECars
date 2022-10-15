@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     height: 60px;
+    background-color: #fff;
 }
 
 .buttonsRow{
@@ -30,6 +31,16 @@
 
 .buttonColor:hover{
     color: white;
+    border-color: var(--blueThemeColor);
+    background-color: var(--blueThemeColor);
+}
+
+.buttonFullColor{
+    border-color: var(--darkBlueThemeColor);
+    background-color: var(--darkBlueThemeColor);
+}
+
+.buttonFullColor:hover{
     border-color: var(--blueThemeColor);
     background-color: var(--blueThemeColor);
 }

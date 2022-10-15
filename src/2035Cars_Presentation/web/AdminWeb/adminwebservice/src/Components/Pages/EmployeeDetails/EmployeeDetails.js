@@ -43,7 +43,7 @@ function EmployeeDetails() {
                         <MdNetworkCell /> Menadżer
                     </ListGroupItem>
                     <ListGroupItem className={styles.buttonsRow}>
-                        <a className="btn btn-primary">
+                        <a className={`btn btn-primary ${styles.buttonFullColor}`}>
                             Edytuj
                         </a>
                         <a className='btn btn-danger'>
