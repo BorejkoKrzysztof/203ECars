@@ -11,7 +11,7 @@ function CarListPage() {
   return (
     <div className={styles.wrapper}>
         <div className={styles.pageDescription}>
-            <p>Tutaj możesz znaleźć informacje nt. dostępnych samochodów oraz modyfikować je i usuwać.</p>
+            <p>Tutaj możesz znaleźć informacje nt. floty samochodów oraz modyfikować je i usuwać.</p>
         </div>
         <div className={styles.cars}>
             <CarCard />
