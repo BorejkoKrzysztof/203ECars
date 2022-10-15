@@ -7,6 +7,7 @@ import Register from './Components/Pages/RegisterPage/RegisterPage';
 import EmployeeListPage from './Components/Pages/EmployeeListPage/EmployeeListPage';
 import EmployeeDetails from './Components/Pages/EmployeeDetails/EmployeeDetails';
 import CarListPage from './Components/Pages/CarListPage/CarListPage';
+import CarDetailsPage from './Components/Pages/CarDetailsPage/CarDetailsPage';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           {/* <Route path='/rejestracja' element={<Register />} /> */}
           {/* <Route path='/' element={<EmployeeListPage />} /> */}
           {/* <Route path='/' element={<EmployeeDetails />} /> */}
-          <Route path='/' element={<CarListPage />} />
+          {/* <Route path='/' element={<CarListPage />} /> */}
+          <Route path='/' element={<CarDetailsPage />}/>
         </Routes>
       <Footer />
     </Router>

@@ -1,0 +1,117 @@
+.wrapper{
+    min-height: calc(100vh - 35px);
+}
+
+.cardContent{
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: 90%;
+    min-height: 70vh;
+    border: solid 2px gray;
+
+    display: grid;
+    justify-items: center
+}
+
+.carImageWrapper > img{
+    width: 86vw;
+    margin-bottom: 5px;
+}
+
+.buttonsArea{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonLink{
+    width: 90px;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backButtonArea{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.backButton:hover{
+    background-color: var(--darkBlueThemeColor);
+    border-color: var(--darkBlueThemeColor);
+}
+
+.backButton{
+    color: white;
+    border-color: var(--blueThemeColor);
+    background-color: var(--blueThemeColor);
+}
+
+@media screen and (orientation: landscape) {
+    .cardContent{
+        width: 60vw;
+    }
+
+    .carImageWrapper > img{
+        width: 60vw;
+    }
+
+    .buttonsArea{
+        width: 70%;
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    
+    .cardContent{
+        min-width: 630px;
+    }
+
+    .carImageWrapper{
+        grid-area: image;
+    }
+
+    .carDescription{
+        grid-area: description;
+    }
+    .buttonsArea{
+        grid-area: button;
+    }
+
+    .carImageWrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carImageWrapper > img{
+        width: 420px
+    }
+
+    .cardContent{
+        grid-template-areas: "image description description"
+                            "image description description"
+                            "image description description"
+                            "button button button";
+    }
+
+    .carDescription{
+        margin-top: 15px;
+    }
+
+    .carDescription > h1{
+        font-size: 32px;
+    }
+
+    .carDescription > h3{
+        font-size: 14px;
+    }
+}
