@@ -1,0 +1,42 @@
+.wrapper{
+    min-height: calc(100vh - 20px);
+    display:  flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cardContent{
+    margin-top: -20px;
+}
+
+.cardHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.buttonsRow{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.buttonColor{
+    color: var(--darkBlueThemeColor);
+    border-color: var(--darkBlueThemeColor);
+}
+
+.buttonColor:hover{
+    color: white;
+    border-color: var(--blueThemeColor);
+    background-color: var(--blueThemeColor);
+}
+
+@media screen and (orientation: landscape) {
+    .cardContent{
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+}
