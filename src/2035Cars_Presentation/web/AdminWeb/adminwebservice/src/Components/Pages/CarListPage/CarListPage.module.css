@@ -1,0 +1,88 @@
+.wrapper{
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    display: grid;
+    grid-template-areas: "description"
+                         "carContent"
+                         "carContent"
+                         "carContent"
+                         "carContent"
+                         "pagination";
+
+    justify-items: center;
+    row-gap: 10px;
+}
+
+.pageDescription{
+    margin-top: 5px;
+    grid-area: description;
+    padding: 5px;
+    width: 95%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color: yellow;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cars{
+    grid-area: carContent;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.paginationArea{
+    grid-area: pagination;
+
+    width: 100vw;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: red;
+}
+
+@media screen and (orientation: landscape) {
+    
+    .wrapper{
+        grid-template-areas: "description"
+                             "carContent"
+                             "carContent"
+                             "carContent"
+                             "pagination";
+    }
+
+    .cars{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    
+    .wrapper{
+        grid-template-areas: "description"
+                             "carContent"
+                             "carContent"
+                             "carContent"
+                             "pagination";
+    }
+
+    .paginationArea{
+        margin-bottom: 5px;
+    }
+
+    .cars{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    
+    .cars{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}

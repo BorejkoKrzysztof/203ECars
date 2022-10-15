@@ -1,0 +1,17 @@
+.carCardTitle{
+    text-align: center;
+}
+
+.carCardButtonContent{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cardContent{
+    width: 18rem;
+    margin-bottom: 10px;
+}
+
+/* @media screen and (orientation: landscape) {
+    
+} */
