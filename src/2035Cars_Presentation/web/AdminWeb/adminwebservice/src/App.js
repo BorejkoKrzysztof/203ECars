@@ -11,6 +11,7 @@ import CarDetailsPage from './Components/Pages/CarDetailsPage/CarDetailsPage';
 import AddCarPage from './Components/Pages/AddCarPage/AddCarPage';
 import EditCarPage from './Components/Pages/EditCarPage/EditCarPage';
 import EditEmployeePage from './Components/Pages/EditEmployeePage/EditEmployeePage';
+import AcceptEmployeeRegistrationPage from './Components/Pages/AcceptEmployeeRegistrationPage/AcceptEmployeeRegistrationPage';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           {/* <Route path='/' element={<CarDetailsPage />}/> */}
           {/* <Route path='/' element={<AddCarPage />}/> */}
           {/* <Route path='/' element={<EditCarPage />}/> */}
-          <Route path='/' element={<EditEmployeePage />}/>
+          {/* <Route path='/' element={<EditEmployeePage />}/> */}
+          <Route path='/' element={<AcceptEmployeeRegistrationPage />}/>
         </Routes>
       <Footer />
     </Router>
