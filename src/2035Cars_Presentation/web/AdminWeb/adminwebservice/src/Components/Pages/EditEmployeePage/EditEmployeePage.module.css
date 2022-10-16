@@ -1,0 +1,26 @@
+.formWrapper{
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pageTitle{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.formContent{
+    margin-bottom: 40px;
+}
+
+
+@media screen and (min-width: 960px) {
+    
+    .formWrapper{
+        width: 50vw;
+    }
+
+    .pageTitle{
+        margin-bottom: 40px;
+    }
+}
