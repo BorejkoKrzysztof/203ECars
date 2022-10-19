@@ -6,22 +6,26 @@ import Cookie from 'universal-cookie'
 
 function Banner() {
 
-const [cities, setCities] = useState([{Label: 'Wybierz miasto', Value: ''}])
-const [locations, setLocations] = useState([{Label: 'Wybierz lokacje', Value: ''}])
+const cityDefaultValue = 'Wybierz miasto'
+const locationDefaultValue = 'Wybierz lokalizacje'
+
+const [cities, setCities] = useState([])
+const [locationsFrom, setLocationsFrom] = useState([])
+const [locationsTo, setLocationsTo] = useState([])
 const [otherCityLeaveOption, setOtherCityLeaveOption] = useState(false)
 
 
-const [selectedCityFrom, setSelectedCityFrom] = useState()
-const [selectedLocationFrom, setSelectedLocationFrom] = useState()
+const [selectedCityFrom, setSelectedCityFrom] = useState(`${cityDefaultValue}`)
+const [selectedLocationFrom, setSelectedLocationFrom] = useState(`${locationDefaultValue}`)
 
-const [selectedCityTo, setSelectedCityTo] = useState()
-const [selectedLocationTo, setSelectedLocationTo] = useState()
+const [selectedCityTo, setSelectedCityTo] = useState(`${cityDefaultValue}`)
+const [selectedLocationTo, setSelectedLocationTo] = useState(`${locationDefaultValue}`)
 
-const [dateFrom, setDateFrom] = useState()
-const [hourFrom, setHourFrom] = useState()
+const [dateFrom, setDateFrom] = useState(null)
+const [hourFrom, setHourFrom] = useState(null)
 
-const [dateTo, setDateTo] = useState()
-const [hourTo, setHourTo] = useState()
+const [dateTo, setDateTo] = useState(null)
+const [hourTo, setHourTo] = useState(null)
 
 const RemoveCookie = (cookieName) => {
     const cookies = new Cookie()
@@ -34,38 +38,43 @@ const RemoveCookie = (cookieName) => {
 }
 
 const GetCities = async () => {
-    try {
-        const response = await axios.get('/rental/cities');
-        setCities(response.data);
-    } catch (error) {
-        console.log(error)
-    }
+    axios.get('/rental/cities')
+            .then(response => {
+                setCities([...response.data])
+            })
+            .catch(error => {
+                console.log(error)
+            })
 }
 
-const GetLocations = async (city) => {
-    try {
-        const response = await axios.get(`rental/locations/${city}`)
-        setLocations(response.data)
-    } catch (error) {
-        console.log(error)
-    }
+const GetLocations = async (city, from, to) => {
+    axios.get(`rental/locations/${city}`)
+            .then(response => {
+                if (from === true) {
+                    setLocationsFrom([...response.data])
+                }
+                if (to === true) {
+                    setLocationsTo([...response.data])
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
 }
 
 const CityFromFormSubmitHandler = (event) => {
     setSelectedCityFrom(event.target.value)
-    GetLocations(event.target.value)
 }
 
 const LocationFromFormSubmitHandler= (event) => {
     setSelectedLocationFrom(event.target.value)
 }
 
-const CityLeaveFormSubmitHandler = (event) => {
+const CityToFormSubmitHandler = (event) => {
     setSelectedCityTo(event.target.value)
-    GetLocations(event.target.value)
 }
 
-const LocationLeaveFormSubmitHandler = (event) => {
+const LocationToFormSubmitHandler = (event) => {
     setSelectedLocationTo(event.target.value)
 }
 
@@ -120,13 +129,13 @@ const fieldsForOtherCityLeave =
                     <div>
                         <select id='CityLeave'
                                 className={styles.fullWidthField}
-                                onChange={CityLeaveFormSubmitHandler}>
+                                onChange={CityToFormSubmitHandler}>
                             {
-                                cities.map((item, index) => {
+                                [`${cityDefaultValue}`, ...cities].map((item, index) => {
                                     return (
                                         <option key={index}
-                                                value={item.Value}>
-                                            {item.Label}
+                                                value={item}>
+                                            {item}
                                         </option>
                                     )
                                 })
@@ -136,13 +145,14 @@ const fieldsForOtherCityLeave =
                     <div>
                         <select id='LocationLeave'
                                 className={styles.fullWidthField}
-                                onChange={LocationLeaveFormSubmitHandler}>
+                                value={selectedLocationTo}
+                                onChange={LocationToFormSubmitHandler}>
                             {
-                                locations.map((item, index) => {
+                                [`${locationDefaultValue}`, ...locationsTo].map((item, index) => {
                                     return (
                                         <option key={index}
-                                                value={item.Value}>
-                                            {item.Label}
+                                                value={item}>
+                                            {item}
                                         </option>
                                     )
                                 })
@@ -154,17 +164,45 @@ const fieldsForOtherCityLeave =
 
 
   useEffect(() => {
-    RemoveCookie('selectedCityFrom')
-    RemoveCookie('selectedLocationFrom')
-    RemoveCookie('selectedCityTo')
-    RemoveCookie('selectedLocationTo')
-    RemoveCookie('dateFrom')
-    RemoveCookie('hourFrom')
-    RemoveCookie('dateTo')
-    RemoveCookie('hourTo')
+        RemoveCookie('selectedCityFrom')
+        RemoveCookie('selectedLocationFrom')
+        RemoveCookie('selectedCityTo')
+        RemoveCookie('selectedLocationTo')
+        RemoveCookie('dateFrom')
+        RemoveCookie('hourFrom')
+        RemoveCookie('dateTo')
+        RemoveCookie('hourTo')
 
-    GetCities();
+        GetCities();
   }, [])
+
+  useEffect(() => {
+        if(selectedCityFrom !== `${cityDefaultValue}`) {
+            GetLocations(selectedCityFrom, true, false)
+        } else {
+            setLocationsFrom([])
+        }
+        setSelectedLocationFrom(`${locationDefaultValue}`)
+  }, [selectedCityFrom])
+
+  useEffect(() => {
+        if(selectedCityTo !== `${cityDefaultValue}`) {
+            GetLocations(selectedCityTo, false, true)
+        } else {
+            setLocationsTo([])
+        }
+        setSelectedLocationTo(`${locationDefaultValue}`)
+  }, [selectedCityTo])
+
+  useEffect(() => {
+        if (!otherCityLeaveOption) {
+            setSelectedCityTo(`${cityDefaultValue}`)
+            setSelectedLocationTo(`${locationDefaultValue}`)
+            setLocationsTo([])
+        }
+  }, [otherCityLeaveOption])
+
+
 
   return (
     <div className={`${styles.bannerWrapper}`}>
@@ -181,11 +219,11 @@ const fieldsForOtherCityLeave =
                                     className={styles.fullWidthField}
                                     onChange={CityFromFormSubmitHandler}>
                                 {
-                                    cities.map((item, index) => {
+                                    [`${cityDefaultValue}`, ...cities].map((item, index) => {
                                         return (
                                             <option key={index}
-                                                    value={item.Value}>
-                                                {item.Label}
+                                                    value={item}>
+                                                {item}
                                             </option>
                                         )
                                     })
@@ -195,13 +233,14 @@ const fieldsForOtherCityLeave =
                         <div>
                             <select id='LocationFrom'
                                     className={styles.fullWidthField}
+                                    value={selectedLocationFrom}
                                     onChange={LocationFromFormSubmitHandler}>
                                 {
-                                    locations.map((item, index) => {
+                                    [`${locationDefaultValue}`, ...locationsFrom].map((item, index) => {
                                         return (
                                             <option key={index}
-                                                    value={item.Value}>
-                                                {item.Label}
+                                                    value={item}>
+                                                {item}
                                             </option>
                                         )
                                     })
@@ -233,6 +272,7 @@ const fieldsForOtherCityLeave =
                     </div>
                     {/* Extra fields in form */}
                     { otherCityLeaveOption && fieldsForOtherCityLeave}
+                    {/* Extra fields in form */}
                     <div className={styles.timeInputsArea}>
                         <div className={styles.formTimeWrapper}>
                             <label>Od:</label>
