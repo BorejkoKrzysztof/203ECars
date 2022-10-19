@@ -1,0 +1,45 @@
+.wrapper{
+    min-height: calc(100vh - 30px);
+}
+
+.wrapper > h1{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.tableContent{
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonLink{
+    width: 90px;
+    /* margin-left: 25px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .backButton:hover{
+    background-color: var(--darkBlueThemeColor);
+    border-color: var(--darkBlueThemeColor);
+}
+
+.backButton{
+    color: white;
+    border-color: var(--blueThemeColor);
+    background-color: var(--blueThemeColor);
+} */
+
+.centerRow{
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (orientation: landscape) {
+    .tableContent{
+        width: 75vw;
+    }
+}
