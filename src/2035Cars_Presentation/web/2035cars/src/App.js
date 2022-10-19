@@ -15,14 +15,14 @@ function App() {
       <Router>
         <Navbar />
           <Routes>
-              {/* <Route path='/' element={<MainPage />}/>
+              <Route path='/' element={<MainPage />}/>
               <Route path='/kontakt' element={<ContactPage />}/>
-              <Route path='/samochody' element={<AvailableCarsPage />} /> */}
+              <Route path='/samochody' element={<AvailableCarsPage />} />
 
 
 
 
-              <Route path='/' element={<ContactPage />}/>
+              {/* <Route path='/' element={<ContactPage />}/> */}
               {/* <Route path='/' element={<AvailableCarsPage />} /> */}
               {/* <Route path='/' element={<LoginPage />}/> */}
               {/* <Route path='/' element={<RegisterPage />}/> */}
