@@ -188,6 +188,12 @@ const SetOtherCityLeaveOptionHandler = (value) => {
 const formHandler = async (event) => {
     event.preventDefault();
 
+    if (otherCityLeaveOption && (selectedCityTo === cityDefaultValue 
+                            || selectedLocationTo === locationDefaultValue)) {
+                                alert('Uzupełnij poprawnie formularz!')
+                                return;
+                            }
+
     if (selectedCityFrom !== cityDefaultValue && 
                 selectedLocationFrom !== locationDefaultValue)
     {
