@@ -23,8 +23,7 @@ function KindsOfCarBar() {
                             Brand = {item.Brand}
                             Model = {item.Model}
                             AmountOfPlaces = {item.AmountOfPlaces}
-                            AmountOfDoors = {item.AmountOfDoors}
-                            Link = {item.Link}/>
+                            AmountOfDoors = {item.AmountOfDoors}/>
                 )
             })}
         </div>

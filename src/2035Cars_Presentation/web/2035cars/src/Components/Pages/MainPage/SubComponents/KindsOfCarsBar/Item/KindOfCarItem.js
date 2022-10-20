@@ -3,17 +3,20 @@ import styles from './KindOfCarItem.module.css'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { GiCarDoor } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
+import Cookie from 'universal-cookie'
 
 function KindOfCarItem(props) {
 
     const navigate = useNavigate();
     
-    const navigateTo = (path) => {
-        navigate(path)
+    const navigateTo = (kindOfCar) => {
+        const cookies = new Cookie()
+        cookies.set(`${kindOfCar}`, `${true}`)
+        navigate('/samochody')
     }
 
   return (
-    <div className={styles.kindItemWrapper} onClick={() => { navigateTo(props.Link)}}>
+    <div className={styles.kindItemWrapper} onClick={() => { navigateTo(props.Kind)}}>
         <div className={styles.mainPart}>
             <span className={styles.economyInfo}>
                 {props.Kind}
