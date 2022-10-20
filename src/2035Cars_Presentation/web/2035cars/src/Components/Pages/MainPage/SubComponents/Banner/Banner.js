@@ -3,11 +3,14 @@ import axios from '../../../../../Axios/axiosDefault.js'
 import styles from './Banner.module.css'
 import possibleHours from './hoursToSelect.js'
 import Cookie from 'universal-cookie'
+import { useNavigate } from 'react-router-dom'
 
 function Banner() {
 
+let navigate = useNavigate()
+
 const cityDefaultValue = 'Wybierz miasto'
-const locationDefaultValue = 'Wybierz lokalizacje'
+const locationDefaultValue = 'Wybierz lokalizację'
 
 const [cities, setCities] = useState([])
 const [locationsFrom, setLocationsFrom] = useState([])
@@ -21,11 +24,11 @@ const [selectedLocationFrom, setSelectedLocationFrom] = useState(`${locationDefa
 const [selectedCityTo, setSelectedCityTo] = useState(`${cityDefaultValue}`)
 const [selectedLocationTo, setSelectedLocationTo] = useState(`${locationDefaultValue}`)
 
-const [dateFrom, setDateFrom] = useState(null)
-const [hourFrom, setHourFrom] = useState(null)
+const [dateFrom, setDateFrom] = useState(new Date())
+const [hourFrom, setHourFrom] = useState([])
 
-const [dateTo, setDateTo] = useState(null)
-const [hourTo, setHourTo] = useState(null)
+const [dateTo, setDateTo] = useState(new Date())
+const [hourTo, setHourTo] = useState([])
 
 const RemoveCookie = (cookieName) => {
     const cookies = new Cookie()
@@ -62,6 +65,58 @@ const GetLocations = async (city, from, to) => {
             })
 }
 
+const getDefaultTimeFrom = () => {
+    let currentHour = new Date().getHours()
+    let currentMinute = new Date().getMinutes()
+
+    if (currentHour < 23) {
+        if (currentMinute < 30) {
+            currentMinute = 30
+        } else {
+            currentHour = currentHour + 1
+            currentMinute = 0
+        }
+    }
+    else {
+        if (currentMinute < 30) {
+            currentMinute = 30
+        } else {
+            setDateFrom(new Date().getDate() + 1)
+            currentHour = 0
+            currentMinute = 0
+        }
+    }
+
+    setHourFrom([currentHour, currentMinute])
+}
+
+const getDefaultTimeTo = () => {
+    let currentHour = new Date().getHours();
+    let currentMinute = new Date().getMinutes();
+
+    if (currentHour < 23) {
+        if (currentMinute < 30) {
+            currentHour = currentHour + 1
+            currentMinute = 30
+        } else {
+            currentHour = currentHour + 2
+            currentMinute = 0
+        }
+    } else {
+        if (currentMinute < 30) {
+            currentHour = 0
+            currentMinute = 30
+        } else {
+            setDateFrom(new Date().getDate() + 1)
+            currentHour = 1
+            currentMinute = 0
+        }
+    }
+
+
+    setHourTo([currentHour, currentMinute])
+}
+
 const CityFromFormSubmitHandler = (event) => {
     setSelectedCityFrom(event.target.value)
 }
@@ -79,19 +134,51 @@ const LocationToFormSubmitHandler = (event) => {
 }
 
 const SetDateFromHandler = (event) => {
-    setDateFrom(event.target.data)
+    setDateFrom(new Date(event.target.value))
 }
 
 const setHourFromHandler = (event) => {
-    setHourFrom(event.target.value)
+    const stringArr = event.target.value.split(',')
+    setHourFrom([parseInt(stringArr[0]), parseInt(stringArr[1])])
 }
 
 const SetDateToHandler = (event) => {
-    setDateTo(event.target.data)
+    const newDateTO = new Date(event.target.value)
+    if (dateFrom > newDateTO) {
+        alert('Data końcowa musi być późniejsza lub równa dacie początkowej')
+    } else {
+        setDateTo(newDateTO)
+    }
 }
 
 const setHourToHandler = (event) => {
-    setHourTo(event.target.value)
+    const stringArr = event.target.value.split(',')
+    // console.log('stringArr ')
+    // console.log(stringArr)
+    const selectedHour = [parseInt(stringArr[0]), parseInt(stringArr[1])]
+    // console.log('selectedHour ')
+    // console.log(selectedHour)
+    if(dateFrom.getTime() === dateTo.getTime()) {
+        // console.log('1')
+        if (hourFrom[0] === selectedHour[0]) {
+            if (selectedHour[1] - hourFrom[1] < 30) {
+                // console.log('2')
+                alert('Podaj późniejszą godzinę zakończenia!')
+            } else {
+                // console.log('3')
+                setHourTo([...selectedHour])
+            }
+        } else if (hourFrom[0] > selectedHour[0]) {
+            // console.log('4')
+            alert('Niepoprawna godzina zakończenia!')
+        } else {
+            // console.log('5')
+            setHourTo([...selectedHour])
+        }
+    } else {
+        // console.log('6')
+        setHourTo([...selectedHour])
+    }
 }
 
 const SetOtherCityLeaveOptionHandler = (value) => {
@@ -101,25 +188,41 @@ const SetOtherCityLeaveOptionHandler = (value) => {
 const formHandler = async (event) => {
     event.preventDefault();
 
+    if (selectedCityFrom !== cityDefaultValue && 
+                selectedLocationFrom !== locationDefaultValue)
+    {
+        const sinceDate = new Date(dateFrom)
+        sinceDate.setHours(hourFrom[0])
+        sinceDate.setMinutes(hourFrom[1])
 
-    const cookies = new Cookie()
-    cookies.set('selectedCityFrom', `${selectedCityFrom}`, { path: '/' })
-    cookies.set('selectedLocationFrom', `${selectedLocationFrom}`, { path: '/' })
-    cookies.set('dateFrom', `${dateFrom}`, { path: '/' })
-    cookies.set('hourFrom', `${hourFrom}`, { path: '/' })
-    cookies.set('dateTo', `${dateTo}`, { path: '/' })
-    cookies.set('hourTo', `${hourTo}`, { path: '/' })
+        // console.log(sinceDate)
 
-    if (!otherCityLeaveOption) {
-        cookies.set('selectedCityTo', `${selectedCityFrom}`, { path: '/' })
-        cookies.set('selectedLocationTo', `${selectedLocationFrom}`, { path: '/' })
+        const toDate = new Date(dateTo)
+        toDate.setHours(hourTo[0])
+        toDate.setMinutes(hourTo[1])
+
+        // console.log(toDate)
+
+        const cookies = new Cookie()
+        cookies.set('selectedCityFrom', `${selectedCityFrom}`, { path: '/' })
+        cookies.set('selectedLocationFrom', `${selectedLocationFrom}`, { path: '/' })
+        cookies.set('dateTimeFrom', `${sinceDate}`, { path: '/' })
+        cookies.set('dateTimeTo', `${toDate}`, { path: '/' })
+
+        if (!otherCityLeaveOption) {
+            cookies.set('selectedCityTo', `${selectedCityFrom}`, { path: '/' })
+            cookies.set('selectedLocationTo', `${selectedLocationFrom}`, { path: '/' })
+        }
+        else {
+            cookies.set('selectedCityTo', `${selectedCityTo}`, { path: '/' })
+            cookies.set('selectedLocationTo', `${selectedLocationTo}`, { path: '/' })
+        }
+
+        navigate('/samochody')
+    } else 
+    {
+        alert('Uzupełnij wszystkie pola w formularzu!')
     }
-    else {
-        cookies.set('selectedCityTo', `${selectedCityTo}`, { path: '/' })
-        cookies.set('selectedLocationTo', `${selectedLocationTo}`, { path: '/' })
-    }
-
-    // window.location.href = '/'
 }
 
 const fieldsForOtherCityLeave = 
@@ -173,6 +276,8 @@ const fieldsForOtherCityLeave =
         RemoveCookie('dateTo')
         RemoveCookie('hourTo')
 
+        getDefaultTimeFrom();
+        getDefaultTimeTo();
         GetCities();
   }, [])
 
@@ -277,12 +382,17 @@ const fieldsForOtherCityLeave =
                         <div className={styles.formTimeWrapper}>
                             <label>Od:</label>
                             <div>
-                                <input type='date' onChange={SetDateFromHandler}></input>
-                                <select onChange={setHourFromHandler}>
+                                <input type='date' 
+                                        value={dateFrom.toLocaleDateString('en-CA')}
+                                        onChange={SetDateFromHandler}>
+                                </input>
+                                <select value={`${hourFrom}`}
+                                        // multiple={true}
+                                        onChange={setHourFromHandler}>
                                     {
                                         possibleHours.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.value}>
+                                                <option key={index} value={`${item.value}`}>
                                                     {item.label}
                                                 </option>
                                             )
@@ -294,12 +404,16 @@ const fieldsForOtherCityLeave =
                         <div className={styles.formTimeWrapper}>
                             <label>Do:</label>
                             <div>
-                            <input type='date' onChange={SetDateToHandler}></input>
-                                <select onChange={setHourToHandler}>
+                            <input type='date' 
+                                    value={dateTo.toLocaleDateString('en-CA')}
+                                    onChange={SetDateToHandler}></input>
+                                <select value={`${hourTo}`}
+                                        // multiple={true}
+                                        onChange={setHourToHandler}>
                                     {
                                         possibleHours.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.value}>
+                                                <option key={index} value={`${item.value}`}>
                                                     {item.label}
                                                 </option>
                                             )
