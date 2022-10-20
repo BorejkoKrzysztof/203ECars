@@ -60,7 +60,8 @@ namespace _2035Cars_Application.Services
                 this._logger.LogInformation($"List Of Cars for rental in {city}, {location} is downloaded");
 
                 // Count Total Price For Renting
-                var hours = (carFeatures.OrderTo.ToUniversalTime() - DateTime.UtcNow).TotalHours;
+                var hours = (carFeatures.OrderTo.ToUniversalTime() 
+                                        - carFeatures.OrderFrom.ToUniversalTime()).TotalHours;
                 result.amountOfHours = hours;
                 cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
 
