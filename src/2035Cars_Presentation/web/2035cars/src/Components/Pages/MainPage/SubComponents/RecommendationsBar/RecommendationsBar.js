@@ -71,7 +71,7 @@ function RecommendationsBar() {
                 <h4>
                     Wybierz spośród 300 aut
                 </h4>
-                <img src={process.env.PUBLIC_URL + '/Images/ExampleCars/Przechwytywanie.jpg'} alt='car'/>
+                <img src={process.env.PUBLIC_URL + '/Images/ExampleCars/Jaguar_I_Pace.png'} alt='car'/>
                 <a 
                 // TODO Przekierowanie do banner
                 >  
