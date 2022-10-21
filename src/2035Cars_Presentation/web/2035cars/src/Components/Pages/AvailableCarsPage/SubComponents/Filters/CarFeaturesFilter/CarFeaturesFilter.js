@@ -10,7 +10,7 @@ function CarFeaturesFilter() {
 
   const [suvCarTypeChecked, setSuvCarTypeChecked] = useState(false)
   const [sportCarTypeChecked, setSportCarTypeChecked] = useState(false)
-  const [convertibleCarTypeChecked, setConvertibleCarTypeChecked] = useState(false)
+  const [compactCarTypeChecked, setCompactCarTypeChecked] = useState(false)
   const [sedanCarTypeChecked, setSedanCarTypeChecked] = useState(false)
 
   const [airConditioningChecked, setAirConditioningChecked] = useState(false)
@@ -106,7 +106,7 @@ function CarFeaturesFilter() {
                   <h1>Typ nadwozia:</h1>
                   {RenderCheckableElement(suvCarTypeChecked, setSuvCarTypeChecked, 'Suv')}
                   {RenderCheckableElement(sportCarTypeChecked, setSportCarTypeChecked, 'Sportowy')}
-                  {RenderCheckableElement(convertibleCarTypeChecked, setConvertibleCarTypeChecked, 'Kabriolet')}
+                  {RenderCheckableElement(compactCarTypeChecked, setCompactCarTypeChecked, 'Kompakt')}
                   {RenderCheckableElement(sedanCarTypeChecked, setSedanCarTypeChecked, 'Sedan')}
                 </div>
                 <div className={styles.filterFormOptionPart}>

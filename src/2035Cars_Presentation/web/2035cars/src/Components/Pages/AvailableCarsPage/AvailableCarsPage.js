@@ -8,9 +8,9 @@ import axios from '../../../Axios/axiosDefault'
 
 function AvailableCarsPage() {
 
-  const [listOfCars, setListOfCars] = useState([1])
+  const [listOfCars, setListOfCars] = useState([])
   const [hoursForRental, setHoursForRental] = useState(-1)
-  const [areCarsLoaded, setAreCarsLoaded] = useState(true)
+  const [areCarsLoaded, setAreCarsLoaded] = useState(false)
   const [amountOfPages, setAmountOfPages] = useState(-1)
   const [currentPage, setCurrentPage] = useState(-1)
   const [amountOfHours, setAmountOfHours] = useState(-1)
