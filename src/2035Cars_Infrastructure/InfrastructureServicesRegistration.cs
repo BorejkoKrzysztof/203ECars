@@ -21,6 +21,7 @@ namespace _2035Cars_Infrastructure
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IRentalRepository, RentalRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
 
             return services;
         }

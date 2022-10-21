@@ -11,6 +11,7 @@ namespace _2035Cars_Infrastructure.Database
         public DbSet<Order> Orders { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
 
         public CarDbContext(DbContextOptions options) : base(options)
