@@ -9,14 +9,16 @@ function KindOfCarItem(props) {
 
     const navigate = useNavigate();
     
-    const navigateTo = (kindOfCar) => {
+    const setCookie = (kindOfCar) => {
         const cookies = new Cookie()
-        cookies.set(`${kindOfCar}`, `${true}`)
-        navigate('/samochody')
+        cookies.set(`${kindOfCar}`, `${true}`, { path: '/' })
     }
 
   return (
-    <div className={styles.kindItemWrapper} onClick={() => { navigateTo(props.Kind)}}>
+    <div className={styles.kindItemWrapper} onClick={() => { 
+                                                setCookie(props.Kind)
+                                                navigate('/samochody')
+                                                }}>
         <div className={styles.mainPart}>
             <span className={styles.economyInfo}>
                 {props.Kind}

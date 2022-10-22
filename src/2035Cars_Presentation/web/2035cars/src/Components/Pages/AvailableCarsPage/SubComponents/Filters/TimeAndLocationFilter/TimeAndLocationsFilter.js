@@ -1,14 +1,147 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './TimeAndLocationsFilter.module.css'
 import { IoLocationSharp, IoTimeSharp } from 'react-icons/io5'
 import { BsFillCalendarDateFill } from 'react-icons/bs'
 import { FaWindowClose } from 'react-icons/fa'
+import possibleHours from '../../../../MainPage/SubComponents/Banner/hoursToSelect'
+import Cookies from 'universal-cookie'
+import axios from '../../../../../../Axios/axiosDefault'
 
+function TimeAndLocationsFilter(props) {
 
-function TimeAndLocationsFilter() {
+const cityWithLocationDefault = 'Wybierz wypożyczalnie'
 
 const [locationFormState, setLocationFormState] = useState(false)
+const [citiesWithLocations, setCitieWithLocations] = useState([])
 
+const downloadCitiesWithLocations = () => {
+    axios.get('/rental/allcitieswithlocations')
+            .then(response => {
+                setCitieWithLocations([...response.data])
+            })
+            .catch(error => {
+                console.log(error)
+            })
+}
+
+const getDefaultTimeFrom = () => {
+    let currentHour = new Date().getHours()
+    let currentMinute = new Date().getMinutes()
+
+    if (currentHour < 23) {
+        if (currentMinute < 30) {
+            currentMinute = 30
+        } else {
+            currentHour = currentHour + 1
+            currentMinute = 0
+        }
+    }
+    else {
+        if (currentMinute < 30) {
+            currentMinute = 30
+        } else {
+            props.setDateFrom(new Date().getDate() + 1)
+            currentHour = 0
+            currentMinute = 0
+        }
+    }
+
+    props.setHourFrom([currentHour, currentMinute])
+}
+
+const getDefaultTimeTo = () => {
+    let currentHour = new Date().getHours();
+    let currentMinute = new Date().getMinutes();
+
+    if (currentHour < 23) {
+        if (currentMinute < 30) {
+            currentHour = currentHour + 1
+            currentMinute = 30
+        } else {
+            currentHour = currentHour + 2
+            currentMinute = 0
+        }
+    } else {
+        if (currentMinute < 30) {
+            currentHour = 0
+            currentMinute = 30
+        } else {
+            props.setDateFrom(new Date().getDate() + 1)
+            currentHour = 1
+            currentMinute = 0
+        }
+    }
+
+
+    props.setHourTo([currentHour, currentMinute])
+}
+
+const setLocationFromHandler = (event) => {
+    const dataArray = event.target.value.split(', ')
+    props.setCityFrom(dataArray[0])
+    props.setLocationFrom(dataArray[1])
+}
+
+const setLocationToHandler = (event) => {
+    const dataArray = event.target.value.split(', ')
+    props.setCityTo(dataArray[0])
+    props.setLocationTo(dataArray[1])
+}
+
+const SetDateFromHandler = (event) => {
+    props.setDateFrom(new Date(event.target.value))
+}
+
+const setHourFromHandler = (event) => {
+    const stringArr = event.target.value.split(',')
+    props.setHourFrom([parseInt(stringArr[0]), parseInt(stringArr[1])])
+}
+
+const SetDateToHandler = (event) => {
+    const newDateTO = new Date(event.target.value)
+    if (props.dateFrom > newDateTO) {
+        alert('Data końcowa musi być późniejsza lub równa dacie początkowej')
+    } else {
+        props.setDateTo(newDateTO)
+    }
+}
+
+const setHourToHandler = (event) => {
+    const stringArr = event.target.value.split(',')
+    const selectedHour = [parseInt(stringArr[0]), parseInt(stringArr[1])]
+    if(props.dateFrom.getTime() === props.dateTo.getTime()) {
+        if (props.hourFrom[0] === selectedHour[0]) {
+            if (selectedHour[1] - props.hourFrom[1] < 30) {
+                alert('Podaj późniejszą godzinę zakończenia!')
+            } else {
+                props.setHourTo([...selectedHour])
+            }
+        } else if (props.hourFrom[0] > selectedHour[0]) {
+            alert('Niepoprawna godzina zakończenia!')
+        } else {
+            props.setHourTo([...selectedHour])
+        }
+    } else {
+        props.setHourTo([...selectedHour])
+    }
+}
+
+
+useEffect(() => {
+    const cookies = new Cookies()
+    const dateTimeFromCookie = cookies.get('dateTimeFrom')
+    const dateTimeToCookie = cookies.get('dateTimeTo')
+
+    if (dateTimeFromCookie !== undefined && dateTimeToCookie !== undefined) {
+
+    } else {
+        getDefaultTimeFrom()
+        getDefaultTimeTo()
+    }
+
+    downloadCitiesWithLocations()
+
+}, [])
 
   return (
     <>
@@ -25,13 +158,40 @@ const [locationFormState, setLocationFormState] = useState(false)
             </h2>
             <h6>
                 <IoLocationSharp className={styles.locationInfoIcons}/>
-                Miasto Miasto Lokacja
+                {
+                    props.locationIsSetted ? 
+                            <>
+                                {props.cityFrom} {props.locationFrom}
+                            </>
+                            :
+                            <>
+                                Wybierz lokalizację
+                            </>
+                }
             </h6>
             <p>
                 <BsFillCalendarDateFill className={styles.locationInfoIcons}/>
-                    12.08.2022 &nbsp;
+                {
+                    props.locationIsSetted ? 
+                        <>
+                            {props.dateTimeFrom.toLocaleDateString('pl-PL')}
+                        </>
+                        :
+                        <>
+                        Wybierz datę
+                        </>
+                }&nbsp;
                 <IoTimeSharp className={styles.locationInfoIcons}/>
-                    10:00
+                {
+                    props.locationIsSetted ? 
+                        <>
+                            {props.dateTimeFrom.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </>
+                        :
+                        <>
+                        --:--
+                        </>
+                }
             </p>
         </div>
         <hr className={styles.locationInfoSeparateLine}/>
@@ -41,13 +201,40 @@ const [locationFormState, setLocationFormState] = useState(false)
             </h2>
             <h6>
                 <IoLocationSharp className={styles.locationInfoIcons}/>
-                Miasto Miasto Lokacja
+                {
+                    props.locationIsSetted ? 
+                            <>
+                                {props.cityTo} {props.locationTo}
+                            </>
+                            :
+                            <>
+                                Wybierz lokalizację
+                            </>
+                }
             </h6>
             <p>
                 <BsFillCalendarDateFill className={styles.locationInfoIcons}/>
-                12.08.2022 &nbsp;
+                {
+                    props.locationIsSetted ? 
+                        <>
+                            {props.dateTimeTo.toLocaleDateString('pl-PL')}
+                        </>
+                        :
+                        <>
+                        Wybierz datę
+                        </>
+                }&nbsp;
                 <IoTimeSharp className={styles.locationInfoIcons}/>
-                10:00
+                {
+                    props.locationIsSetted ? 
+                        <>
+                            {props.dateTimeTo.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </>
+                        :
+                        <>
+                        --:--
+                        </>
+                }
             </p>
         </div>
         <div className={styles.locationFormOpenButtonWrapper}>
@@ -71,24 +258,72 @@ const [locationFormState, setLocationFormState] = useState(false)
         <form className={styles.editDateTimeRent}>
             <div className={styles.locationInfoForm}>
                 <label>POCZĄTEK :</label>
-                <select></select>
+                <select value={`${props.cityFrom}, ${props.locationFrom}`}
+                                    onChange={setLocationFromHandler}>
+                {
+                    [`${cityWithLocationDefault}`, ...citiesWithLocations].map((item, index) => {
+                        return (
+                            <option key={index} value={item}>
+                                {item}
+                            </option>
+                        )
+                    })
+                }
+                </select>
             </div>
             <div className={styles.locationInfoForm}>
                 <label>KONIEC :</label>
-                <select></select>
+                <select value={`${props.cityTo}, ${props.locationTo}`} 
+                                    onChange={setLocationToHandler}>
+                {
+                    [`${cityWithLocationDefault}`, ...citiesWithLocations].map((item, index) => {
+                        return (
+                            <option key={index} value={item}>
+                                {item}
+                            </option>
+                        )
+                    })
+                }
+                </select>
             </div>
             <div className={styles.locationInfoForm}>
                 <label>DATA ROZPOCZĘCIA :</label>
                 <div>
-                    <input type='date'></input>
-                    <select></select>
+                    <input type='date' 
+                            value={props.dateFrom.toLocaleDateString('en-CA')}
+                            onChange={SetDateFromHandler}>
+                    </input>
+                    <select value={`${props.hourFrom}`} onChange={setHourFromHandler}>
+                    {
+                        possibleHours.map((item, index) => {
+                            return (
+                                <option key={index} value={`${item.value}`}>
+                                    {item.label}
+                                </option>
+                            )
+                        })
+                    }
+                    </select>
                 </div>
             </div>
             <div className={styles.locationInfoForm}>
                 <label>DATA ZAKOŃCZENIA :</label>
                 <div>
-                    <input type='date'></input>
-                    <select></select>
+                    <input type='date'
+                            value={props.dateTo.toLocaleDateString('en-CA')}
+                            onChange={SetDateToHandler}>
+                    </input>
+                    <select value={`${props.hourTo}`} onChange={setHourToHandler}>
+                    {
+                        possibleHours.map((item, index) => {
+                            return (
+                                <option key={index} value={`${item.value}`}>
+                                    {item.label}
+                                </option>
+                            )
+                        })
+                    }
+                    </select>
                 </div>
             </div>
             <div className={styles.submitButtonWrapper}>

@@ -5,39 +5,230 @@ import Filters from './SubComponents/Filters/Filters'
 import LackOfCars from './SubComponents/LackOfCars/LackOfCars'
 import LoadingCircle from './SubComponents/LoadingCircle/LoadingCircle'
 import axios from '../../../Axios/axiosDefault'
+import Cookies from 'universal-cookie'
 
 function AvailableCarsPage() {
+
+  const cityDefaultValue = 'Wybierz miasto'
+  const locationDefaultValue = 'Wybierz lokalizację'
+
+  const [cityFrom, setCityFrom] = useState(`${cityDefaultValue}`)
+  const [locationFrom, setLocationFrom] = useState(`${locationDefaultValue}`)
+  const [cityTo, setCityTo] = useState(`${cityDefaultValue}`)
+  const [locationTo, setLocationTo] = useState(`${locationDefaultValue}`)
+  const [dateTimeFrom, setDateTimeFrom] = useState(new Date())
+  const [dateTimeTo, setDateTimeTo] = useState(new Date())
+  const [locationIsSetted, setLocationIsSetted] = useState(false)
+
+  const [dateFrom, setDateFrom] = useState(new Date())
+  const [hourFrom, setHourFrom] = useState([])
+
+  const [dateTo, setDateTo] = useState(new Date())
+  const [hourTo, setHourTo] = useState([])
+
+  const [searchAllCars, setSearchAllCars] = useState(false)
+
+  const [suvCarTypeChecked, setSuvCarTypeChecked] = useState(false)
+  const [sportCarTypeChecked, setSportCarTypeChecked] = useState(false)
+  const [compactCarTypeChecked, setCompactCarTypeChecked] = useState(false)
+  const [sedanCarTypeChecked, setSedanCarTypeChecked] = useState(false)
+  const [preferableTypeIsSetted, setPreferableTypeIsSetted] = useState(false)
+
+  const [airConditioningChecked, setAirConditioningChecked] = useState(false)
+  const [heatedSeatChecked, setHeatedSeatChecked] = useState(false)
+  const [automaticGearBoxChecked, setAutomaticGearBoxChecked] = useState(false)
+  const [navigationChecked, setNavigationChecked] = useState(false)
+
+  const [hybridFuelChecked, setHybridFuelChecked] = useState(false)
+  const [electricFuelChecked, setElectricFuelChecked] = useState(false)
+
+  const [sliderVal, setSliderVal] = useState([0,100])
+
+  const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(4)
+  const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(5)
+
 
   const [listOfCars, setListOfCars] = useState([])
   const [hoursForRental, setHoursForRental] = useState(-1)
   const [areCarsLoaded, setAreCarsLoaded] = useState(false)
   const [amountOfPages, setAmountOfPages] = useState(-1)
-  const [currentPage, setCurrentPage] = useState(-1)
+  const [currentPage, setCurrentPage] = useState(1)
   const [amountOfHours, setAmountOfHours] = useState(-1)
 
-  const DownloadCars = async () => {
-    try {
-      const response = await axios.get('/') // dodac sciezke
-      setHoursForRental(response.data.hours)
-      setAmountOfPages(response.data.amountOfPages)
-      setCurrentPage(response.data.currentPage)
-      setAmountOfHours(response.data.amountOfHours)
-      setAreCarsLoaded(true)
-      setListOfCars(response.data.cars)
-    } catch (error) {
-      console.log(error)
+  const setLocationDatasFromCookie = () => {
+    const cookies = new Cookies()
+    const cityFromCookie = cookies.get('selectedCityFrom')
+    const locationFromCookie = cookies.get('selectedLocationFrom')
+    const cityToCookie = cookies.get('selectedCityTo')
+    const locationToCookie = cookies.get('selectedLocationTo')
+    const dateTimeFromCookie = cookies.get('dateTimeFrom')
+    const dateTimeToCookie = cookies.get('dateTimeTo')
+
+    if (cityFromCookie !== undefined && locationFromCookie !== undefined && 
+        cityToCookie !== undefined && locationToCookie !== undefined &&
+        dateTimeFromCookie !== undefined && dateTimeToCookie !== undefined) {
+          setCityFrom(cityFromCookie)
+          setLocationFrom(locationFromCookie)
+          setCityTo(cityToCookie)
+          setLocationTo(locationToCookie)
+          setDateTimeFrom(new Date(dateTimeFromCookie))
+          setDateTimeTo(new Date(dateTimeToCookie))
+          setLocationIsSetted(true)
     }
+  }
+
+  const setPreferableCarType = () => {
+    const cookies = new Cookies()
+    const sedanTypeCookie = cookies.get('Sedan')
+    const sportTypeCookie = cookies.get('Sport')
+    const suvTypeCookie = cookies.get('Suv')
+    const compactTypeCookie = cookies.get('Kompakt')
+
+    console.log(sedanTypeCookie)
+
+    if (sedanTypeCookie !== undefined || sportTypeCookie !== undefined ||
+        suvTypeCookie !== undefined || compactTypeCookie !== undefined) {
+
+        if (sedanTypeCookie) {
+          setSedanCarTypeChecked(sedanTypeCookie)
+        }
+        if (sportTypeCookie) {
+          setSportCarTypeChecked(sportTypeCookie)
+        }
+        if (suvTypeCookie) {
+          setSuvCarTypeChecked(suvTypeCookie)
+        }
+        if (compactTypeCookie) {
+          setCompactCarTypeChecked(compactTypeCookie)
+        }
+
+        setPreferableTypeIsSetted(true)
+    } else {
+      setSearchAllCars(true)
+    }    
+  }
+
+  const downloadCarsByLocationFrom = () => {
+        axios.post(`car/cars/${currentPage}/${cityFrom}/${locationFrom}`, JSON.stringify({
+          AvailableFrom: dateFrom,
+          OrderTo: dateTo,
+          MinimumPrice: sliderVal[0],
+          MaximumPrice: sliderVal[1],
+          DesiredSuvType: suvCarTypeChecked,
+          DesiredSportType: sportCarTypeChecked,
+          DesiredCompactType: compactCarTypeChecked,
+          DesiredSedanType: sedanCarTypeChecked,
+          DesiredAirCooling: airConditioningChecked,
+          DesiredHeatingSeats: heatedSeatChecked,
+          DesiredAutomaticGearBox: automaticGearBoxChecked,
+          DesiredBuildInNavigation: navigationChecked,
+          DesiredHybridDrive: hybridFuelChecked,
+          DesiredElectricDrive: electricFuelChecked,
+          DesiredAmountOfDoors: preferableAmountOfDoors,
+          DesiredAmountOfSeats: preferableAmountOfSeats
+        })).then(response => {
+            
+          console.log(response.data)
+
+          setListOfCars([...response.data.cars])
+          setAmountOfPages(response.data.amountOfPages)
+          setCurrentPage(response.data.currentPage)
+          setAmountOfHours(response.data.amountOfHours)
+
+          // ustaw are loaded!!!!
+        }).catch(error => {
+          console.log(error)
+        })
+
+        // console.log("downloadCarsByLocationFrom")
+  }
+
+  const downloadCarsByPreferableType = () => {
+      // axios.get('')
+      console.log("downloadCarsByPreferableType")
+  }
+
+  const downloadAllCars = () => {
+    // axios.get('')
+    console.log("downloadAllCars")
   }
 
   useEffect(() => {
     document.title = 'Dostępne samochody'
-    // DownloadCars()
+    setLocationDatasFromCookie()
   }, [])
+
+  useEffect(() => {
+    if(locationIsSetted) {
+      console.log(`locationIsSetted => ${locationIsSetted}`)
+      downloadCarsByLocationFrom()
+    } else {
+      setPreferableCarType()
+    }
+  }, [locationIsSetted])
+
+  useEffect(() => {
+    if (preferableTypeIsSetted) {
+      console.log(`preferableTypeIsSetted => ${preferableTypeIsSetted}`)
+      downloadCarsByPreferableType()
+    }
+  }, [preferableTypeIsSetted])
+
+  useEffect(() => {
+      if (!locationIsSetted && !preferableTypeIsSetted && searchAllCars) {
+        console.log(`searchAllCars => ${searchAllCars}`)
+        downloadAllCars()
+      }
+  }, [searchAllCars])
 
   return (
     <div className={styles.availableCarsWrapper}>
       <div className={styles.AvailableCarsContent}>
-        <Filters />
+        <Filters 
+                  cityFrom={cityFrom}
+                  setCityFrom={setCityFrom}
+                  locationFrom={locationFrom}
+                  setLocationFrom={setLocationFrom}
+                  cityTo={cityTo}
+                  setCityTo={setCityTo}
+                  locationTo={locationTo}
+                  setLocationTo={setLocationTo}
+                  dateTimeFrom={dateTimeFrom}
+                  setDateTimeFrom={setDateTimeFrom}
+                  dateTimeTo={dateTimeTo}
+                  setDateTimeTo={setDateTimeTo}
+                  suvCarTypeChecked={suvCarTypeChecked}
+                  setSuvCarTypeChecked={setSuvCarTypeChecked}
+                  sportCarTypeChecked={sportCarTypeChecked}
+                  setSportCarTypeChecked={setSportCarTypeChecked}
+                  compactCarTypeChecked={compactCarTypeChecked}
+                  setCompactCarTypeChecked={setCompactCarTypeChecked}
+                  sedanCarTypeChecked={sedanCarTypeChecked}
+                  setSedanCarTypeChecked={setSedanCarTypeChecked}
+                  airConditioningChecked={airConditioningChecked}
+                  setAirConditioningChecked={setAirConditioningChecked}
+                  heatedSeatChecked={heatedSeatChecked}
+                  setHeatedSeatChecked={setHeatedSeatChecked}
+                  automaticGearBoxChecked={automaticGearBoxChecked}
+                  setAutomaticGearBoxChecked={setAutomaticGearBoxChecked}
+                  navigationChecked={navigationChecked}
+                  setNavigationChecked={setNavigationChecked}
+                  hybridFuelChecked={hybridFuelChecked}
+                  setHybridFuelChecked={setHybridFuelChecked}
+                  electricFuelChecked={electricFuelChecked}
+                  setElectricFuelChecked={setElectricFuelChecked}
+                  sliderVal={sliderVal}
+                  setSliderVal={setSliderVal}
+                  locationIsSetted={locationIsSetted}
+                  dateFrom={dateFrom}
+                  setDateFrom={setDateFrom}
+                  hourFrom={hourFrom}
+                  setHourFrom={setHourFrom}
+                  dateTo={dateTo}
+                  setDateTo={setDateTo}
+                  hourTo={hourTo}
+                  setHourTo={setHourTo}
+                  />
         {!areCarsLoaded ? 
               <LoadingCircle />
                         :

@@ -4,24 +4,24 @@ import Slider from '@mui/material/Slider'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineArrowDown, AiOutlineCheckSquare, AiFillCheckSquare } from 'react-icons/ai'
 
-function CarFeaturesFilter() {
+function CarFeaturesFilter(props) {
 
   const [filterFormState, setFilterFormState] = useState(false)
 
-  const [suvCarTypeChecked, setSuvCarTypeChecked] = useState(false)
-  const [sportCarTypeChecked, setSportCarTypeChecked] = useState(false)
-  const [compactCarTypeChecked, setCompactCarTypeChecked] = useState(false)
-  const [sedanCarTypeChecked, setSedanCarTypeChecked] = useState(false)
+  // const [suvCarTypeChecked, setSuvCarTypeChecked] = useState(false)
+  // const [sportCarTypeChecked, setSportCarTypeChecked] = useState(false)
+  // const [compactCarTypeChecked, setCompactCarTypeChecked] = useState(false)
+  // const [sedanCarTypeChecked, setSedanCarTypeChecked] = useState(false)
 
-  const [airConditioningChecked, setAirConditioningChecked] = useState(false)
-  const [heatedSeatChecked, setHeatedSeatChecked] = useState(false)
-  const [automaticGearBoxChecked, setAutomaticGearBoxChecked] = useState(false)
-  const [navigationChecked, setNavigationChecked] = useState(false)
+  // const [airConditioningChecked, setAirConditioningChecked] = useState(false)
+  // const [heatedSeatChecked, setHeatedSeatChecked] = useState(false)
+  // const [automaticGearBoxChecked, setAutomaticGearBoxChecked] = useState(false)
+  // const [navigationChecked, setNavigationChecked] = useState(false)
   
-  const [hybridFuelChecked, setHybridFuelChecked] = useState(false)
-  const [electricFuelChecked, setElectricFuelChecked] = useState(false)
+  // const [hybridFuelChecked, setHybridFuelChecked] = useState(false)
+  // const [electricFuelChecked, setElectricFuelChecked] = useState(false)
 
-  const [sliderVal, setSliderVal] = useState([0,100])
+  // const [sliderVal, setSliderVal] = useState([0,100])
   const minDistance = 15
 
   const updateSlider = (e, data, activeThumb) => {
@@ -30,9 +30,9 @@ function CarFeaturesFilter() {
     }
 
     if (activeThumb === 0) {
-      setSliderVal([Math.min(data[0], sliderVal[1] - minDistance), sliderVal[1]]);
+      props.setSliderVal([Math.min(data[0], props.sliderVal[1] - minDistance), props.sliderVal[1]]);
     } else {
-      setSliderVal([sliderVal[0], Math.max(data[1], sliderVal[0] + minDistance)]);
+      props.setSliderVal([props.sliderVal[0], Math.max(data[1], props.sliderVal[0] + minDistance)]);
     }
     
   }
@@ -95,31 +95,31 @@ function CarFeaturesFilter() {
                       }, }}
                       disableSwap
                       step={5}
-                      value={sliderVal}
+                      value={props.sliderVal}
                       onChange={updateSlider}
                       getAriaValueText = {getText}
                     />
                   </div>
-                  <h4>Od: {sliderVal[0]} Do: {sliderVal[1]}</h4>
+                  <h4>Od: {props.sliderVal[0]} Do: {props.sliderVal[1]}</h4>
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Typ nadwozia:</h1>
-                  {RenderCheckableElement(suvCarTypeChecked, setSuvCarTypeChecked, 'Suv')}
-                  {RenderCheckableElement(sportCarTypeChecked, setSportCarTypeChecked, 'Sportowy')}
-                  {RenderCheckableElement(compactCarTypeChecked, setCompactCarTypeChecked, 'Kompakt')}
-                  {RenderCheckableElement(sedanCarTypeChecked, setSedanCarTypeChecked, 'Sedan')}
+                  {RenderCheckableElement(props.suvCarTypeChecked, props.setSuvCarTypeChecked, 'Suv')}
+                  {RenderCheckableElement(props.sportCarTypeChecked, props.setSportCarTypeChecked, 'Sportowy')}
+                  {RenderCheckableElement(props.compactCarTypeChecked, props.setCompactCarTypeChecked, 'Kompakt')}
+                  {RenderCheckableElement(props.sedanCarTypeChecked, props.setSedanCarTypeChecked, 'Sedan')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Wyposażenie</h1>
-                  {RenderCheckableElement(airConditioningChecked, setAirConditioningChecked, 'Klimatyzacja')}
-                  {RenderCheckableElement(heatedSeatChecked, setHeatedSeatChecked, 'Podgrzewane fotele')}
-                  {RenderCheckableElement(automaticGearBoxChecked, setAutomaticGearBoxChecked, 'Automatyczna skrzynia biegów')}
-                  {RenderCheckableElement(navigationChecked, setNavigationChecked, 'Wbudowana nawigacja')}
+                  {RenderCheckableElement(props.airConditioningChecked, props.setAirConditioningChecked, 'Klimatyzacja')}
+                  {RenderCheckableElement(props.heatedSeatChecked, props.setHeatedSeatChecked, 'Podgrzewane fotele')}
+                  {RenderCheckableElement(props.automaticGearBoxChecked, props.setAutomaticGearBoxChecked, 'Automatyczna skrzynia biegów')}
+                  {RenderCheckableElement(props.navigationChecked, props.setNavigationChecked, 'Wbudowana nawigacja')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Typ napędu</h1>
-                  {RenderCheckableElement(hybridFuelChecked, setHybridFuelChecked, 'Hybrydowy')}
-                  {RenderCheckableElement(electricFuelChecked, setElectricFuelChecked, 'W pełni elektryczny')}
+                  {RenderCheckableElement(props.hybridFuelChecked, props.setHybridFuelChecked, 'Hybrydowy')}
+                  {RenderCheckableElement(props.electricFuelChecked, props.setElectricFuelChecked, 'W pełni elektryczny')}
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Ilość drzwi</h1>
