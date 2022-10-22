@@ -40,7 +40,7 @@ const RemoveCookie = (cookieName) => {
     }
 }
 
-const GetCities = async () => {
+const GetCities = () => {
     axios.get('/rental/cities')
             .then(response => {
                 setCities([...response.data])
@@ -50,7 +50,7 @@ const GetCities = async () => {
             })
 }
 
-const GetLocations = async (city, from, to) => {
+const GetLocations = (city, from, to) => {
     axios.get(`rental/locations/${city}`)
             .then(response => {
                 if (from === true) {
@@ -281,6 +281,8 @@ const fieldsForOtherCityLeave =
         RemoveCookie('hourFrom')
         RemoveCookie('dateTo')
         RemoveCookie('hourTo')
+        RemoveCookie('dateTimeFrom')
+        RemoveCookie('dateTimeTo')
 
         getDefaultTimeFrom();
         getDefaultTimeTo();
