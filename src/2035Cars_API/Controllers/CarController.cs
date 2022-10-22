@@ -20,7 +20,7 @@ namespace _2035Cars_API.Controllers
             this._service = service;
         }
 
-        [HttpGet("cars/{pageNumber}/{city}/{location}")]
+        [HttpPost("cars/{pageNumber}/{city}/{location}")]
         [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCarsByCityAndLocation
