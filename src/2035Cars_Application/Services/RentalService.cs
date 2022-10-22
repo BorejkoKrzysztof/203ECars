@@ -35,6 +35,24 @@ namespace _2035Cars_Application.Services
             return rentalCities;
         }
 
+        public async Task<List<string>> GetRentalCitiesWithTitles()
+        {
+            List<string> rentalCitieswithTheirTitles;
+            try
+            {
+                rentalCitieswithTheirTitles = 
+                                await this._repository.GetRentalCitiesWithTitlesAsync();
+                this._logger.LogInformation("List of rental cities with locations is downloaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Unable to download list of rental cities with locations - Exception: {ex.Message}");
+                return null!;
+            }
+
+            return rentalCitieswithTheirTitles;
+        }
+
         public async Task<RentalBasicInfo> GetRentalInfo(string city, string location)
         {
             if (string.IsNullOrEmpty(city))

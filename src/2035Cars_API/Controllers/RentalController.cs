@@ -56,6 +56,19 @@ namespace _2035Cars_API.Controllers
             return Ok(rentalInfo);
         }
 
+        [HttpGet("allcitieswithlocations")]
+        [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRentalCitiesWithTitles()
+        {
+            List<string> rentalCitiesWithTitles = 
+                                await this._service.GetRentalCitiesWithTitles();
+
+            if (rentalCitiesWithTitles.Count == 0)
+                            return NotFound();
+
+            return Ok(rentalCitiesWithTitles);
+        }
 
 
         // FAKE FAKE        ====> do usuniecie pozniej

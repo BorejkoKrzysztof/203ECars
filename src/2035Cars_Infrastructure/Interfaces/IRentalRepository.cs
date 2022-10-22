@@ -11,5 +11,7 @@ namespace _2035Cars_Infrastructure.Interfaces
         Task<object> GetRentalByCityAndLocationAsync(string city,string location);
 
         Task<long> ReturnRentalIdAsync(string city, string location);
+
+        Task<List<string>> GetRentalCitiesWithTitlesAsync();
     }
 }
