@@ -84,8 +84,6 @@ function AvailableCarsPage() {
     const suvTypeCookie = cookies.get('Suv')
     const compactTypeCookie = cookies.get('Kompakt')
 
-    console.log(sedanTypeCookie)
-
     if (sedanTypeCookie !== undefined || sportTypeCookie !== undefined ||
         suvTypeCookie !== undefined || compactTypeCookie !== undefined) {
 
@@ -110,10 +108,8 @@ function AvailableCarsPage() {
 
   const downloadCarsByLocationFrom = () => {
         axios.post(`car/cars/${currentPage}/${cityFrom}/${locationFrom}`, JSON.stringify({
-          AvailableFrom: dateFrom,
-          OrderTo: dateTo,
-          MinimumPrice: sliderVal[0],
-          MaximumPrice: sliderVal[1],
+          AvailableFrom: dateTimeFrom,
+          OrderTo: dateTimeTo,
           DesiredSuvType: suvCarTypeChecked,
           DesiredSportType: sportCarTypeChecked,
           DesiredCompactType: compactCarTypeChecked,
@@ -124,33 +120,47 @@ function AvailableCarsPage() {
           DesiredBuildInNavigation: navigationChecked,
           DesiredHybridDrive: hybridFuelChecked,
           DesiredElectricDrive: electricFuelChecked,
-          DesiredAmountOfDoors: preferableAmountOfDoors,
-          DesiredAmountOfSeats: preferableAmountOfSeats
         })).then(response => {
-            
-          console.log(response.data)
-
-          setListOfCars([...response.data.cars])
+          setListOfCars(response.data.cars)
           setAmountOfPages(response.data.amountOfPages)
-          setCurrentPage(response.data.currentPage)
           setAmountOfHours(response.data.amountOfHours)
 
-          // ustaw are loaded!!!!
+          setAreCarsLoaded(true)
         }).catch(error => {
           console.log(error)
         })
-
-        // console.log("downloadCarsByLocationFrom")
   }
 
   const downloadCarsByPreferableType = () => {
-      // axios.get('')
-      console.log("downloadCarsByPreferableType")
+    console.log(currentPage)
+      axios.post(`car/cars/getcarsbytype/${currentPage}`, JSON.stringify({
+          DesiredSuvType: suvCarTypeChecked,
+          DesiredSportType: sportCarTypeChecked,
+          DesiredCompactType: compactCarTypeChecked,
+          DesiredSedanType: sedanCarTypeChecked,
+      })).then(response => {
+          setListOfCars(response.data.cars)
+          setAmountOfPages(response.data.amountOfPages)
+          setAmountOfHours(response.data.amountOfHours)
+
+          setAreCarsLoaded(true)
+      }).catch(error => {
+        console.log(error)
+      })
   }
 
   const downloadAllCars = () => {
-    // axios.get('')
-    console.log("downloadAllCars")
+    axios.get(`car/cars/getallcars/${currentPage}`)
+          .then(response => {
+            setListOfCars(response.data.cars)
+            setAmountOfPages(response.data.amountOfPages)
+            setAmountOfHours(response.data.amountOfHours)
+
+            setAreCarsLoaded(true)
+          })
+          .catch(error => {
+            console.log(error)
+          })
   }
 
   useEffect(() => {
@@ -160,7 +170,6 @@ function AvailableCarsPage() {
 
   useEffect(() => {
     if(locationIsSetted) {
-      console.log(`locationIsSetted => ${locationIsSetted}`)
       downloadCarsByLocationFrom()
     } else {
       setPreferableCarType()
@@ -176,10 +185,22 @@ function AvailableCarsPage() {
 
   useEffect(() => {
       if (!locationIsSetted && !preferableTypeIsSetted && searchAllCars) {
-        console.log(`searchAllCars => ${searchAllCars}`)
         downloadAllCars()
       }
   }, [searchAllCars])
+
+  useEffect(() => {
+
+      console.log(currentPage)
+
+      if(locationIsSetted) {
+        downloadCarsByLocationFrom()
+      } else if (preferableTypeIsSetted) {
+        downloadCarsByPreferableType()
+      } else if (!locationIsSetted && !preferableTypeIsSetted && searchAllCars) {
+        downloadAllCars()
+      }
+  }, [currentPage])
 
   return (
     <div className={styles.availableCarsWrapper}>
@@ -240,6 +261,7 @@ function AvailableCarsPage() {
                                 hours={hoursForRental}
                                 amountOfPages={amountOfPages}
                                 currentPage={currentPage}
+                                setPage={setCurrentPage}
                                 amountOfHours={amountOfHours}/>
 
         }
