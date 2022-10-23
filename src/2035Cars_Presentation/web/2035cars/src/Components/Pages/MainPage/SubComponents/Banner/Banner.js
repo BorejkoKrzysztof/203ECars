@@ -283,6 +283,10 @@ const fieldsForOtherCityLeave =
         RemoveCookie('hourTo')
         RemoveCookie('dateTimeFrom')
         RemoveCookie('dateTimeTo')
+        RemoveCookie('Suv')
+        RemoveCookie('Sport')
+        RemoveCookie('Sedan')
+        RemoveCookie('Compact')
 
         getDefaultTimeFrom();
         getDefaultTimeTo();
