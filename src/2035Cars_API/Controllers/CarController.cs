@@ -24,39 +24,67 @@ namespace _2035Cars_API.Controllers
         [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCarsByCityAndLocation
-                                            ([FromRoute]int pageNumber,
-                                            [FromRoute]string city, 
-                                            [FromRoute]string location, 
-                                            [FromBody]PreferableCarFeaturesCommand carFeatures)
+                                            ([FromRoute] int pageNumber,
+                                            [FromRoute] string city,
+                                            [FromRoute] string location,
+                                            [FromBody] PreferableCarFeaturesSearchWithLocationCommand carFeatures)
         {
-            var carsCollection = 
+            var model =
                 await this._service
                     .GetCollectionOfCarsByRentalCityAndLocation
                                 (city, location, carFeatures, pageNumber, pageSize);
 
-            if (carsCollection is null)
+            if (model is null)
                 return ValidationProblem();
 
 
-            return Ok(carsCollection);
+            return Ok(model);
         }
 
-        [HttpGet("cars/{pageNumber}/{rentalId}")]
+        [HttpGet("cars/getallcars/{pageNumber}")]
         [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetCarsByCityAndLocation
-                                            ([FromRoute]int pageNumber,
-                                             [FromRoute]long rentalId,
-                                             [FromBody]PreferableCarFeaturesCommand carFeatures)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllCars([FromRoute] int pageNumber)
         {
-            var carsCollection = 
-                await this._service.GetCollectionOfCarsByRentalId
-                                        (rentalId, carFeatures, pageNumber, pageSize);
+            var model = await this._service.GetAllCarsAsync(pageNumber, pageSize);
 
-            if (carsCollection is null)
-                return BadRequest();
+            if (model is null)
+                return ValidationProblem();
 
-            return Ok(carsCollection);
+
+            return Ok(model);
         }
+
+        [HttpPost("cars/getcarsbytype/{pageNumber}")]
+        [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCarsByType([FromRoute] int pageNumber, [FromBody] CarsByTypeCommand command)
+        {
+            var model = await this._service.GetCarsByTypeAsync(pageNumber, pageSize, command);
+
+            if (model is null)
+                return ValidationProblem();
+
+
+            return Ok(model);
+        }
+
+        // [HttpGet("cars/{pageNumber}/{rentalId}")]
+        // [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
+        // [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        // public async Task<IActionResult> GetCarsByCityAndLocation
+        //                                     ([FromRoute]int pageNumber,
+        //                                      [FromRoute]long rentalId,
+        //                                      [FromBody]PreferableCarFeaturesSearchWithLocationCommand carFeatures)
+        // {
+        //     var carsCollection = 
+        //         await this._service.GetCollectionOfCarsByRentalId
+        //                                 (rentalId, carFeatures, pageNumber, pageSize);
+
+        //     if (carsCollection is null)
+        //         return BadRequest();
+
+        //     return Ok(carsCollection);
+        // }
     }
 }
