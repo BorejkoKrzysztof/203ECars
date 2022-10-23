@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './CarItem.module.css'
 import { GiCarSeat, GiCarDoor, GiHotSurface } from 'react-icons/gi'
 import { RiTempColdFill, RiNavigationFill } from 'react-icons/ri'
@@ -6,19 +6,18 @@ import { TbManualGearbox } from 'react-icons/tb'
 
 function CarItem(props) {
 
-    const carImage = props.image
+    const carImage = props.car.image
 
     const rentButtonHandler = () => {
 
     }
-
 
   return (
     <>
         <div className={styles.carItem}>
             <div className={styles.carItemTitle}>
                 {/* <h1>Marka Model</h1> */}
-                <h1>{props.Brand} {props.Model}</h1>
+                <h1>{props.car.brand} {props.car.model}</h1>
             </div>
             <div className={styles.carItemMiddle}>
                 <div className={styles.mainPart}>
@@ -28,7 +27,7 @@ function CarItem(props) {
 
 
                     <img className={styles.carItemImage}
-                        src={`carImage:image/jpeg;base64,${carImage}`}
+                        src={`data:image/png;base64,${carImage}`}
                         alt={`car`} />
                 </div>
                 <div className={styles.carItemDescription}>
@@ -36,16 +35,16 @@ function CarItem(props) {
                         <span>
                             <GiCarSeat />
                         </span>
-                        {props.AmountOfSeats} - ilość siedzeń
+                        {props.car.amountOfSeats} - ilość siedzeń
                     </p>
                     <p>
                         <span>
                             <GiCarDoor />
                         </span>
-                        {props.AmountOfDoor} - ilość drzwi
+                        {props.car.amountOfDoor} - ilość drzwi
                     </p>
                     {
-                        props.HasAirCooling === true ?
+                        props.car.hasAirCooling === true ?
                         <>
                             <p>
                                 <span>
@@ -58,7 +57,7 @@ function CarItem(props) {
                         <></>
                     }
                     {
-                        props.HasAutomaticGearBox === true ?
+                        props.car.hasAutomaticGearBox === true ?
                         <>
                             <p>
                                 <span>
@@ -71,7 +70,7 @@ function CarItem(props) {
                         <></>
                     }
                     {
-                        props.HasHeatingSeats === true ?
+                        props.car.hasHeatingSeats === true ?
                         <>
                             <p>
                                 <span>
@@ -84,7 +83,7 @@ function CarItem(props) {
                         <></>
                     }
                     {
-                        props.HasBuildInNavigation === true ?
+                        props.car.hasBuildInNavigation === true ?
                         <>
                             <p>
                                 <span>
@@ -101,7 +100,7 @@ function CarItem(props) {
             <div className={styles.bottomSectionCarItem}>
                 <div className={styles.priceArea}>
                         {
-                            props.hoursForRental === 1 ?
+                            props.hours === 1 ?
                             <>
                                 <p>
                                     Za 1 godzinę:
@@ -110,12 +109,12 @@ function CarItem(props) {
                             :
                             <>
                                 <p>
-                                Za {props.hoursForRental} godzin
+                                Za {props.hours} godzin
                             </p>
                             </>
                         }
                         <h3>
-                            {props.PriceForRental} PLN
+                            {props.car.priceForRental} PLN
                         </h3>
                 </div>
                 <div className={styles.rentCarButtonArea}>
