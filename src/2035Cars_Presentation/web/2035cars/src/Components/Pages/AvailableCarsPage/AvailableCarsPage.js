@@ -88,16 +88,16 @@ function AvailableCarsPage() {
         suvTypeCookie !== undefined || compactTypeCookie !== undefined) {
 
         if (sedanTypeCookie) {
-          setSedanCarTypeChecked(sedanTypeCookie)
+          setSedanCarTypeChecked(sedanTypeCookie === 'true')
         }
         if (sportTypeCookie) {
-          setSportCarTypeChecked(sportTypeCookie)
+          setSportCarTypeChecked(sportTypeCookie === 'true')
         }
         if (suvTypeCookie) {
-          setSuvCarTypeChecked(suvTypeCookie)
+          setSuvCarTypeChecked(suvTypeCookie === 'true')
         }
         if (compactTypeCookie) {
-          setCompactCarTypeChecked(compactTypeCookie)
+          setCompactCarTypeChecked(compactTypeCookie === 'true')
         }
 
         setPreferableTypeIsSetted(true)
@@ -132,18 +132,17 @@ function AvailableCarsPage() {
   }
 
   const downloadCarsByPreferableType = () => {
-    console.log(currentPage)
       axios.post(`car/cars/getcarsbytype/${currentPage}`, JSON.stringify({
-          DesiredSuvType: suvCarTypeChecked,
-          DesiredSportType: sportCarTypeChecked,
-          DesiredCompactType: compactCarTypeChecked,
-          DesiredSedanType: sedanCarTypeChecked,
+        DesiredSuvType: suvCarTypeChecked,
+        DesiredSportType: sportCarTypeChecked,
+        DesiredCompactType: compactCarTypeChecked,
+        DesiredSedanType: sedanCarTypeChecked,
       })).then(response => {
-          setListOfCars(response.data.cars)
-          setAmountOfPages(response.data.amountOfPages)
-          setAmountOfHours(response.data.amountOfHours)
+        setListOfCars(response.data.cars)
+        setAmountOfPages(response.data.amountOfPages)
+        setAmountOfHours(response.data.amountOfHours)
 
-          setAreCarsLoaded(true)
+        setAreCarsLoaded(true)
       }).catch(error => {
         console.log(error)
       })
