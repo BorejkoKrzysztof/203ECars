@@ -1,13 +1,13 @@
 namespace _2035Cars_Application.Commands
 {
-    public class PreferableCarFeaturesCommand
+    public class PreferableCarFeaturesSearchWithLocationCommand
     {
         public DateTime AvailableFrom { get; set; }
         // public DateTime OrderFrom { get; set; }
         public DateTime OrderTo { get; set; }
 
-        public decimal MinimumPrice { get; set; }
-        public decimal MaximumPrice { get; set; }
+        // public decimal MinimumPrice { get; set; }
+        // public decimal MaximumPrice { get; set; }
 
         public bool DesiredSuvType { get; set; }
         public bool DesiredSportType { get; set; }
@@ -22,7 +22,7 @@ namespace _2035Cars_Application.Commands
         public bool DesiredHybridDrive { get; set; }
         public bool DesiredElectricDrive { get; set; }
 
-        public int DesiredAmountOfDoors { get; set; }
-        public int DesiredAmountOfSeats { get; set; }
+        // public int DesiredAmountOfDoors { get; set; }
+        // public int DesiredAmountOfSeats { get; set; }
     }
 }
