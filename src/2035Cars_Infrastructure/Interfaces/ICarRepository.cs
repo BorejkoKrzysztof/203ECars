@@ -25,12 +25,9 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             bool hasHybridDrive,
                                             bool hasElectricDrive,
                                             int pageNumber,
-                                            int pageSize,
-                                            decimal minPrice,
-                                            decimal maxPrice,
-                                            int amountOfDoor,
-                                            int amountOfSeats);
-
+                                            int pageSize);
+        Task<int> CountAllCarsAsync();
+        Task<List<Car>> GetAllCarsPaginationAsync(int pageNumber, int pageSize);
         Task<int> CountAllSelectedCarsByCityAndLocationAsync(string city,
                                             string rentalTitle,
                                             DateTime availableFrom,
@@ -43,11 +40,12 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             bool hasAutomaticGearBox,
                                             bool hasBuildInNavigation,
                                             bool hasHybridDrive,
-                                            bool hasElectricDrive,
-                                            decimal minPrice,
-                                            decimal maxPrice,
-                                            int amountOfDoor,
-                                            int amountOfSeats);
+                                            bool hasElectricDrive);
+        Task<List<Car>> GetCarsByTypeAsync(int pageNumber, int pageSize, 
+                                            bool desiredCompactType, 
+                                            bool desiredSedanType, 
+                                            bool desiredSportType, 
+                                            bool desiredSuvType);
 
         Task<List<Car>> GetAllSelectedCarsByRentalIdAsync(long rentalId,
                                             DateTime availableFrom,
@@ -67,7 +65,7 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             decimal maxPrice,
                                             int amountOfDoor,
                                             int amountOfSeats);
-
+        Task<int> CountListOfCarsByTypeAsync(bool desiredCompactType, bool desiredSedanType, bool desiredSportType, bool desiredSuvType);
         Task<int> CountAllSelectedCarsByRentalIdAsync(long rentalId,
                                             DateTime availableFrom,
                                             bool desiredSuvtype,
