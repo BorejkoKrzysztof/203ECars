@@ -9,25 +9,18 @@ function CarContent(props) {
     <>
         <div className={styles.contentWrapper}>
 
-            {/* {
+            {
               props.cars.map((item, index) => {
                 return (
                   <CarItem key={index}
                             car={item}
-                            hours={props.hoursForRental}/>
+                            hours={props.amountOfHours}/>
                 )
               })
-            } */}
-
-            <CarItem />
-            <CarItem />
-            <CarItem />
-            <CarItem />
-            <PageButton amountOfPages = {7}
-                        currentPage = {1}/>
-            
-            {/* <PageButton amountOfPages = {props.amountOfPages}
-                        currentPage = {props.currentPage}/> */}
+            }
+            <PageButton amountOfPages = {props.amountOfPages}
+                        currentPage = {props.currentPage}
+                        setPage={props.setPage}/>
         </div>
     </>
   )
