@@ -79,7 +79,7 @@ namespace _2035Cars_Application.Services
                 };
 
                 carToOrder.IsRented = true;
-                carToOrder.RentedTo = orderCommand.RentToDate.ToUniversalTime();
+                // carToOrder.RentedTo = orderCommand.RentToDate.ToUniversalTime();
 
                 createdOrderId = await this._repository
                                         .OrderTransactionForExistingUser(carToOrder, newOrder);
