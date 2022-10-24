@@ -22,7 +22,7 @@ function CarFeaturesFilter(props) {
   // const [electricFuelChecked, setElectricFuelChecked] = useState(false)
 
   // const [sliderVal, setSliderVal] = useState([0,100])
-  const minDistance = 15
+  const minDistance = props.maxPriceForSlider * 0.1
 
   const updateSlider = (e, data, activeThumb) => {
     if (!Array.isArray(data)) {
