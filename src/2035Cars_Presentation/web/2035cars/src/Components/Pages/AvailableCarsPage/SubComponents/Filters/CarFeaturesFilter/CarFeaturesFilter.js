@@ -94,9 +94,12 @@ function CarFeaturesFilter(props) {
                         height: "6px",
                       }, }}
                       disableSwap
-                      step={5}
+                      step={props.maxPriceForSlider / 20}
+                      min={props.minPriceForSlider}
+                      max={props.maxPriceForSlider}
                       value={props.sliderVal}
                       onChange={updateSlider}
+                      defaultValue={[0, props.maxPriceForSlider]}
                       getAriaValueText = {getText}
                     />
                   </div>

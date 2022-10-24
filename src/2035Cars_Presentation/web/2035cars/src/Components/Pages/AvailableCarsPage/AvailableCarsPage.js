@@ -44,6 +44,8 @@ function AvailableCarsPage() {
 
   const [sliderVal, setSliderVal] = useState([])
   const [sliderMinDistance, setSliderMinDistance] = useState(1)
+  const [minPriceForSlider, setMinPriceForSlider] = useState(0)
+  const [maxPriceForSlider, setMaxPriceForSlider] = useState(100)
 
   const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(4)
   const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(5)
@@ -234,7 +236,8 @@ function AvailableCarsPage() {
   useEffect(() => {
       const minPrice = Math.min(...listOfCars.map(item => item.priceForRental))
       const maxPrice = Math.max(...listOfCars.map(item => item.priceForRental))
-
+      setMinPriceForSlider(minPrice)
+      setMaxPriceForSlider(maxPrice)
       const minDistance = maxPrice / 10
       setSliderMinDistance(minDistance)
       setSliderVal([minPrice, maxPrice])
@@ -290,6 +293,8 @@ function AvailableCarsPage() {
                   setLocationIsSetted={setLocationIsSetted}
                   setSettedFromTimeAndLocationForm={setSettedFromTimeAndLocationForm}
                   sliderMinDistance={sliderMinDistance}
+                  maxPriceForSlider={maxPriceForSlider}
+                  minPriceForSlider={minPriceForSlider}
                   // setSliderMinDistance={setSliderMinDistance}
                   />
         {!areCarsLoaded ? 

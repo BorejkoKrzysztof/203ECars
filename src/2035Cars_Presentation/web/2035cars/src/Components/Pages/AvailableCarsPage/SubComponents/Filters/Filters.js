@@ -60,6 +60,8 @@ function Filters(props) {
                       sliderVal={props.sliderVal}
                       setSliderVal={props.setSliderVal}
                       sliderMinDistance={props.sliderMinDistance}
+                      maxPriceForSlider={props.maxPriceForSlider}
+                      minPriceForSlider={props.minPriceForSlider}
                       // setSliderMinDistance={props.setSliderMinDistance}
           />
         </div>
