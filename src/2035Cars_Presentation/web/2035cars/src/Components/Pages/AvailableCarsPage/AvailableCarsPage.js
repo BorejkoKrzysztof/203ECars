@@ -42,7 +42,8 @@ function AvailableCarsPage() {
   const [hybridFuelChecked, setHybridFuelChecked] = useState(false)
   const [electricFuelChecked, setElectricFuelChecked] = useState(false)
 
-  const [sliderVal, setSliderVal] = useState([0,100])
+  const [sliderVal, setSliderVal] = useState([])
+  const [sliderMinDistance, setSliderMinDistance] = useState(1)
 
   const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(4)
   const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(5)
@@ -54,6 +55,8 @@ function AvailableCarsPage() {
   const [amountOfPages, setAmountOfPages] = useState(-1)
   const [currentPage, setCurrentPage] = useState(1)
   const [amountOfHours, setAmountOfHours] = useState(-1)
+
+  const [settedFromTimeAndLocationForm, setSettedFromTimeAndLocationForm] = useState(false)
 
   const setLocationDatasFromCookie = () => {
     const cookies = new Cookies()
@@ -75,6 +78,26 @@ function AvailableCarsPage() {
           setDateTimeTo(new Date(dateTimeToCookie))
           setLocationIsSetted(true)
     }
+  }
+
+  const setCookiesFromDatesAndLocationsData = () => {
+    const cookies = new Cookies()
+    cookies.set('selectedCityFrom', `${cityFrom}`, { path: '/' })
+    cookies.set('selectedCityTo', `${cityTo}`, { path: '/' })
+    cookies.set('selectedLocationFrom', `${locationFrom}`, { path: '/' })
+    cookies.set('selectedLocationTo', `${locationTo}`, { path: '/' })
+
+    const dateStart = new Date(dateFrom)
+    dateStart.setHours(hourFrom[0])
+    dateStart.setMinutes(hourFrom[1])
+    cookies.set('dateTimeFrom', `${dateStart}`, { path: '/' })
+
+    const dateEnd = new Date(dateTo)
+    dateEnd.setHours(hourTo[0])
+    dateEnd.setMinutes(hourTo[1])
+    cookies.set('dateTimeTo', `${dateEnd}`, { path: '/' })
+
+    setLocationIsSetted(true)
   }
 
   const setPreferableCarType = () => {
@@ -190,8 +213,6 @@ function AvailableCarsPage() {
 
   useEffect(() => {
 
-      console.log(currentPage)
-
       if(locationIsSetted) {
         downloadCarsByLocationFrom()
       } else if (preferableTypeIsSetted) {
@@ -200,6 +221,24 @@ function AvailableCarsPage() {
         downloadAllCars()
       }
   }, [currentPage])
+
+  useEffect(() => {
+
+      if (settedFromTimeAndLocationForm) {
+        setAreCarsLoaded(false)
+        setCurrentPage(1)
+        setCookiesFromDatesAndLocationsData()
+      }
+  }, [settedFromTimeAndLocationForm])
+
+  useEffect(() => {
+      const minPrice = Math.min(...listOfCars.map(item => item.priceForRental))
+      const maxPrice = Math.max(...listOfCars.map(item => item.priceForRental))
+
+      const minDistance = maxPrice / 10
+      setSliderMinDistance(minDistance)
+      setSliderVal([minPrice, maxPrice])
+  }, [listOfCars])
 
   return (
     <div className={styles.availableCarsWrapper}>
@@ -248,6 +287,10 @@ function AvailableCarsPage() {
                   setDateTo={setDateTo}
                   hourTo={hourTo}
                   setHourTo={setHourTo}
+                  setLocationIsSetted={setLocationIsSetted}
+                  setSettedFromTimeAndLocationForm={setSettedFromTimeAndLocationForm}
+                  sliderMinDistance={sliderMinDistance}
+                  // setSliderMinDistance={setSliderMinDistance}
                   />
         {!areCarsLoaded ? 
               <LoadingCircle />

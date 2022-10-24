@@ -126,6 +126,44 @@ const setHourToHandler = (event) => {
     }
 }
 
+const setLocationDatasFromCookie = () => {
+    const cookies = new Cookies()
+    const cityFromCookie = cookies.get('selectedCityFrom')
+    const locationFromCookie = cookies.get('selectedLocationFrom')
+    const cityToCookie = cookies.get('selectedCityTo')
+    const locationToCookie = cookies.get('selectedLocationTo')
+    const dateTimeFromCookie = cookies.get('dateTimeFrom')
+    const dateTimeToCookie = cookies.get('dateTimeTo')
+
+    if (cityFromCookie !== undefined && locationFromCookie !== undefined && 
+        cityToCookie !== undefined && locationToCookie !== undefined &&
+        dateTimeFromCookie !== undefined && dateTimeToCookie !== undefined) {
+          props.setCityFrom(cityFromCookie)
+          props.setLocationFrom(locationFromCookie)
+          props.setCityTo(cityToCookie)
+          props.setLocationTo(locationToCookie)
+
+          const dateStart = new Date(dateTimeFromCookie)
+          const dateEnd = new Date(dateTimeToCookie)
+
+          props.setDateFrom(dateStart)
+          props.setDateTo(dateEnd)
+          props.setHourFrom([dateStart.getHours(), dateStart.getMinutes()])
+          props.setHourTo([dateEnd.getHours(), dateEnd.getMinutes()])
+          props.setLocationIsSetted(true)
+    }
+  }
+
+const resetFormHandler = () => {
+    setLocationFormState(true)
+}
+
+const formLocationAndTimeHandler = async () => {
+    // event.preventDefault()
+    props.setSettedFromTimeAndLocationForm(true)
+    setLocationFormState(true)
+}
+
 
 useEffect(() => {
     const cookies = new Cookies()
@@ -133,15 +171,16 @@ useEffect(() => {
     const dateTimeToCookie = cookies.get('dateTimeTo')
 
     if (dateTimeFromCookie !== undefined && dateTimeToCookie !== undefined) {
-
-    } else {
         getDefaultTimeFrom()
         getDefaultTimeTo()
     }
-
     downloadCitiesWithLocations()
 
 }, [])
+
+useEffect(() => {
+    setLocationDatasFromCookie()
+}, [locationFormState])
 
   return (
     <>
@@ -239,7 +278,7 @@ useEffect(() => {
         </div>
         <div className={styles.locationFormOpenButtonWrapper}>
             <button className={styles.themeButton} 
-                onClick={() => { setLocationFormState(true) }}>
+                onClick={resetFormHandler}>
                 EDYTUJ
             </button>
         </div>
@@ -327,7 +366,8 @@ useEffect(() => {
                 </div>
             </div>
             <div className={styles.submitButtonWrapper}>
-                <button className={styles.submitButton}>EDYTUJ</button>
+                <button className={styles.submitButton}
+                             onClick={formLocationAndTimeHandler}>EDYTUJ</button>
             </div>
         </form>
     </div>

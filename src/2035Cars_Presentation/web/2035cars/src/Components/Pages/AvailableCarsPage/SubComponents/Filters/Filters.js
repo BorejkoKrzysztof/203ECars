@@ -32,6 +32,8 @@ function Filters(props) {
                       setDateTo={props.setDateTo}
                       hourTo={props.hourTo}
                       setHourTo={props.setHourTo}
+                      setLocationIsSetted={props.setLocationIsSetted}
+                      setSettedFromTimeAndLocationForm={props.setSettedFromTimeAndLocationForm}
             />
           </div>
           <CarFeaturesFilter 
@@ -57,6 +59,8 @@ function Filters(props) {
                       setElectricFuelChecked={props.setElectricFuelChecked}
                       sliderVal={props.sliderVal}
                       setSliderVal={props.setSliderVal}
+                      sliderMinDistance={props.sliderMinDistance}
+                      // setSliderMinDistance={props.setSliderMinDistance}
           />
         </div>
     </>
