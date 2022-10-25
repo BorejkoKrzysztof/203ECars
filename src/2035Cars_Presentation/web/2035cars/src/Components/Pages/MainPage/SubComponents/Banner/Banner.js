@@ -40,6 +40,31 @@ const RemoveCookie = (cookieName) => {
     }
 }
 
+const RemoveSetOfCookies = () => {
+    RemoveCookie('selectedCityFrom')
+    RemoveCookie('selectedLocationFrom')
+    RemoveCookie('selectedCityTo')
+    RemoveCookie('selectedLocationTo')
+    RemoveCookie('dateFrom')
+    RemoveCookie('hourFrom')
+    RemoveCookie('dateTo')
+    RemoveCookie('hourTo')
+    RemoveCookie('dateTimeFrom')
+    RemoveCookie('dateTimeTo')
+    RemoveCookie('Suv')
+    RemoveCookie('Sport')
+    RemoveCookie('Sedan')
+    RemoveCookie('Compact')
+    RemoveCookie('AirCooling')
+    RemoveCookie('AmountOfDoors')
+    RemoveCookie('AmountOfSeats')
+    RemoveCookie('AutomaticGearBox')
+    RemoveCookie('BuildInNavigation')
+    RemoveCookie('HeatingSeats')
+    RemoveCookie('maxPrice')
+    RemoveCookie('minPrice')
+}
+
 const GetCities = () => {
     axios.get('/rental/cities')
             .then(response => {
@@ -273,21 +298,7 @@ const fieldsForOtherCityLeave =
 
 
   useEffect(() => {
-        RemoveCookie('selectedCityFrom')
-        RemoveCookie('selectedLocationFrom')
-        RemoveCookie('selectedCityTo')
-        RemoveCookie('selectedLocationTo')
-        RemoveCookie('dateFrom')
-        RemoveCookie('hourFrom')
-        RemoveCookie('dateTo')
-        RemoveCookie('hourTo')
-        RemoveCookie('dateTimeFrom')
-        RemoveCookie('dateTimeTo')
-        RemoveCookie('Suv')
-        RemoveCookie('Sport')
-        RemoveCookie('Sedan')
-        RemoveCookie('Compact')
-
+        RemoveSetOfCookies();
         getDefaultTimeFrom();
         getDefaultTimeTo();
         GetCities();
