@@ -315,6 +315,8 @@ namespace _2035Cars_Infrastructure.Repositories
             if (amountOfSeats > 0)
                 carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
 
+            // Ordering Collection
+            carsCollection = carsCollection.OrderBy(x => x.PriceForOneHour);
 
             return await carsCollection.Skip((pageNumber - 1) * pageSize)
                                                     .Take(pageSize)
