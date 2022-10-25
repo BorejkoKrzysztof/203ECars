@@ -20,7 +20,7 @@ namespace _2035Cars_Infrastructure.Repositories.CarTypeExpressionDecorator
             if (this._expression is null)
                 return expressionCompact;
 
-            var body = Expression.AndAlso(this._expression.Body, expressionCompact.Body);
+            var body = Expression.OrElse(this._expression.Body, expressionCompact.Body);
             var lambda = Expression.Lambda<Func<Car, bool>>(body, this._expression.Parameters[0]);
 
             return lambda;
