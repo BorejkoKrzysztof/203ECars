@@ -1,8 +1,10 @@
+using System.Linq.Expressions;
 using _2035Cars_Core.Domain;
 using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Database;
 using _2035Cars_Infrastructure.Interfaces;
+using _2035Cars_Infrastructure.Repositories.CarTypeExpressionDecorator;
 using Microsoft.EntityFrameworkCore;
 
 namespace _2035Cars_Infrastructure.Repositories
@@ -179,16 +181,16 @@ namespace _2035Cars_Infrastructure.Repositories
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
             if (desiredCompactType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
 
             if (desiredSedanType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
 
             if (desiredSportType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
 
             if (desiredSuvType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
 
 
             return await carsCollection.Skip((pageNumber - 1) * pageSize)
@@ -201,17 +203,135 @@ namespace _2035Cars_Infrastructure.Repositories
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
             if (desiredCompactType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
 
             if (desiredSedanType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
 
             if (desiredSportType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
 
             if (desiredSuvType)
-                    carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
+                carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
 
+
+            return await carsCollection.CountAsync();
+        }
+
+        public async Task<List<Car>> GetCarsByLocationAndEquipmentAsync
+                                (int pageNumber, int pageSize,
+                                        string cityFrom, string locationFrom,
+                                        decimal minPrice, decimal maxPrice,
+                                        bool desiredSuv, bool desiredSedan,
+                                        bool desiredSport, bool desiredCompact,
+                                        bool desiredAirConditioning, bool desiredHeatingSeats,
+                                        bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                        bool desiredHybridDrive, bool desiredElectricDrive,
+                                        int amountOfDoors, int amountOfSeats)
+        {
+            IQueryable<Car> carsCollection = this._dbContext.Cars;
+
+            if (!string.IsNullOrEmpty(cityFrom) && !string.IsNullOrEmpty(locationFrom))
+                carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+
+            // Filter by Price
+            carsCollection = carsCollection.Where(x => x.PriceForOneHour >= minPrice);
+            carsCollection = carsCollection.Where(x => x.PriceForOneHour <= maxPrice);
+
+            // Filter by Car Body Type
+            if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
+
+                if (desiredSuv)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSedan)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSport)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompact)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
+
+            // Filter by Equipment
+            if (desiredAirConditioning)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasAirCooling);
+
+            if (desiredHeatingSeats)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasHeatingSeat);
+
+            if (desiredAutomaticGearBox)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasAutomaticGearBox);
+
+            if (desiredBuildInNavigation)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasBuildInNavigation);
+
+            // Filter by Amount Of Doors
+            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+
+            // Filter by Amount Of Seats
+            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+
+
+            return await carsCollection.Skip((pageNumber - 1) * pageSize)
+                                                    .Take(pageSize)
+                                                    .ToListAsync();
+        }
+
+        public async Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats)
+        {
+            IQueryable<Car> carsCollection = this._dbContext.Cars;
+
+            if (!string.IsNullOrEmpty(cityFrom) && !string.IsNullOrEmpty(locationFrom))
+                carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+
+            // Filter by Price
+            carsCollection = carsCollection.Where(x => x.PriceForOneHour >= minPrice);
+            carsCollection = carsCollection.Where(x => x.PriceForOneHour <= maxPrice);
+
+            // Filter by Car Body Type
+            if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
+
+                if (desiredSuv)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSedan)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSport)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompact)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
+
+            // Filter by Equipment
+            if (desiredAirConditioning)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasAirCooling);
+
+            if (desiredHeatingSeats)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasHeatingSeat);
+
+            if (desiredAutomaticGearBox)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasAutomaticGearBox);
+
+            if (desiredBuildInNavigation)
+                carsCollection = carsCollection.Where(x => x.Equipment.HasBuildInNavigation);
+
+            // Filter by Amount Of Doors
+            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+
+            // Filter by Amount Of Seats
+            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
 
             return await carsCollection.CountAsync();
         }
