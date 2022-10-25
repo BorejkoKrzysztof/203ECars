@@ -4,6 +4,7 @@ using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Database;
 using _2035Cars_Infrastructure.Interfaces;
+using _2035Cars_Infrastructure.Repositories.CarDriveTypeDecorator;
 using _2035Cars_Infrastructure.Repositories.CarEquipmentDecorator;
 using _2035Cars_Infrastructure.Repositories.CarTypeExpressionDecorator;
 using Microsoft.EntityFrameworkCore;
@@ -288,11 +289,31 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(carEquipmentExpression);
             }
 
+            // Filter by Drive type
+            if (desiredHybridDrive || desiredElectricDrive)
+            {
+                Expression<Func<Car, bool>> carDriveTypeExpression = null!;
+
+                if (desiredHybridDrive)
+                    carDriveTypeExpression =
+                            new HybridDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                if (desiredElectricDrive)
+                    carDriveTypeExpression =
+                            new ElectricDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                carsCollection = carsCollection.Where(carDriveTypeExpression);
+            }
+
             // Filter by Amount Of Doors
-            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+            if (amountOfDoors > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
 
             // Filter by Amount Of Seats
-            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+            if (amountOfSeats > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
 
 
             return await carsCollection.Skip((pageNumber - 1) * pageSize)
@@ -367,11 +388,31 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(carEquipmentExpression);
             }
 
+            // Filter by Drive type
+            if (desiredHybridDrive || desiredElectricDrive)
+            {
+                Expression<Func<Car, bool>> carDriveTypeExpression = null!;
+
+                if (desiredHybridDrive)
+                    carDriveTypeExpression =
+                            new HybridDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                if (desiredElectricDrive)
+                    carDriveTypeExpression =
+                            new ElectricDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                carsCollection = carsCollection.Where(carDriveTypeExpression);
+            }
+
             // Filter by Amount Of Doors
-            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+            if (amountOfDoors > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
 
             // Filter by Amount Of Seats
-            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+            if (amountOfSeats > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
 
             return await carsCollection.CountAsync();
         }
