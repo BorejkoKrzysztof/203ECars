@@ -4,6 +4,7 @@ using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Database;
 using _2035Cars_Infrastructure.Interfaces;
+using _2035Cars_Infrastructure.Repositories.CarEquipmentDecorator;
 using _2035Cars_Infrastructure.Repositories.CarTypeExpressionDecorator;
 using Microsoft.EntityFrameworkCore;
 
@@ -322,17 +323,33 @@ namespace _2035Cars_Infrastructure.Repositories
             }
 
             // Filter by Equipment
-            if (desiredAirConditioning)
-                carsCollection = carsCollection.Where(x => x.Equipment.HasAirCooling);
+            if (desiredAirConditioning || desiredAutomaticGearBox ||
+                        desiredBuildInNavigation || desiredHeatingSeats)
+            {
+                Expression<Func<Car, bool>> carEquipmentExpression = null!;
 
-            if (desiredHeatingSeats)
-                carsCollection = carsCollection.Where(x => x.Equipment.HasHeatingSeat);
+                if (desiredAirConditioning)
+                    carEquipmentExpression =
+                            new AirCoolingExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
-            if (desiredAutomaticGearBox)
-                carsCollection = carsCollection.Where(x => x.Equipment.HasAutomaticGearBox);
+                if (desiredAutomaticGearBox)
+                    carEquipmentExpression =
+                            new AutomaticGearBoxExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
-            if (desiredBuildInNavigation)
-                carsCollection = carsCollection.Where(x => x.Equipment.HasBuildInNavigation);
+                if (desiredBuildInNavigation)
+                    carEquipmentExpression =
+                            new BuildInNavigationExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
+
+                if (desiredHeatingSeats)
+                    carEquipmentExpression =
+                            new HeatingSeatsExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
+
+                carsCollection = carsCollection.Where(carEquipmentExpression);
+            }
 
             // Filter by Amount Of Doors
             carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
