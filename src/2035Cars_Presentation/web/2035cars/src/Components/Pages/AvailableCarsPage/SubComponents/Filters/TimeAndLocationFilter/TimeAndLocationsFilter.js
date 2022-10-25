@@ -367,7 +367,7 @@ useEffect(() => {
             </div>
             <div className={styles.submitButtonWrapper}>
                 <button className={styles.submitButton}
-                             onClick={formLocationAndTimeHandler}>EDYTUJ</button>
+                             onClick={formLocationAndTimeHandler}>SZUKAJ</button>
             </div>
         </form>
     </div>
