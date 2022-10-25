@@ -69,6 +69,7 @@ namespace _2035Cars_Application.Services
                                         - command.DateTimeFrom.ToUniversalTime()).TotalHours;
                 result.amountOfHours = hours;
                 cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
+                result.cars = this._mapper.Map<List<CarDTO>>(cars);
                 result.currentPage = pageNumber;
                 result.amountOfPages = await this._repository
                                             .CountAllCarsByLocationAndEquimentAsync
@@ -100,21 +101,21 @@ namespace _2035Cars_Application.Services
 
             try
             {
-                var cars = 
+                var cars =
                 await this._repository.GetCarsByTypeAsync
-                                            (pageNumber, pageSize, 
-                                                command.DesiredCompactType, 
-                                                command.DesiredSedanType, 
-                                                command.DesiredSportType, 
+                                            (pageNumber, pageSize,
+                                                command.DesiredCompactType,
+                                                command.DesiredSedanType,
+                                                command.DesiredSportType,
                                                 command.DesiredSuvType);
                 this._logger.LogInformation("List of Cars by type is downloaded");
                 result.amountOfHours = 1;
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);
                 result.currentPage = pageNumber;
                 result.amountOfPages = await this._repository
-                        .CountListOfCarsByTypeAsync(command.DesiredCompactType, 
-                                                command.DesiredSedanType, 
-                                                command.DesiredSportType, 
+                        .CountListOfCarsByTypeAsync(command.DesiredCompactType,
+                                                command.DesiredSedanType,
+                                                command.DesiredSportType,
                                                 command.DesiredSuvType) / pageSize;
             }
             catch (System.Exception ex)
