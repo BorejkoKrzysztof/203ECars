@@ -51,6 +51,10 @@ namespace _2035Cars_Application.Services
 
             try
             {
+                var hours = (command.DateTimeTo.ToUniversalTime()
+                                        - command.DateTimeFrom.ToUniversalTime()).TotalHours;
+                result.amountOfHours = hours;
+
                 var cars = await this._repository
                                 .GetCarsByLocationAndEquipmentAsync
                                 (pageNumber, pageSize,
@@ -61,13 +65,10 @@ namespace _2035Cars_Application.Services
                                     command.DesiredAirConditioning, command.DesiredHeatingSeats,
                                     command.DesiredAutomaticGearBox, command.DesiredBuildInNavigation,
                                     command.DesiredHybridDrive, command.DesiredElectricDrive,
-                                    command.AmountOfDoors, command.AmountOfSeats);
+                                    command.AmountOfDoors, command.AmountOfSeats, hours);
 
                 this._logger.LogInformation("List Of Car by Location and Equipment is donwloaded");
 
-                var hours = (command.DateTimeTo.ToUniversalTime()
-                                        - command.DateTimeFrom.ToUniversalTime()).TotalHours;
-                result.amountOfHours = hours;
                 cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);
                 result.currentPage = pageNumber;
@@ -81,7 +82,7 @@ namespace _2035Cars_Application.Services
                                                     command.DesiredAirConditioning, command.DesiredHeatingSeats,
                                                     command.DesiredAutomaticGearBox, command.DesiredBuildInNavigation,
                                                     command.DesiredHybridDrive, command.DesiredElectricDrive,
-                                                    command.AmountOfDoors, command.AmountOfSeats
+                                                    command.AmountOfDoors, command.AmountOfSeats, hours
                                                 ) / pageSize;
 
             }

@@ -41,11 +41,19 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             bool hasBuildInNavigation,
                                             bool hasHybridDrive,
                                             bool hasElectricDrive);
-        Task<List<Car>> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize, string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats);
-        Task<List<Car>> GetCarsByTypeAsync(int pageNumber, int pageSize, 
-                                            bool desiredCompactType, 
-                                            bool desiredSedanType, 
-                                            bool desiredSportType, 
+        Task<List<Car>> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize,
+                                                string cityFrom, string locationFrom,
+                                                decimal minPrice, decimal maxPrice,
+                                                bool desiredSuv, bool desiredSedan,
+                                                bool desiredSport, bool desiredCompact,
+                                                bool desiredAirConditioning, bool desiredHeatingSeats,
+                                                bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                                bool desiredHybridDrive, bool desiredElectricDrive,
+                                                int amountOfDoors, int amountOfSeats, double hours);
+        Task<List<Car>> GetCarsByTypeAsync(int pageNumber, int pageSize,
+                                            bool desiredCompactType,
+                                            bool desiredSedanType,
+                                            bool desiredSportType,
                                             bool desiredSuvType);
 
         Task<List<Car>> GetAllSelectedCarsByRentalIdAsync(long rentalId,
@@ -66,7 +74,14 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             decimal maxPrice,
                                             int amountOfDoor,
                                             int amountOfSeats);
-        Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats);
+        Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom,
+                                            decimal minPrice, decimal maxPrice,
+                                            bool desiredSuv, bool desiredSedan,
+                                            bool desiredSport, bool desiredCompact,
+                                            bool desiredAirConditioning, bool desiredHeatingSeats,
+                                            bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                            bool desiredHybridDrive, bool desiredElectricDrive,
+                                            int amountOfDoors, int amountOfSeats, double hours);
         Task<int> CountListOfCarsByTypeAsync(bool desiredCompactType, bool desiredSedanType, bool desiredSportType, bool desiredSuvType);
         Task<int> CountAllSelectedCarsByRentalIdAsync(long rentalId,
                                             DateTime availableFrom,

@@ -227,7 +227,7 @@ namespace _2035Cars_Infrastructure.Repositories
                                         bool desiredAirConditioning, bool desiredHeatingSeats,
                                         bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
                                         bool desiredHybridDrive, bool desiredElectricDrive,
-                                        int amountOfDoors, int amountOfSeats)
+                                        int amountOfDoors, int amountOfSeats, double hours)
         {
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
@@ -235,8 +235,8 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
             // Filter by Price
-            carsCollection = carsCollection.Where(x => x.PriceForOneHour >= minPrice);
-            carsCollection = carsCollection.Where(x => x.PriceForOneHour <= maxPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
 
             // Filter by Car Body Type
             if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
@@ -283,7 +283,14 @@ namespace _2035Cars_Infrastructure.Repositories
                                                     .ToListAsync();
         }
 
-        public async Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats)
+        public async Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom,
+                                                decimal minPrice, decimal maxPrice,
+                                                bool desiredSuv, bool desiredSedan,
+                                                bool desiredSport, bool desiredCompact,
+                                                bool desiredAirConditioning, bool desiredHeatingSeats,
+                                                bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                                bool desiredHybridDrive, bool desiredElectricDrive,
+                                                int amountOfDoors, int amountOfSeats, double hours)
         {
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
@@ -291,8 +298,8 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
             // Filter by Price
-            carsCollection = carsCollection.Where(x => x.PriceForOneHour >= minPrice);
-            carsCollection = carsCollection.Where(x => x.PriceForOneHour <= maxPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
 
             // Filter by Car Body Type
             if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
