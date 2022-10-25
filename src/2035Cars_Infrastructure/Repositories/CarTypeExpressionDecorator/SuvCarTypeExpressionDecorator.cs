@@ -20,8 +20,9 @@ namespace _2035Cars_Infrastructure.Repositories.CarTypeExpressionDecorator
             if (this._expression is null)
                 return expressionSuv;
 
-            var body = Expression.OrElse(this._expression.Body, expressionSuv.Body);
-            var lambda = Expression.Lambda<Func<Car, bool>>(body, this._expression.Parameters[0]);
+            var param = Expression.Parameter(typeof(Car), "x");
+            var body = Expression.OrElse(Expression.Invoke(this._expression, param), Expression.Invoke(expressionSuv, param));
+            var lambda = Expression.Lambda<Func<Car, bool>>(body, param);
 
             return lambda;
         }
