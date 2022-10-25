@@ -69,22 +69,23 @@ namespace _2035Cars_API.Controllers
             return Ok(model);
         }
 
-        // [HttpGet("cars/{pageNumber}/{rentalId}")]
-        // [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
-        // [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        // public async Task<IActionResult> GetCarsByCityAndLocation
-        //                                     ([FromRoute]int pageNumber,
-        //                                      [FromRoute]long rentalId,
-        //                                      [FromBody]PreferableCarFeaturesSearchWithLocationCommand carFeatures)
-        // {
-        //     var carsCollection = 
-        //         await this._service.GetCollectionOfCarsByRentalId
-        //                                 (rentalId, carFeatures, pageNumber, pageSize);
+        [HttpPost("cars/getcarsbycarequipment/{pageNumber}")]
+        [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCollectionOfCarsByEquipment
+                                                            ([FromRoute] int pageNumber,
+                                                             [FromBody] GetCarsByEquipmentCommand command)
+        {
+            var model = await this._service.GetCarsByLocationAndEquipmentAsync
+                                                                        (pageNumber,
+                                                                        pageSize,
+                                                                        command);
 
-        //     if (carsCollection is null)
-        //         return BadRequest();
+            if (model is null)
+                return ValidationProblem();
 
-        //     return Ok(carsCollection);
-        // }
+
+            return Ok(model);
+        }
     }
 }
