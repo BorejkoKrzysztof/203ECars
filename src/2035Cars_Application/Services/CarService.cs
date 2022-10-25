@@ -45,6 +45,54 @@ namespace _2035Cars_Application.Services
             return result;
         }
 
+        public async Task<CarsCollectionWithPagination> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize, GetCarsByEquipmentCommand command)
+        {
+            CarsCollectionWithPagination result = new CarsCollectionWithPagination();
+
+            try
+            {
+                var cars = await this._repository
+                                .GetCarsByLocationAndEquipmentAsync
+                                (pageNumber, pageSize,
+                                    command.CityFrom, command.LocationFrom,
+                                    command.MinPrice, command.MaxPrice,
+                                    command.DesiredSuv, command.DesiredSedan,
+                                    command.DesiredSport, command.DesiredCompact,
+                                    command.DesiredAirConditioning, command.DesiredHeatingSeats,
+                                    command.DesiredAutomaticGearBox, command.DesiredBuildInNavigation,
+                                    command.DesiredHybridDrive, command.DesiredElectricDrive,
+                                    command.AmountOfDoors, command.AmountOfSeats);
+
+                this._logger.LogInformation("List Of Car by Location and Equipment is donwloaded");
+
+                var hours = (command.DateTimeTo.ToUniversalTime()
+                                        - command.DateTimeFrom.ToUniversalTime()).TotalHours;
+                result.amountOfHours = hours;
+                cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
+                result.currentPage = pageNumber;
+                result.amountOfPages = await this._repository
+                                            .CountAllCarsByLocationAndEquimentAsync
+                                                (
+                                                    command.CityFrom, command.LocationFrom,
+                                                    command.MinPrice, command.MaxPrice,
+                                                    command.DesiredSuv, command.DesiredSedan,
+                                                    command.DesiredSport, command.DesiredCompact,
+                                                    command.DesiredAirConditioning, command.DesiredHeatingSeats,
+                                                    command.DesiredAutomaticGearBox, command.DesiredBuildInNavigation,
+                                                    command.DesiredHybridDrive, command.DesiredElectricDrive,
+                                                    command.AmountOfDoors, command.AmountOfSeats
+                                                ) / pageSize;
+
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Unable to read List Of Cars by Location and Car Equipment, error => {ex.Message}");
+                return null!;
+            }
+
+            return result;
+        }
+
         public async Task<CarsCollectionWithPagination> GetCarsByTypeAsync
                                 (int pageNumber, int pageSize, CarsByTypeCommand command)
         {
@@ -149,75 +197,5 @@ namespace _2035Cars_Application.Services
 
             return result;
         }
-
-        // public async Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalId
-        //                                         (long id, 
-        //                                         PreferableCarFeaturesSearchWithLocationCommand carFeatures, 
-        //                                         int pageNumber, 
-        //                                         int pageSize)
-        // {
-        //     CarsCollectionWithPagination result = new CarsCollectionWithPagination();
-
-        //     try
-        //     {
-        //        var cars = await this._repository
-        //                         .GetAllSelectedCarsByRentalIdAsync
-        //                             (
-        //                                 id,
-        //                                 carFeatures.AvailableFrom,
-        //                                 carFeatures.DesiredSuvType,
-        //                                 carFeatures.DesiredSportType,
-        //                                 carFeatures.DesiredCompactType,
-        //                                 carFeatures.DesiredSedanType,
-        //                                 carFeatures.DesiredAirCooling,
-        //                                 carFeatures.DesiredHeatingSeats,
-        //                                 carFeatures.DesiredAutomaticGearBox,
-        //                                 carFeatures.DesiredBuildInNavigation,
-        //                                 carFeatures.DesiredHybridDrive,
-        //                                 carFeatures.DesiredElectricDrive,
-        //                                 pageNumber,
-        //                                 pageSize,
-        //                                 carFeatures.MinimumPrice,
-        //                                 carFeatures.MaximumPrice,
-        //                                 carFeatures.DesiredAmountOfDoors,
-        //                                 carFeatures.DesiredAmountOfSeats
-        //                             );
-
-        //         this._logger.LogInformation($"List Of Cars for rental with id: {id} is downloaded");
-
-        //         result.cars = this._mapper.Map<List<CarDTO>>(cars);
-
-        //         result.amountOfPages = await this._repository.CountAllSelectedCarsByRentalIdAsync
-        //                                 (
-        //                                     id,
-        //                                     carFeatures.AvailableFrom,
-        //                                     carFeatures.DesiredSuvType,
-        //                                     carFeatures.DesiredSportType,
-        //                                     carFeatures.DesiredCompactType,
-        //                                     carFeatures.DesiredSedanType,
-        //                                     carFeatures.DesiredAirCooling,
-        //                                     carFeatures.DesiredHeatingSeats,
-        //                                     carFeatures.DesiredAutomaticGearBox,
-        //                                     carFeatures.DesiredBuildInNavigation,
-        //                                     carFeatures.DesiredHybridDrive,
-        //                                     carFeatures.DesiredElectricDrive,
-        //                                     carFeatures.MinimumPrice,
-        //                                     carFeatures.MaximumPrice,
-        //                                     carFeatures.DesiredAmountOfDoors,
-        //                                     carFeatures.DesiredAmountOfSeats
-        //                                 ) / pageSize;
-
-        //         this._logger.LogInformation($"Amount of pages for List Of Cars for rental with id => {id} is downloaded");
-
-        //         result.currentPage = pageNumber;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         this._logger.LogError($"Unable to read List Of Cars with specific features => {ex.Message}");
-        //         return null!;
-        //     }
-
-        //     return result;
-        // }
     }
 }

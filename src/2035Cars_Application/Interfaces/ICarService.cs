@@ -21,5 +21,6 @@ namespace _2035Cars_Application.Interfaces
         Task<CarsCollectionWithPagination> GetAllCarsAsync(int pageNumber, int pageSize);
         Task<CarsCollectionWithPagination> GetCarsByTypeAsync
                                                 (int pageNumber, int pageSize, CarsByTypeCommand command);
+        Task<CarsCollectionWithPagination> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize, GetCarsByEquipmentCommand command);
     }
 }
