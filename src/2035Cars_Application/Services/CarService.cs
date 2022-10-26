@@ -53,7 +53,7 @@ namespace _2035Cars_Application.Services
             {
                 var hours = (command.DateTimeTo.ToUniversalTime()
                                         - command.DateTimeFrom.ToUniversalTime()).TotalHours;
-                result.amountOfHours = hours;
+                result.amountOfHours = Math.Round(hours, 2);
 
                 var cars = await this._repository
                                 .GetCarsByLocationAndEquipmentAsync
@@ -69,7 +69,8 @@ namespace _2035Cars_Application.Services
 
                 this._logger.LogInformation("List Of Car by Location and Equipment is donwloaded");
 
-                cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
+                cars.ForEach(x => x.PriceForOneHour =
+                                Math.Round(x.PriceForOneHour = x.PriceForOneHour * (decimal)hours, 2));
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);
                 result.currentPage = pageNumber;
                 result.amountOfPages = await this._repository
@@ -165,8 +166,9 @@ namespace _2035Cars_Application.Services
                 // Count Total Price For Renting
                 var hours = (carFeatures.OrderTo.ToUniversalTime()
                                         - carFeatures.AvailableFrom.ToUniversalTime()).TotalHours;
-                result.amountOfHours = hours;
-                cars.ForEach(x => x.PriceForOneHour = x.PriceForOneHour * (decimal)hours);
+                result.amountOfHours = Math.Round(hours, 2);
+                cars.ForEach(x => x.PriceForOneHour =
+                                Math.Round(x.PriceForOneHour = x.PriceForOneHour * (decimal)hours, 2));
 
                 result.cars = this._mapper.Map<List<CarDTO>>(cars);
 

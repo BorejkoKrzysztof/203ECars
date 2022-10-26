@@ -132,7 +132,7 @@ function CarFeaturesFilter(props) {
                       getAriaValueText = {getText}
                     />
                   </div>
-                  <h4>Od: {props.sliderVal[0]} Do: {props.sliderVal[1]}</h4>
+                  <h4>Od: {Math.round((props.sliderVal[0] + Number.EPSILON) * 100) / 100} Do: {Math.round((props.sliderVal[1] + Number.EPSILON) * 100) / 100}</h4>
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Typ nadwozia:</h1>
