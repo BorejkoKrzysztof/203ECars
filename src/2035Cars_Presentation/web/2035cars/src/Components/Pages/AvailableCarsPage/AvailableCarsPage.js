@@ -21,10 +21,10 @@ function AvailableCarsPage() {
   const [locationIsSetted, setLocationIsSetted] = useState(false)
 
   const [dateFrom, setDateFrom] = useState(new Date())
-  const [hourFrom, setHourFrom] = useState([])
+  const [hourFrom, setHourFrom] = useState([0,0])
 
   const [dateTo, setDateTo] = useState(new Date())
-  const [hourTo, setHourTo] = useState([])
+  const [hourTo, setHourTo] = useState([0,0])
 
   const [searchAllCars, setSearchAllCars] = useState(false)
 
@@ -60,6 +60,7 @@ function AvailableCarsPage() {
   const [settedFromTimeAndLocationForm, setSettedFromTimeAndLocationForm] = useState(false)
   const [settedFromCarFeaturesForm, setSettedFromCarFeaturesForm] = useState(false)
   const [resetedFromCarFeaturesForm, setResetedFromCarFeaturesForm] = useState(false)
+  
 
   const setLocationDatasFromCookie = () => {
     const cookies = new Cookies()
@@ -86,9 +87,15 @@ function AvailableCarsPage() {
   const setCookiesFromDatesAndLocationsData = () => {
     const cookies = new Cookies()
     cookies.set('selectedCityFrom', `${cityFrom}`, { path: '/' })
-    cookies.set('selectedCityTo', `${cityTo}`, { path: '/' })
     cookies.set('selectedLocationFrom', `${locationFrom}`, { path: '/' })
-    cookies.set('selectedLocationTo', `${locationTo}`, { path: '/' })
+
+    if (cityTo !== cityDefaultValue || cityTo !== undefined) {
+      cookies.set('selectedCityTo', `${cityTo}`, { path: '/' })
+      cookies.set('selectedLocationTo', `${locationTo}`, { path: '/' })
+    } else {
+      cookies.set('selectedCityTo', `${cityFrom}`, { path: '/' })
+      cookies.set('selectedLocationTo', `${locationFrom}`, { path: '/' })
+    }
 
     const dateStart = new Date(dateFrom)
     dateStart.setHours(hourFrom[0])
@@ -99,8 +106,6 @@ function AvailableCarsPage() {
     dateEnd.setHours(hourTo[0])
     dateEnd.setMinutes(hourTo[1])
     cookies.set('dateTimeTo', `${dateEnd}`, { path: '/' })
-
-    setLocationIsSetted(true)
   }
 
   const setCookiesFromCarEquipmentData = () => {
@@ -163,10 +168,12 @@ function AvailableCarsPage() {
           DesiredHybridDrive: hybridFuelChecked,
           DesiredElectricDrive: electricFuelChecked,
         })).then(response => {
-          setListOfCars(response.data.cars)
+
+          setListOfCars([...response.data.cars])
           setAmountOfPages(response.data.amountOfPages)
           setAmountOfHours(response.data.amountOfHours)
-
+          
+          // setLocationIsSetted(false)
           setAreCarsLoaded(true)
         }).catch(error => {
           console.log(error)
@@ -288,6 +295,9 @@ function AvailableCarsPage() {
         setAreCarsLoaded(false)
         setCurrentPage(1)
         setCookiesFromDatesAndLocationsData()
+        setLocationDatasFromCookie()
+        downloadCarsByLocationFrom()
+        setSettedFromTimeAndLocationForm(false)
       }
   }, [settedFromTimeAndLocationForm])
 

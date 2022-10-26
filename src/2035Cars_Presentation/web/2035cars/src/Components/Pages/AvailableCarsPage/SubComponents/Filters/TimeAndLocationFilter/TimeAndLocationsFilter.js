@@ -13,6 +13,10 @@ const cityWithLocationDefault = 'Wybierz wypożyczalnie'
 
 const [locationFormState, setLocationFormState] = useState(false)
 const [citiesWithLocations, setCitieWithLocations] = useState([])
+const [hourStart, setHourStart] = useState([0,0])
+const [hourEnd, setHourEnd] = useState([0,0])
+const [dateStart, setDateStart] = useState(new Date())
+const [dateEnd, setDateEnd] = useState(new Date())
 
 const downloadCitiesWithLocations = () => {
     axios.get('/rental/allcitieswithlocations')
@@ -90,11 +94,13 @@ const setLocationToHandler = (event) => {
 
 const SetDateFromHandler = (event) => {
     props.setDateFrom(new Date(event.target.value))
+    setDateStart(new Date(event.target.value))
 }
 
 const setHourFromHandler = (event) => {
     const stringArr = event.target.value.split(',')
     props.setHourFrom([parseInt(stringArr[0]), parseInt(stringArr[1])])
+    setHourStart([parseInt(stringArr[0]), parseInt(stringArr[1])])
 }
 
 const SetDateToHandler = (event) => {
@@ -103,26 +109,31 @@ const SetDateToHandler = (event) => {
         alert('Data końcowa musi być późniejsza lub równa dacie początkowej')
     } else {
         props.setDateTo(newDateTO)
+        setDateEnd(newDateTO)
     }
 }
 
 const setHourToHandler = (event) => {
     const stringArr = event.target.value.split(',')
     const selectedHour = [parseInt(stringArr[0]), parseInt(stringArr[1])]
+    // console.log(selectedHour)
     if(props.dateFrom.getTime() === props.dateTo.getTime()) {
         if (props.hourFrom[0] === selectedHour[0]) {
             if (selectedHour[1] - props.hourFrom[1] < 30) {
                 alert('Podaj późniejszą godzinę zakończenia!')
             } else {
                 props.setHourTo([...selectedHour])
+                setHourEnd([...selectedHour])
             }
         } else if (props.hourFrom[0] > selectedHour[0]) {
             alert('Niepoprawna godzina zakończenia!')
         } else {
             props.setHourTo([...selectedHour])
+            setHourEnd([...selectedHour])
         }
     } else {
         props.setHourTo([...selectedHour])
+        setHourEnd([...selectedHour])
     }
 }
 
@@ -158,10 +169,27 @@ const resetFormHandler = () => {
     setLocationFormState(true)
 }
 
-const formLocationAndTimeHandler = async () => {
-    // event.preventDefault()
+const formLocationAndTimeHandler = () => {
+
+    if (props.cityTo === 'Wybierz miasto' && props.locationTo === 'Wybierz lokalizację') {
+        const city = props.cityFrom
+        props.setCityTo(city)
+        const location = props.locationFrom
+        props.setLocationTo(location)
+    }
+
+    const fullDateStart = new Date(dateStart)
+    fullDateStart.setHours(hourStart[0])
+    fullDateStart.setMinutes(hourStart[1])
+    props.setDateTimeFrom(fullDateStart)
+
+    const fullDateEnd = new Date(dateEnd)
+    fullDateEnd.setHours(hourEnd[0])
+    fullDateEnd.setMinutes(hourEnd[1])
+    props.setDateTimeTo(fullDateEnd)
+    
     props.setSettedFromTimeAndLocationForm(true)
-    setLocationFormState(true)
+    setLocationFormState(false)
 }
 
 
@@ -294,10 +322,11 @@ useEffect(() => {
                 <FaWindowClose />
             </button>
         </div>
-        <form className={styles.editDateTimeRent}>
+        <div className={styles.editDateTimeRent}>
             <div className={styles.locationInfoForm}>
                 <label>POCZĄTEK :</label>
-                <select value={`${props.cityFrom}, ${props.locationFrom}`}
+                <select 
+                value={`${props.cityFrom}, ${props.locationFrom}`}
                                     onChange={setLocationFromHandler}>
                 {
                     [`${cityWithLocationDefault}`, ...citiesWithLocations].map((item, index) => {
@@ -312,7 +341,8 @@ useEffect(() => {
             </div>
             <div className={styles.locationInfoForm}>
                 <label>KONIEC :</label>
-                <select value={`${props.cityTo}, ${props.locationTo}`} 
+                <select 
+                value={`${props.cityTo}, ${props.locationTo}`} 
                                     onChange={setLocationToHandler}>
                 {
                     [`${cityWithLocationDefault}`, ...citiesWithLocations].map((item, index) => {
@@ -369,7 +399,7 @@ useEffect(() => {
                 <button className={styles.submitButton}
                              onClick={formLocationAndTimeHandler}>SZUKAJ</button>
             </div>
-        </form>
+        </div>
     </div>
 </>
   )
