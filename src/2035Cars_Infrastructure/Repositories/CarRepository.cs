@@ -173,7 +173,8 @@ namespace _2035Cars_Infrastructure.Repositories
 
         public async Task<List<Car>> GetAllCarsPaginationAsync(int pageNumber, int pageSize)
         {
-            return await this._dbContext.Cars.Skip((pageNumber - 1) * pageSize)
+            return await this._dbContext.Cars.OrderBy(x => x.PriceForOneHour)
+                                                .Skip((pageNumber - 1) * pageSize)
                                                 .Take(pageSize)
                                                 .ToListAsync();
         }
@@ -194,6 +195,8 @@ namespace _2035Cars_Infrastructure.Repositories
             if (desiredSuvType)
                 carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
 
+            // Ordering Collection
+            carsCollection = carsCollection.OrderBy(x => x.PriceForOneHour);
 
             return await carsCollection.Skip((pageNumber - 1) * pageSize)
                                         .Take(pageSize)
