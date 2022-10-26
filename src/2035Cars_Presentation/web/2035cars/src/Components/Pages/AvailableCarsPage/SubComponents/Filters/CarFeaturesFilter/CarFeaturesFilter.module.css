@@ -100,17 +100,45 @@
 .submitButtonWrapper > button.submitButton {
     width: 80px;
     height: 45px;
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
     border: none;
     font-size: 18px;
-    color: white;
+    /* color: white; */
     font-weight: bold;
     cursor: pointer;
 }
 
-button.submitButton:hover{
+.submitButtonWrapper > button.acceptButton {
+    /* width: 80px; */
+    /* height: 45px; */
+    background-color: yellowgreen;
+    /* border: none; */
+    /* font-size: 18px; */
+    color: white;
+    margin: 0 15px;
+    /* font-weight: bold; */
+    /* cursor: pointer; */
+}
+
+.submitButtonWrapper > button.cancelButton {
+    /* width: 80px; */
+    /* height: 45px; */
+    background-color: var(--redButtonThemeColor);
+    /* border: none; */
+    /* font-size: 18px; */
+    color: white;
+    /* font-weight: bold; */
+    /* cursor: pointer; */
+}
+
+button.acceptButton:hover{
     background-color: var(--yellowGreenHoverThemeColor);
     border-color: var(--yellowGreenHoverThemeColor);
+}
+
+button.cancelButton:hover{
+    background-color: var(--redButtonHoverThemeColor);
+    border-color: var(--redButtonHoverThemeColor);
 }
 
 @media (orientation: landscape) {

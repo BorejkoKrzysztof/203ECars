@@ -47,9 +47,8 @@ function AvailableCarsPage() {
   const [minPriceForSlider, setMinPriceForSlider] = useState(0)
   const [maxPriceForSlider, setMaxPriceForSlider] = useState(100)
 
-  const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(4)
-  const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(5)
-
+  const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(0)
+  const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(0)
 
   const [listOfCars, setListOfCars] = useState([])
   const [hoursForRental, setHoursForRental] = useState(-1)
@@ -59,6 +58,8 @@ function AvailableCarsPage() {
   const [amountOfHours, setAmountOfHours] = useState(-1)
 
   const [settedFromTimeAndLocationForm, setSettedFromTimeAndLocationForm] = useState(false)
+  const [settedFromCarFeaturesForm, setSettedFromCarFeaturesForm] = useState(false)
+  const [resetedFromCarFeaturesForm, setResetedFromCarFeaturesForm] = useState(false)
 
   const setLocationDatasFromCookie = () => {
     const cookies = new Cookies()
@@ -100,6 +101,22 @@ function AvailableCarsPage() {
     cookies.set('dateTimeTo', `${dateEnd}`, { path: '/' })
 
     setLocationIsSetted(true)
+  }
+
+  const setCookiesFromCarEquipmentData = () => {
+    const cookies = new Cookies()
+    cookies.set('minPrice', `${sliderVal[0]}`, { path: '/' })
+    cookies.set('maxPrice', `${sliderVal[1]}`, { path: '/' })
+    cookies.set('Suv', `${suvCarTypeChecked}`, { path: '/' })
+    cookies.set('Sedan', `${sedanCarTypeChecked}`, { path: '/' })
+    cookies.set('Sport', `${sportCarTypeChecked}`, { path: '/' })
+    cookies.set('Compact', `${compactCarTypeChecked}`, { path: '/' })
+    cookies.set('AirCooling', `${airConditioningChecked}`, { path: '/' })
+    cookies.set('HeatingSeats', `${heatedSeatChecked}`, { path: '/' })
+    cookies.set('AutomaticGearBox', `${automaticGearBoxChecked}`, { path: '/' })
+    cookies.set('BuildInNavigation', `${navigationChecked}`, { path: '/' })
+    cookies.set('AmountOfDoors', `${preferableAmountOfDoors}`, { path: '/' })
+    cookies.set('AmountOfSeats', `${preferableAmountOfSeats}`, { path: '/' })
   }
 
   const setPreferableCarType = () => {
@@ -187,6 +204,47 @@ function AvailableCarsPage() {
           })
   }
 
+  const downloadCarsByCarEquipment = () => {
+      
+      const from = new Date(dateFrom)
+      from.setHours(hourFrom[0])
+      from.setMinutes(hourFrom[1])
+      const to = new Date(dateTo)
+      to.setHours(hourTo[0])
+      to.setMinutes(hourTo[1])
+
+      axios.post(`car/cars/getcarsbycarequipment/${currentPage}`, JSON.stringify({
+          CityFrom: cityFrom !== cityDefaultValue ? cityFrom : '',
+          LocationFrom: locationFrom !== locationDefaultValue ? locationFrom :  '', 
+          CityTo: cityTo !== cityDefaultValue ? cityTo : '',
+          LocationTo: locationTo !== locationDefaultValue ? locationTo : '',
+          DateTimeFrom: from,
+          DateTimeTo: to,
+          MinPrice: sliderVal[0],
+          MaxPrice: sliderVal[1],
+          DesiredSuv: suvCarTypeChecked,
+          DesiredSedan: sedanCarTypeChecked,
+          DesiredSport: sportCarTypeChecked,
+          DesiredCompact: compactCarTypeChecked,
+          DesiredAirConditioning: airConditioningChecked,
+          DesiredHeatingSeats: heatedSeatChecked,
+          DesiredAutomaticGearBox: automaticGearBoxChecked,
+          DesiredBuildInNavigation: navigationChecked,
+          DesiredHybridDrive: hybridFuelChecked,
+          DesiredElectricDrive: electricFuelChecked,
+          AmountOfDoors: preferableAmountOfDoors,
+          AmountOfSeats: preferableAmountOfSeats
+      })).then(response => {
+          setListOfCars(response.data.cars)
+          setAmountOfPages(response.data.amountOfPages)
+          setAmountOfHours(response.data.amountOfHours)
+
+          setAreCarsLoaded(true)
+      }).catch(error => {
+          console.log(error)
+      })
+  }
+
   useEffect(() => {
     document.title = 'Dostępne samochody'
     setLocationDatasFromCookie()
@@ -243,6 +301,27 @@ function AvailableCarsPage() {
       setSliderVal([minPrice, maxPrice])
   }, [listOfCars])
 
+  useEffect(() => {
+
+    if(settedFromCarFeaturesForm) {
+
+      // if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue || )           // TU SKONCZYLEM
+      // {
+        setAreCarsLoaded(false)
+        setCookiesFromCarEquipmentData()
+        setCurrentPage(1)
+        downloadCarsByCarEquipment()
+      // }
+    }
+  }, [settedFromCarFeaturesForm])
+
+  useEffect(() => {
+      if (resetedFromCarFeaturesForm) {
+        setCookiesFromCarEquipmentData()
+        downloadCarsByLocationFrom()
+      }
+  }, [resetedFromCarFeaturesForm])
+
   return (
     <div className={styles.availableCarsWrapper}>
       <div className={styles.AvailableCarsContent}>
@@ -295,7 +374,12 @@ function AvailableCarsPage() {
                   sliderMinDistance={sliderMinDistance}
                   maxPriceForSlider={maxPriceForSlider}
                   minPriceForSlider={minPriceForSlider}
-                  // setSliderMinDistance={setSliderMinDistance}
+                  preferableAmountOfDoors={preferableAmountOfDoors}
+                  setPreferableAmountOfDoors={setPreferableAmountOfDoors}
+                  preferableAmountOfSeats={preferableAmountOfSeats}
+                  setPreferableAmountOfSeats={setPreferableAmountOfSeats}
+                  setSettedFromCarFeaturesForm={setSettedFromCarFeaturesForm}
+                  setResetedFromCarFeaturesForm={setResetedFromCarFeaturesForm}
                   />
         {!areCarsLoaded ? 
               <LoadingCircle />

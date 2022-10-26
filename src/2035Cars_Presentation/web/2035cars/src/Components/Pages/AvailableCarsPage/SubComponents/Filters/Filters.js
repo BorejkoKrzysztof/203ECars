@@ -62,7 +62,12 @@ function Filters(props) {
                       sliderMinDistance={props.sliderMinDistance}
                       maxPriceForSlider={props.maxPriceForSlider}
                       minPriceForSlider={props.minPriceForSlider}
-                      // setSliderMinDistance={props.setSliderMinDistance}
+                      preferableAmountOfDoors={props.preferableAmountOfDoors}
+                      setPreferableAmountOfDoors={props.setPreferableAmountOfDoors}
+                      preferableAmountOfSeats={props.preferableAmountOfSeats}
+                      setPreferableAmountOfSeats={props.setPreferableAmountOfSeats}
+                      setSettedFromCarFeaturesForm={props.setSettedFromCarFeaturesForm}
+                      setResetedFromCarFeaturesForm={props.setResetedFromCarFeaturesForm}
           />
         </div>
     </>

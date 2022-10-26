@@ -53,6 +53,35 @@ function CarFeaturesFilter(props) {
 
   const getText = (value) => `${value}`
 
+  const setAmountOfDoorsHandler = (event) => {
+      props.setPreferableAmountOfDoors(event.target.value)
+  }
+
+  const setAmountOfSeatsHandler = (event) => {
+      props.setPreferableAmountOfSeats(event.target.value)
+  }
+
+  const carFeaturesFormHandler = () => {
+      props.setSettedFromCarFeaturesForm(true)
+  }
+
+  const resetCarFeaturesHandler = () => {
+      props.setSliderVal([props.minPriceForSlider, props.maxPriceForSlider])
+      props.setSuvCarTypeChecked(false)
+      props.setSportCarTypeChecked(false)
+      props.setCompactCarTypeChecked(false)
+      props.setSedanCarTypeChecked(false)
+      props.setAirConditioningChecked(false)
+      props.setHeatedSeatChecked(false)
+      props.setAutomaticGearBoxChecked(false)
+      props.setNavigationChecked(false)
+      props.setHybridFuelChecked(false)
+      props.setElectricFuelChecked(false)
+      props.setPreferableAmountOfDoors(false)
+      props.setPreferableAmountOfSeats(false)
+      props.setResetedFromCarFeaturesForm(true)
+  }
+
   return (
     <div className={!filterFormState ? 
                             `${styles.otherSettingsFilterContent}` 
@@ -126,19 +155,26 @@ function CarFeaturesFilter(props) {
                 </div>
                 <div className={styles.filterFormOptionPart}>
                   <h1>Ilość drzwi</h1>
-                  <select>
-                      <option value={1}>2/3</option>
-                      <option value={2}>4/5</option>
+                  <select value={props.preferableAmountOfDoors} onChange={setAmountOfDoorsHandler}>
+                      <option value={0}>Wybierz</option>
+                      <option value={2}>2/3</option>
+                      <option value={4}>4/5</option>
                   </select>
                   <h1>Ilość miejsc</h1>
-                  <select>
-                      <option value={1}>2</option>
-                      <option value={2}>4</option>
+                  <select value={props.preferableAmountOfSeats} onChange={setAmountOfSeatsHandler}>
+                      <option value={0}>Wybierz</option>
+                      <option value={2}>2</option>
+                      <option value={4}>4</option>
                       <option value={5}>5</option>
                   </select>
                 </div>
                 <div className={`${styles.submitButtonWrapper} ${styles.filterButtonSpaceBottom}`}>
-                    <button className={styles.submitButton}>SZUKAJ</button>
+                    <button className={`${styles.submitButton} ${styles.acceptButton}`}
+                              onClick={carFeaturesFormHandler}
+                    >SZUKAJ</button>
+                    <button className={`${styles.submitButton} ${styles.cancelButton}`}
+                              onClick={resetCarFeaturesHandler}
+                    >RESET</button>
                 </div>
             </div>
           </div>
