@@ -66,7 +66,7 @@ function CarFeaturesFilter(props) {
   }
 
   const resetCarFeaturesHandler = () => {
-      props.setSliderVal([props.minPriceForSlider, props.maxPriceForSlider])
+      props.setSliderVal([0, 1000])
       props.setSuvCarTypeChecked(false)
       props.setSportCarTypeChecked(false)
       props.setCompactCarTypeChecked(false)
@@ -77,8 +77,8 @@ function CarFeaturesFilter(props) {
       props.setNavigationChecked(false)
       props.setHybridFuelChecked(false)
       props.setElectricFuelChecked(false)
-      props.setPreferableAmountOfDoors(false)
-      props.setPreferableAmountOfSeats(false)
+      props.setPreferableAmountOfDoors(0)
+      props.setPreferableAmountOfSeats(0)
       props.setResetedFromCarFeaturesForm(true)
   }
 

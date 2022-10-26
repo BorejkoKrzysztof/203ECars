@@ -7,6 +7,7 @@ import LoadingCircle from './SubComponents/LoadingCircle/LoadingCircle'
 import axios from '../../../Axios/axiosDefault'
 import Cookies from 'universal-cookie'
 
+
 function AvailableCarsPage() {
 
   const cityDefaultValue = 'Wybierz miasto'
@@ -45,7 +46,7 @@ function AvailableCarsPage() {
   const [sliderVal, setSliderVal] = useState([])
   const [sliderMinDistance, setSliderMinDistance] = useState(1)
   const [minPriceForSlider, setMinPriceForSlider] = useState(0)
-  const [maxPriceForSlider, setMaxPriceForSlider] = useState(100)
+  const [maxPriceForSlider, setMaxPriceForSlider] = useState(1000)
 
   const [preferableAmountOfDoors, setPreferableAmountOfDoors] = useState(0)
   const [preferableAmountOfSeats, setPreferableAmountOfSeats] = useState(0)
@@ -213,6 +214,23 @@ function AvailableCarsPage() {
 
   const downloadCarsByCarEquipment = () => {
       
+      // const from = new Date(dateFrom)
+      // if (hourFrom[0] !== null) {
+      //   from.setHours(hourFrom[0])
+      //   from.setMinutes(hourFrom[1])
+      // }
+      // const to = new Date(dateTo)
+      // if (hourTo[0] !== null) {
+      //   to.setHours(hourTo[0])
+      //   to.setMinutes(hourTo[1])
+      // } else {
+      //   console.log("WESZLO")
+      //   to.setTime(to.getTime() + 1 * 60 * 60 * 1000);
+
+      //   console.log(from)
+      //   console.log(to)
+      // }
+
       const from = new Date(dateFrom)
       from.setHours(hourFrom[0])
       from.setMinutes(hourFrom[1])
@@ -315,12 +333,15 @@ function AvailableCarsPage() {
 
     if(settedFromCarFeaturesForm) {
 
-      // if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue || )           // TU SKONCZYLEM
+      // if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue)
       // {
         setAreCarsLoaded(false)
         setCookiesFromCarEquipmentData()
         setCurrentPage(1)
         downloadCarsByCarEquipment()
+        setSettedFromCarFeaturesForm(false)
+      // } else {
+      //   alert
       // }
     }
   }, [settedFromCarFeaturesForm])
@@ -328,7 +349,12 @@ function AvailableCarsPage() {
   useEffect(() => {
       if (resetedFromCarFeaturesForm) {
         setCookiesFromCarEquipmentData()
-        downloadCarsByLocationFrom()
+
+        if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue) {
+          downloadCarsByLocationFrom()
+        } else {
+          downloadAllCars()
+        }
       }
   }, [resetedFromCarFeaturesForm])
 

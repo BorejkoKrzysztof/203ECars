@@ -53,6 +53,9 @@ namespace _2035Cars_Application.Services
             {
                 var hours = (command.DateTimeTo.ToUniversalTime()
                                         - command.DateTimeFrom.ToUniversalTime()).TotalHours;
+
+                if (hours == 0)
+                    hours = 1;
                 result.amountOfHours = Math.Round(hours, 2);
 
                 var cars = await this._repository
