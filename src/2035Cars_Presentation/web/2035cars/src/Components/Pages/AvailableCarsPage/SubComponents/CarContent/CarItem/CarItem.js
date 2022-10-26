@@ -114,7 +114,12 @@ function CarItem(props) {
                             </>
                         }
                         <h3>
-                            {props.car.priceForRental} PLN
+                            {
+                                Number.isInteger(props.car.priceForRental) ?
+                                    `${props.car.priceForRental}.00`
+                                    :
+                                    `${props.car.priceForRental}`
+                            } PLN
                         </h3>
                 </div>
                 <div className={styles.rentCarButtonArea}>
