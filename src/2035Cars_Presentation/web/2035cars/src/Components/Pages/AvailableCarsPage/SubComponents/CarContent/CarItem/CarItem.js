@@ -118,7 +118,7 @@ function CarItem(props) {
                                 Number.isInteger(props.car.priceForRental) ?
                                     `${props.car.priceForRental}.00`
                                     :
-                                    `${props.car.priceForRental}`
+                                    `${props.car.priceForRental.toFixed(2)}`
                             } PLN
                         </h3>
                 </div>
