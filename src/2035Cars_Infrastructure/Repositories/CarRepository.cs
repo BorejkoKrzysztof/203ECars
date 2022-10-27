@@ -179,17 +179,25 @@ namespace _2035Cars_Infrastructure.Repositories
         {
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
-            if (desiredCompactType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
+            // Filter by Car Body Type
+            if (desiredSuvType || desiredSedanType || desiredSportType || desiredCompactType)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
 
-            if (desiredSedanType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
+                if (desiredSuvType)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredSportType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
+                if (desiredSedanType)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredSuvType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
+                if (desiredSportType)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompactType)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
 
             // Ordering Collection
             carsCollection = carsCollection.OrderBy(x => x.PriceForOneHour);
@@ -203,17 +211,25 @@ namespace _2035Cars_Infrastructure.Repositories
         {
             IQueryable<Car> carsCollection = this._dbContext.Cars;
 
-            if (desiredCompactType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Compact);
+            // Filter by Car Body Type
+            if (desiredSuvType || desiredSedanType || desiredSportType || desiredCompactType)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
 
-            if (desiredSedanType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sedan);
+                if (desiredSuvType)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredSportType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Sport);
+                if (desiredSedanType)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredSuvType)
-                carsCollection = carsCollection.Where(x => x.CarType == CarType.Suv);
+                if (desiredSportType)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompactType)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
 
 
             return await carsCollection.CountAsync();
@@ -355,6 +371,157 @@ namespace _2035Cars_Infrastructure.Repositories
             return await carsCollection.CountAsync();
         }
 
+        public async Task<decimal> MinPriceCollectionOfCarsByLocationAndEquipment(string cityFrom, string locationFrom,
+                                                                                decimal minPrice, decimal maxPrice,
+                                                                                bool desiredSuv, bool desiredSedan,
+                                                                                bool desiredSport, bool desiredCompact,
+                                                                                bool desiredAirConditioning, bool desiredHeatingSeats,
+                                                                                bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                                                                bool desiredHybridDrive, bool desiredElectricDrive,
+                                                                                int amountOfDoors, int amountOfSeats, double hours)
+        {
+            var carsCollection = await FilterCarsByForm(desiredSuv, desiredSport, desiredCompact, desiredSedan, desiredAirConditioning,
+                                                        desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
+                                                        desiredHybridDrive, desiredElectricDrive);
+
+            carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+
+            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+
+            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MaxPriceCollectionOfCarsByLocationAndEquipment(string cityFrom, string locationFrom,
+                                                                                decimal minPrice, decimal maxPrice,
+                                                                                bool desiredSuv, bool desiredSedan,
+                                                                                bool desiredSport, bool desiredCompact,
+                                                                                bool desiredAirConditioning, bool desiredHeatingSeats,
+                                                                                bool desiredAutomaticGearBox, bool desiredBuildInNavigation,
+                                                                                bool desiredHybridDrive, bool desiredElectricDrive,
+                                                                                int amountOfDoors, int amountOfSeats, double hours)
+        {
+            var carsCollection = await FilterCarsByForm(desiredSuv, desiredSport, desiredCompact, desiredSedan, desiredAirConditioning,
+                                                        desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
+                                                        desiredHybridDrive, desiredElectricDrive);
+
+            carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+
+            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
+            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+
+            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MinPriceCollectionOfCarsAllCars(double hours)
+        {
+            return await this._dbContext.Cars.MinAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MaxPriceCollectionOfCarsAllCars(double hours)
+        {
+            return await this._dbContext.Cars.MaxAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MinPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType,
+                                                                bool desiredSportType, bool desiredSuvType, double hours)
+        {
+            IQueryable<Car> carsCollection = this._dbContext.Cars;
+
+            // Filter by Car Body Type
+            if (desiredSuvType || desiredSedanType || desiredSportType || desiredCompactType)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
+
+                if (desiredSuvType)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSedanType)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSportType)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompactType)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
+
+            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MaxPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType,
+                                                                bool desiredSportType, bool desiredSuvType, double hours)
+        {
+            IQueryable<Car> carsCollection = this._dbContext.Cars;
+
+            // Filter by Car Body Type
+            if (desiredSuvType || desiredSedanType || desiredSportType || desiredCompactType)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
+
+                if (desiredSuvType)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSedanType)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredSportType)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompactType)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                carsCollection = carsCollection.Where(carTypeExpression);
+            }
+
+            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MinPriceCollectionOfCarsByCityAndLocation(string city, string location,
+                                                                            DateTime availableFrom, bool desiredSuvType,
+                                                                            bool desiredSportType, bool desiredCompactType,
+                                                                            bool desiredSedanType, bool desiredAirCooling,
+                                                                            bool desiredHeatingSeats, bool desiredAutomaticGearBox,
+                                                                            bool desiredBuildInNavigation, bool desiredHybridDrive,
+                                                                            bool desiredElectricDrive, double hours)
+        {
+            var carsCollection = await FilterCarsByForm(desiredSuvType, desiredSportType, desiredCompactType,
+                                                        desiredSedanType, desiredAirCooling,
+                                                        desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
+                                                        desiredHybridDrive, desiredElectricDrive);
+
+            carsCollection = carsCollection.Where(x => x.Rental.Address.City == city && x.Rental.Title == location);
+
+
+            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+        }
+
+        public async Task<decimal> MaxPriceCollectionOfCarsByCityAndLocation(string city, string location,
+                                                                            DateTime availableFrom, bool desiredSuvType,
+                                                                            bool desiredSportType, bool desiredCompactType,
+                                                                            bool desiredSedanType, bool desiredAirCooling,
+                                                                            bool desiredHeatingSeats, bool desiredAutomaticGearBox,
+                                                                            bool desiredBuildInNavigation, bool desiredHybridDrive,
+                                                                            bool desiredElectricDrive, double hours)
+        {
+            var carsCollection = await FilterCarsByForm(desiredSuvType, desiredSportType, desiredCompactType,
+                                                        desiredSedanType, desiredAirCooling,
+                                                        desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
+                                                        desiredHybridDrive, desiredElectricDrive);
+
+            carsCollection = carsCollection.Where(x => x.Rental.Address.City == city && x.Rental.Title == location);
+
+
+            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+        }
 
         private async Task<IQueryable<Car>> FilterCarsByForm(bool desiredSuvtype,
                                                     bool desiredSporttype,
@@ -367,8 +534,7 @@ namespace _2035Cars_Infrastructure.Repositories
                                                     bool hasHybridDrive,
                                                     bool hasElectricDrive)
         {
-            IQueryable<Car> collectionOfCars = this._dbContext.Cars
-                                                    .Include(x => x.Rental);
+            IQueryable<Car> collectionOfCars = this._dbContext.Cars;
 
             collectionOfCars = collectionOfCars.Where(x => !x.IsRented);
 

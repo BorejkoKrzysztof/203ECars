@@ -74,6 +74,8 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             decimal maxPrice,
                                             int amountOfDoor,
                                             int amountOfSeats);
+        Task<decimal> MinPriceCollectionOfCarsByLocationAndEquipment(string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats, double hours);
+        Task<decimal> MaxPriceCollectionOfCarsByLocationAndEquipment(string cityFrom, string locationFrom, decimal minPrice, decimal maxPrice, bool desiredSuv, bool desiredSedan, bool desiredSport, bool desiredCompact, bool desiredAirConditioning, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, int amountOfDoors, int amountOfSeats, double hours);
         Task<int> CountAllCarsByLocationAndEquimentAsync(string cityFrom, string locationFrom,
                                             decimal minPrice, decimal maxPrice,
                                             bool desiredSuv, bool desiredSedan,
@@ -99,5 +101,12 @@ namespace _2035Cars_Infrastructure.Interfaces
                                             decimal maxPrice,
                                             int amountOfDoor,
                                             int amountOfSeats);
+
+        Task<decimal> MinPriceCollectionOfCarsAllCars(double hours);
+        Task<decimal> MaxPriceCollectionOfCarsAllCars(double hours);
+        Task<decimal> MinPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType, bool desiredSportType, bool desiredSuvType, double hours);
+        Task<decimal> MaxPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType, bool desiredSportType, bool desiredSuvType, double hours);
+        Task<decimal> MinPriceCollectionOfCarsByCityAndLocation(string city, string location, DateTime availableFrom, bool desiredSuvType, bool desiredSportType, bool desiredCompactType, bool desiredSedanType, bool desiredAirCooling, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, double hours);
+        Task<decimal> MaxPriceCollectionOfCarsByCityAndLocation(string city, string location, DateTime availableFrom, bool desiredSuvType, bool desiredSportType, bool desiredCompactType, bool desiredSedanType, bool desiredAirCooling, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, double hours);
     }
 }

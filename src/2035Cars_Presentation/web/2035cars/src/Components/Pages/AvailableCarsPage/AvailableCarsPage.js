@@ -61,6 +61,9 @@ function AvailableCarsPage() {
   const [settedFromTimeAndLocationForm, setSettedFromTimeAndLocationForm] = useState(false)
   const [settedFromCarFeaturesForm, setSettedFromCarFeaturesForm] = useState(false)
   const [resetedFromCarFeaturesForm, setResetedFromCarFeaturesForm] = useState(false)
+
+  const [minPriceForCarCollection, setMinPriceForCarCollection] = useState(0)
+  const [maxPriceForCarCollection, setMaxPriceForCarCollection] = useState(0)
   
 
   const setLocationDatasFromCookie = () => {
@@ -173,6 +176,8 @@ function AvailableCarsPage() {
           setListOfCars([...response.data.cars])
           setAmountOfPages(response.data.amountOfPages)
           setAmountOfHours(response.data.amountOfHours)
+          setMinPriceForCarCollection(response.data.carMinPrice)
+          setMaxPriceForCarCollection(response.data.carMaxPrice)
           
           // setLocationIsSetted(false)
           setAreCarsLoaded(true)
@@ -191,6 +196,8 @@ function AvailableCarsPage() {
         setListOfCars(response.data.cars)
         setAmountOfPages(response.data.amountOfPages)
         setAmountOfHours(response.data.amountOfHours)
+        setMinPriceForCarCollection(response.data.carMinPrice)
+        setMaxPriceForCarCollection(response.data.carMaxPrice)
 
         setAreCarsLoaded(true)
       }).catch(error => {
@@ -204,6 +211,8 @@ function AvailableCarsPage() {
             setListOfCars(response.data.cars)
             setAmountOfPages(response.data.amountOfPages)
             setAmountOfHours(response.data.amountOfHours)
+            setMinPriceForCarCollection(response.data.carMinPrice)
+            setMaxPriceForCarCollection(response.data.carMaxPrice)
 
             setAreCarsLoaded(true)
           })
@@ -213,23 +222,6 @@ function AvailableCarsPage() {
   }
 
   const downloadCarsByCarEquipment = () => {
-      
-      // const from = new Date(dateFrom)
-      // if (hourFrom[0] !== null) {
-      //   from.setHours(hourFrom[0])
-      //   from.setMinutes(hourFrom[1])
-      // }
-      // const to = new Date(dateTo)
-      // if (hourTo[0] !== null) {
-      //   to.setHours(hourTo[0])
-      //   to.setMinutes(hourTo[1])
-      // } else {
-      //   console.log("WESZLO")
-      //   to.setTime(to.getTime() + 1 * 60 * 60 * 1000);
-
-      //   console.log(from)
-      //   console.log(to)
-      // }
 
       const from = new Date(dateFrom)
       from.setHours(hourFrom[0])
@@ -263,6 +255,8 @@ function AvailableCarsPage() {
           setListOfCars(response.data.cars)
           setAmountOfPages(response.data.amountOfPages)
           setAmountOfHours(response.data.amountOfHours)
+          setMinPriceForCarCollection(response.data.carMinPrice)
+          setMaxPriceForCarCollection(response.data.carMaxPrice)
 
           setAreCarsLoaded(true)
       }).catch(error => {
@@ -320,13 +314,13 @@ function AvailableCarsPage() {
   }, [settedFromTimeAndLocationForm])
 
   useEffect(() => {
-      const minPrice = Math.min(...listOfCars.map(item => item.priceForRental))
-      const maxPrice = Math.max(...listOfCars.map(item => item.priceForRental))
-      setMinPriceForSlider(minPrice)
-      setMaxPriceForSlider(maxPrice)
-      const minDistance = maxPrice / 10
+      // const minPrice = Math.min(...listOfCars.map(item => item.priceForRental))
+      // const maxPrice = Math.max(...listOfCars.map(item => item.priceForRental))
+      setMinPriceForSlider(minPriceForCarCollection)
+      setMaxPriceForSlider(maxPriceForCarCollection)
+      const minDistance = maxPriceForCarCollection / 10
       setSliderMinDistance(minDistance)
-      setSliderVal([minPrice, maxPrice])
+      setSliderVal([minPriceForCarCollection, maxPriceForCarCollection])
   }, [listOfCars])
 
   useEffect(() => {
