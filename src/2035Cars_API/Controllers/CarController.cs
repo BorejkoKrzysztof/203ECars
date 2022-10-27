@@ -87,5 +87,18 @@ namespace _2035Cars_API.Controllers
 
             return Ok(model);
         }
+
+        [HttpGet("cars/getcarimage/{carId}")]
+        [ProducesResponseType(typeof(CarsCollectionWithPagination), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCarImage([FromRoute] long carId)
+        {
+            byte[] image = await this._service.GetImageForCarById(carId);
+
+            if (image is null || image.Length == 0)
+                return ValidationProblem();
+
+            return Ok(image);
+        }
     }
 }

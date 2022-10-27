@@ -54,7 +54,7 @@ const RemoveSetOfCookies = () => {
     RemoveCookie('Suv')
     RemoveCookie('Sport')
     RemoveCookie('Sedan')
-    RemoveCookie('Compact')
+    RemoveCookie('Kompakt')
     RemoveCookie('AirCooling')
     RemoveCookie('AmountOfDoors')
     RemoveCookie('AmountOfSeats')
@@ -66,7 +66,6 @@ const RemoveSetOfCookies = () => {
     RemoveCookie('SelectedCarUniqueNumber')
     RemoveCookie('SelectedCarBrand')
     RemoveCookie('SelectedCarModel')
-    RemoveCookie('SelectedCarImage')
     RemoveCookie('SelectedCarRentalPrice')
 }
 

@@ -287,5 +287,23 @@ namespace _2035Cars_Application.Services
 
             return result;
         }
+
+        public async Task<byte[]> GetImageForCarById(long carId)
+        {
+            byte[] imageResult = null!;
+
+            try
+            {
+                imageResult = await this._repository.GetCarImageByIdAsync(carId);
+                this._logger.LogInformation($"Image for Car with Id equals {carId} is downloaded");
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Unable to download car image with id equals {carId}, error => {ex.Message}");
+                return null!;
+            }
+
+            return imageResult;
+        }
     }
 }

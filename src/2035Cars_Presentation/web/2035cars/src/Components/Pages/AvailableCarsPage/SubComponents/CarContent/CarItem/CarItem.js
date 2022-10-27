@@ -16,7 +16,6 @@ function CarItem(props) {
         cookies.set('SelectedCarUniqueNumber', `${props.car.carUniqueReferrence}`, { path: '/' })
         cookies.set('SelectedCarBrand', `${props.car.brand}`, { path: '/' })
         cookies.set('SelectedCarModel', `${props.car.model}`, { path: '/' })
-        cookies.set('SelectedCarImage', `${Base64.getEncoder().encodeToString(props.car.image)}`, { path: '/' })
         cookies.set('SelectedCarRentalPrice', `${props.car.priceForRental}`, { path: '/' })
     }
 

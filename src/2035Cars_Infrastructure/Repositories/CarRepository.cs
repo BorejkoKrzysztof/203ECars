@@ -642,5 +642,12 @@ namespace _2035Cars_Infrastructure.Repositories
 
             return await Task.FromResult(collectionOfCars);
         }
+
+        public async Task<byte[]> GetCarImageByIdAsync(long carId)
+        {
+            var image = this._dbContext.Cars.Where(x => x.Id == carId).Select(i => i.Image).First();
+
+            return await Task.FromResult(image);
+        }
     }
 }

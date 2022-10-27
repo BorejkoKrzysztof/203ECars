@@ -108,5 +108,6 @@ namespace _2035Cars_Infrastructure.Interfaces
         Task<decimal> MaxPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType, bool desiredSportType, bool desiredSuvType, double hours);
         Task<decimal> MinPriceCollectionOfCarsByCityAndLocation(string city, string location, DateTime availableFrom, bool desiredSuvType, bool desiredSportType, bool desiredCompactType, bool desiredSedanType, bool desiredAirCooling, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, double hours);
         Task<decimal> MaxPriceCollectionOfCarsByCityAndLocation(string city, string location, DateTime availableFrom, bool desiredSuvType, bool desiredSportType, bool desiredCompactType, bool desiredSedanType, bool desiredAirCooling, bool desiredHeatingSeats, bool desiredAutomaticGearBox, bool desiredBuildInNavigation, bool desiredHybridDrive, bool desiredElectricDrive, double hours);
+        Task<byte[]> GetCarImageByIdAsync(long carId);
     }
 }
