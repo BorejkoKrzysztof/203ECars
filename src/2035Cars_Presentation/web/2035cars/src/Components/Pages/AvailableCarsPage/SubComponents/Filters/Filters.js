@@ -68,6 +68,8 @@ function Filters(props) {
                       setPreferableAmountOfSeats={props.setPreferableAmountOfSeats}
                       setSettedFromCarFeaturesForm={props.setSettedFromCarFeaturesForm}
                       setResetedFromCarFeaturesForm={props.setResetedFromCarFeaturesForm}
+                      showCarFeaturesFormResetButton={props.showCarFeaturesFormResetButton}
+                      setShowCarFeaturesFormResetButton={props.setShowCarFeaturesFormResetButton}
           />
         </div>
     </>

@@ -80,6 +80,7 @@ function CarFeaturesFilter(props) {
       props.setPreferableAmountOfDoors(0)
       props.setPreferableAmountOfSeats(0)
       props.setResetedFromCarFeaturesForm(true)
+      props.setShowCarFeaturesFormResetButton(false)
   }
 
   return (
@@ -172,9 +173,16 @@ function CarFeaturesFilter(props) {
                     <button className={`${styles.submitButton} ${styles.acceptButton}`}
                               onClick={carFeaturesFormHandler}
                     >SZUKAJ</button>
-                    <button className={`${styles.submitButton} ${styles.cancelButton}`}
+                    {
+                      props.showCarFeaturesFormResetButton ? 
+                      <>
+                          <button className={`${styles.submitButton} ${styles.cancelButton}`}
                               onClick={resetCarFeaturesHandler}
-                    >RESET</button>
+                          >RESET</button>
+                      </>
+                      :
+                      <></>
+                    }
                 </div>
             </div>
           </div>

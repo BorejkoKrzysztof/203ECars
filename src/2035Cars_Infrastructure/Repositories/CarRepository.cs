@@ -252,8 +252,11 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
             // Filter by Price
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            if (minPrice != 0 || maxPrice != 0)
+            {
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            }
 
             // Filter by Car Body Type
             if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
@@ -357,8 +360,11 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
             // Filter by Price
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            if (minPrice != 0 || maxPrice != 0)
+            {
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            }
 
             // Filter by Amount Of Doors
             if (amountOfDoors > 0)
@@ -384,15 +390,26 @@ namespace _2035Cars_Infrastructure.Repositories
                                                         desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
                                                         desiredHybridDrive, desiredElectricDrive);
 
-            carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+            if (!string.IsNullOrEmpty(cityFrom) && !string.IsNullOrEmpty(locationFrom))
+                carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            // Filter by Price
+            if (minPrice != 0 || maxPrice != 0)
+            {
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            }
 
-            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
-            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+            // Filter by Amount Of Doors
+            if (amountOfDoors > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
 
-            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+            // Filter by Amount Of Seats
+            if (amountOfSeats > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MinAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MaxPriceCollectionOfCarsByLocationAndEquipment(string cityFrom, string locationFrom,
@@ -408,25 +425,38 @@ namespace _2035Cars_Infrastructure.Repositories
                                                         desiredHeatingSeats, desiredAutomaticGearBox, desiredBuildInNavigation,
                                                         desiredHybridDrive, desiredElectricDrive);
 
-            carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
+            if (!string.IsNullOrEmpty(cityFrom) && !string.IsNullOrEmpty(locationFrom))
+                carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
 
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
-            carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            // Filter by Price
+            if (minPrice != 0 || maxPrice != 0)
+            {
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
+                carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
+            }
 
-            carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
-            carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+            // Filter by Amount Of Doors
+            if (amountOfDoors > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfDoor == amountOfDoors);
 
-            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+            // Filter by Amount Of Seats
+            if (amountOfSeats > 0)
+                carsCollection = carsCollection.Where(x => x.AmountOfSeats == amountOfSeats);
+
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MaxAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MinPriceCollectionOfCarsAllCars(double hours)
         {
-            return await this._dbContext.Cars.MinAsync(x => x.PriceForOneHour);
+            return await this._dbContext.Cars.CountAsync() > 0 ?
+                             await this._dbContext.Cars.MinAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MaxPriceCollectionOfCarsAllCars(double hours)
         {
-            return await this._dbContext.Cars.MaxAsync(x => x.PriceForOneHour);
+            return await this._dbContext.Cars.CountAsync() > 0 ?
+                            await this._dbContext.Cars.MaxAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MinPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType,
@@ -454,7 +484,8 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(carTypeExpression);
             }
 
-            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MinAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MaxPriceCollectionCarsByCarType(bool desiredCompactType, bool desiredSedanType,
@@ -482,7 +513,8 @@ namespace _2035Cars_Infrastructure.Repositories
                 carsCollection = carsCollection.Where(carTypeExpression);
             }
 
-            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MaxAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MinPriceCollectionOfCarsByCityAndLocation(string city, string location,
@@ -501,7 +533,8 @@ namespace _2035Cars_Infrastructure.Repositories
             carsCollection = carsCollection.Where(x => x.Rental.Address.City == city && x.Rental.Title == location);
 
 
-            return await carsCollection.MinAsync(x => x.PriceForOneHour);
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MinAsync(x => x.PriceForOneHour) : 0;
         }
 
         public async Task<decimal> MaxPriceCollectionOfCarsByCityAndLocation(string city, string location,
@@ -520,7 +553,8 @@ namespace _2035Cars_Infrastructure.Repositories
             carsCollection = carsCollection.Where(x => x.Rental.Address.City == city && x.Rental.Title == location);
 
 
-            return await carsCollection.MaxAsync(x => x.PriceForOneHour);
+            return await carsCollection.CountAsync() > 0 ?
+                            await carsCollection.MaxAsync(x => x.PriceForOneHour) : 0;
         }
 
         private async Task<IQueryable<Car>> FilterCarsByForm(bool desiredSuvtype,

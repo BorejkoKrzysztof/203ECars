@@ -64,6 +64,8 @@ function AvailableCarsPage() {
 
   const [minPriceForCarCollection, setMinPriceForCarCollection] = useState(0)
   const [maxPriceForCarCollection, setMaxPriceForCarCollection] = useState(0)
+
+  const [showCarFeaturesFormResetButton, setShowCarFeaturesFormResetButton] = useState(false)
   
 
   const setLocationDatasFromCookie = () => {
@@ -126,6 +128,7 @@ function AvailableCarsPage() {
     cookies.set('BuildInNavigation', `${navigationChecked}`, { path: '/' })
     cookies.set('AmountOfDoors', `${preferableAmountOfDoors}`, { path: '/' })
     cookies.set('AmountOfSeats', `${preferableAmountOfSeats}`, { path: '/' })
+    cookies.set('ResetButton', `${resetedFromCarFeaturesForm}`, { path: '/' })
   }
 
   const setPreferableCarType = () => {
@@ -314,13 +317,22 @@ function AvailableCarsPage() {
   }, [settedFromTimeAndLocationForm])
 
   useEffect(() => {
-      // const minPrice = Math.min(...listOfCars.map(item => item.priceForRental))
-      // const maxPrice = Math.max(...listOfCars.map(item => item.priceForRental))
-      setMinPriceForSlider(minPriceForCarCollection)
-      setMaxPriceForSlider(maxPriceForCarCollection)
-      const minDistance = maxPriceForCarCollection / 10
-      setSliderMinDistance(minDistance)
-      setSliderVal([minPriceForCarCollection, maxPriceForCarCollection])
+
+      if (listOfCars.length === 0) {
+        setMinPriceForSlider(0)
+        setMaxPriceForSlider(0)
+        const minDistance = 0
+        setSliderMinDistance(minDistance)
+        setSliderVal([0, 0])
+        return
+      }
+
+      // if (listOfCars.length > 0) {
+        setMinPriceForSlider(minPriceForCarCollection)
+        setMaxPriceForSlider(maxPriceForCarCollection)
+        const minDistance = maxPriceForCarCollection / 10
+        setSliderMinDistance(minDistance)
+        setSliderVal([minPriceForCarCollection, maxPriceForCarCollection])
   }, [listOfCars])
 
   useEffect(() => {
@@ -329,6 +341,7 @@ function AvailableCarsPage() {
 
       // if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue)
       // {
+        setShowCarFeaturesFormResetButton(true)
         setAreCarsLoaded(false)
         setCookiesFromCarEquipmentData()
         setCurrentPage(1)
@@ -349,6 +362,8 @@ function AvailableCarsPage() {
         } else {
           downloadAllCars()
         }
+
+        // setShowCarFeaturesFormResetButton(() => false)
       }
   }, [resetedFromCarFeaturesForm])
 
@@ -410,6 +425,8 @@ function AvailableCarsPage() {
                   setPreferableAmountOfSeats={setPreferableAmountOfSeats}
                   setSettedFromCarFeaturesForm={setSettedFromCarFeaturesForm}
                   setResetedFromCarFeaturesForm={setResetedFromCarFeaturesForm}
+                  showCarFeaturesFormResetButton={showCarFeaturesFormResetButton}
+                  setShowCarFeaturesFormResetButton={setShowCarFeaturesFormResetButton}
                   />
         {!areCarsLoaded ? 
               <LoadingCircle />
