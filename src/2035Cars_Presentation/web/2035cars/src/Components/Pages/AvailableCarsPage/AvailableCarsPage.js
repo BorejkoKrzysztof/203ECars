@@ -356,12 +356,9 @@ function AvailableCarsPage() {
   useEffect(() => {
       if (resetedFromCarFeaturesForm) {
         setCookiesFromCarEquipmentData()
-        console.log('pierwszy IF')
         if (cityFrom !== cityDefaultValue || locationFrom !== locationDefaultValue) {
-          console.log('drugi IF')
           downloadCarsByLocationFrom()
         } else {
-          console.log('ELSE')
           downloadAllCars()
         }
         
