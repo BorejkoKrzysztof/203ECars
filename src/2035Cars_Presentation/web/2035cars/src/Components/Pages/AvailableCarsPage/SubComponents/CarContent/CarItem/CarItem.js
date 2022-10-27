@@ -3,29 +3,36 @@ import styles from './CarItem.module.css'
 import { GiCarSeat, GiCarDoor, GiHotSurface } from 'react-icons/gi'
 import { RiTempColdFill, RiNavigationFill } from 'react-icons/ri'
 import { TbManualGearbox } from 'react-icons/tb'
+import Cookies from 'universal-cookie'
+import { useNavigate } from 'react-router-dom'
 
 function CarItem(props) {
 
+    let navigateTo = useNavigate()
     const carImage = props.car.image
 
-    const rentButtonHandler = () => {
+    const setCookiesFromPropsForRental = () => {
+        const cookies = new Cookies()
+        cookies.set('SelectedCarUniqueNumber', `${props.car.carUniqueReferrence}`, { path: '/' })
+        cookies.set('SelectedCarBrand', `${props.car.brand}`, { path: '/' })
+        cookies.set('SelectedCarModel', `${props.car.model}`, { path: '/' })
+        cookies.set('SelectedCarImage', `${Base64.getEncoder().encodeToString(props.car.image)}`, { path: '/' })
+        cookies.set('SelectedCarRentalPrice', `${props.car.priceForRental}`, { path: '/' })
+    }
 
+    const rentButtonHandler = () => {
+        setCookiesFromPropsForRental()
+        navigateTo('/rezerwacja')
     }
 
   return (
     <>
         <div className={styles.carItem}>
             <div className={styles.carItemTitle}>
-                {/* <h1>Marka Model</h1> */}
                 <h1>{props.car.brand} {props.car.model}</h1>
             </div>
             <div className={styles.carItemMiddle}>
                 <div className={styles.mainPart}>
-                    {/* <img className={styles.carItemImage}
-                        src={process.env.PUBLIC_URL + '/Images/ExampleCars/Jaguar I Pace.png'}
-                        alt={`car`} /> */}
-
-
                     <img className={styles.carItemImage}
                         src={`data:image/png;base64,${carImage}`}
                         alt={`car`} />
