@@ -282,7 +282,6 @@ function AvailableCarsPage() {
 
   useEffect(() => {
     if (preferableTypeIsSetted) {
-      console.log(`preferableTypeIsSetted => ${preferableTypeIsSetted}`)
       downloadCarsByPreferableType()
     }
   }, [preferableTypeIsSetted])
