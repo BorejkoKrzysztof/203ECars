@@ -18,16 +18,8 @@ function App() {
               <Route path='/' element={<MainPage />}/>
               <Route path='/kontakt' element={<ContactPage />}/>
               <Route path='/samochody' element={<AvailableCarsPage />} />
-
-
-
-
-              {/* <Route path='/' element={<ContactPage />}/> */}
-              {/* <Route path='/' element={<AvailableCarsPage />} /> */}
-              {/* <Route path='/' element={<LoginPage />}/> */}
-              {/* <Route path='/' element={<RegisterPage />}/> */}
-              {/* <Route path='/' element={<GivePersonalDataPage />} /> */}
-              {/* <Route path='/' element={<ConfirmationPage />} /> */}
+              <Route path='/rezerwacja' element={<GivePersonalDataPage />} />
+              <Route path='/potwierdzenie' element={<ConfirmationPage />} />
           </Routes>
         <Footer />
       </Router>
