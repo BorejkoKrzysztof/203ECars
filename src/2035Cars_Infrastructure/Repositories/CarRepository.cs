@@ -426,7 +426,7 @@ namespace _2035Cars_Infrastructure.Repositories
         private async Task<IQueryable<Car>> FilterCarsByForm(DateTime availableFrom,
                                                     bool desiredSuvtype,
                                                     bool desiredSporttype,
-                                                    bool desiredConvertibletype,
+                                                    bool desiredCompacttype,
                                                     bool desiredSedantype,
                                                     bool hasAirCooling,
                                                     bool hasHeatingSeats,
@@ -449,50 +449,73 @@ namespace _2035Cars_Infrastructure.Repositories
 
             collectionOfCars = collectionOfCars.Where(x => !x.IsRented);
 
-            // Filter by Type of Car
-            if (desiredSuvtype)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.CarType == CarType.Suv);
+            // Filter by Car Body Type
+            if (desiredSuvtype || desiredSedantype || desiredSporttype || desiredCompacttype)
+            {
+                Expression<Func<Car, bool>> carTypeExpression = null!;
 
-            if (desiredSporttype)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.CarType == CarType.Sport);
+                if (desiredSuvtype)
+                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredConvertibletype)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.CarType == CarType.Convertible);
+                if (desiredSedantype)
+                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
 
-            if (desiredSedantype)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.CarType == CarType.Sedan);
+                if (desiredSporttype)
+                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                if (desiredCompacttype)
+                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
+
+                collectionOfCars = collectionOfCars.Where(carTypeExpression);
+            }
 
 
             // Filter by Equipment
-            if (hasAirCooling)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.Equipment.HasAirCooling);
+            if (hasAirCooling || hasAutomaticGearBox ||
+                        hasBuildInNavigation || hasHeatingSeats)
+            {
+                Expression<Func<Car, bool>> carEquipmentExpression = null!;
 
-            if (hasAutomaticGearBox)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.Equipment.HasAutomaticGearBox);
+                if (hasAirCooling)
+                    carEquipmentExpression =
+                            new AirCoolingExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
-            if (hasHeatingSeats)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.Equipment.HasHeatingSeat);
+                if (hasAutomaticGearBox)
+                    carEquipmentExpression =
+                            new AutomaticGearBoxExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
-            if (hasBuildInNavigation)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.Equipment.HasBuildInNavigation);
+                if (hasBuildInNavigation)
+                    carEquipmentExpression =
+                            new BuildInNavigationExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
+                if (hasHeatingSeats)
+                    carEquipmentExpression =
+                            new HeatingSeatsExpressionDecorator(carEquipmentExpression)
+                            .GetExpression();
 
-            // Filter by Type Of Fuel
-            if (hasHybridDrive)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.DriveType == DriveOfCar.Hybrid);
+                collectionOfCars = collectionOfCars.Where(carEquipmentExpression);
+            }
 
-            if (hasElectricDrive)
-                collectionOfCars =
-                        collectionOfCars.Where(x => x.DriveType == DriveOfCar.Electric);
+            // Filter by Drive type
+            if (hasHybridDrive || hasElectricDrive)
+            {
+                Expression<Func<Car, bool>> carDriveTypeExpression = null!;
+
+                if (hasHybridDrive)
+                    carDriveTypeExpression =
+                            new HybridDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                if (hasElectricDrive)
+                    carDriveTypeExpression =
+                            new ElectricDriveTypeExpressionDecorator(carDriveTypeExpression)
+                            .GetExpression();
+
+                collectionOfCars = collectionOfCars.Where(carDriveTypeExpression);
+            }
 
 
             // // Filter by price
