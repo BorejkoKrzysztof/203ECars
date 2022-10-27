@@ -59,8 +59,7 @@ namespace _2035Cars_Infrastructure.Repositories
                                                             int pageSize)
         {
             var halfFilteredCarsCollection = await this.FilterCarsByForm
-                                                            (availableFrom,
-                                                            desiredSuvtype,
+                                                            (desiredSuvtype,
                                                             desiredSporttype,
                                                             desiredConvertibletype,
                                                             desiredSedantype,
@@ -92,8 +91,7 @@ namespace _2035Cars_Infrastructure.Repositories
         public async Task<int> CountAllSelectedCarsByCityAndLocationAsync(string city, string rentalTitle, DateTime availableFrom, bool desiredSuvtype, bool desiredSporttype, bool desiredConvertibletype, bool desiredSedantype, bool hasAirCooling, bool hasHeatingSeats, bool hasAutomaticGearBox, bool hasBuildInNavigation, bool hasHybridDrive, bool hasElectricDrive)
         {
             var halfFilteredCarsCollection = await this.FilterCarsByForm
-                                                            (availableFrom,
-                                                            desiredSuvtype,
+                                                            (desiredSuvtype,
                                                             desiredSporttype,
                                                             desiredConvertibletype,
                                                             desiredSedantype,
@@ -118,8 +116,7 @@ namespace _2035Cars_Infrastructure.Repositories
         public async Task<List<Car>> GetAllSelectedCarsByRentalIdAsync(long rentalId, DateTime availableFrom, bool desiredSuvtype, bool desiredSporttype, bool desiredConvertibletype, bool desiredSedantype, bool hasAirCooling, bool hasHeatingSeats, bool hasAutomaticGearBox, bool hasBuildInNavigation, bool hasHybridDrive, bool hasElectricDrive, int pageNumber, int pageSize, decimal minPrice, decimal maxPrice, int amountOfDoor, int amountOfSeats)
         {
             var halfFilteredCarsCollection = await this.FilterCarsByForm
-                                                            (availableFrom,
-                                                            desiredSuvtype,
+                                                            (desiredSuvtype,
                                                             desiredSporttype,
                                                             desiredConvertibletype,
                                                             desiredSedantype,
@@ -148,8 +145,7 @@ namespace _2035Cars_Infrastructure.Repositories
         public async Task<int> CountAllSelectedCarsByRentalIdAsync(long rentalId, DateTime availableFrom, bool desiredSuvtype, bool desiredSporttype, bool desiredConvertibletype, bool desiredSedantype, bool hasAirCooling, bool hasHeatingSeats, bool hasAutomaticGearBox, bool hasBuildInNavigation, bool hasHybridDrive, bool hasElectricDrive, decimal minPrice, decimal maxPrice, int amountOfDoor, int amountOfSeats)
         {
             var halfFilteredCarsCollection = await this.FilterCarsByForm
-                                                            (availableFrom,
-                                                            desiredSuvtype,
+                                                            (desiredSuvtype,
                                                             desiredSporttype,
                                                             desiredConvertibletype,
                                                             desiredSedantype,
@@ -335,7 +331,11 @@ namespace _2035Cars_Infrastructure.Repositories
                                                 bool desiredHybridDrive, bool desiredElectricDrive,
                                                 int amountOfDoors, int amountOfSeats, double hours)
         {
-            IQueryable<Car> carsCollection = this._dbContext.Cars;
+            IQueryable<Car> carsCollection = await FilterCarsByForm(desiredSuv, desiredSport,
+                                                        desiredCompact, desiredSedan,
+                                                        desiredAirConditioning, desiredHeatingSeats,
+                                                        desiredAutomaticGearBox, desiredBuildInNavigation,
+                                                        desiredHybridDrive, desiredElectricDrive);
 
             if (!string.IsNullOrEmpty(cityFrom) && !string.IsNullOrEmpty(locationFrom))
                 carsCollection = carsCollection.Where(x => x.Rental.Address.City == cityFrom && x.Rental.Title == locationFrom);
@@ -343,73 +343,6 @@ namespace _2035Cars_Infrastructure.Repositories
             // Filter by Price
             carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) >= minPrice);
             carsCollection = carsCollection.Where(x => (x.PriceForOneHour * (decimal)hours) <= maxPrice);
-
-            // Filter by Car Body Type
-            if (desiredSuv || desiredSedan || desiredSport || desiredCompact)
-            {
-                Expression<Func<Car, bool>> carTypeExpression = null!;
-
-                if (desiredSuv)
-                    carTypeExpression = new SuvCarTypeExpressionDecorator(carTypeExpression).GetExpression();
-
-                if (desiredSedan)
-                    carTypeExpression = new SedanCarTypeExpressionDecorator(carTypeExpression).GetExpression();
-
-                if (desiredSport)
-                    carTypeExpression = new SportCarTypeExpressionDecorator(carTypeExpression).GetExpression();
-
-                if (desiredCompact)
-                    carTypeExpression = new CompactCarTypeExpressionDecorator(carTypeExpression).GetExpression();
-
-                carsCollection = carsCollection.Where(carTypeExpression);
-            }
-
-            // Filter by Equipment
-            if (desiredAirConditioning || desiredAutomaticGearBox ||
-                        desiredBuildInNavigation || desiredHeatingSeats)
-            {
-                Expression<Func<Car, bool>> carEquipmentExpression = null!;
-
-                if (desiredAirConditioning)
-                    carEquipmentExpression =
-                            new AirCoolingExpressionDecorator(carEquipmentExpression)
-                            .GetExpression();
-
-                if (desiredAutomaticGearBox)
-                    carEquipmentExpression =
-                            new AutomaticGearBoxExpressionDecorator(carEquipmentExpression)
-                            .GetExpression();
-
-                if (desiredBuildInNavigation)
-                    carEquipmentExpression =
-                            new BuildInNavigationExpressionDecorator(carEquipmentExpression)
-                            .GetExpression();
-
-                if (desiredHeatingSeats)
-                    carEquipmentExpression =
-                            new HeatingSeatsExpressionDecorator(carEquipmentExpression)
-                            .GetExpression();
-
-                carsCollection = carsCollection.Where(carEquipmentExpression);
-            }
-
-            // Filter by Drive type
-            if (desiredHybridDrive || desiredElectricDrive)
-            {
-                Expression<Func<Car, bool>> carDriveTypeExpression = null!;
-
-                if (desiredHybridDrive)
-                    carDriveTypeExpression =
-                            new HybridDriveTypeExpressionDecorator(carDriveTypeExpression)
-                            .GetExpression();
-
-                if (desiredElectricDrive)
-                    carDriveTypeExpression =
-                            new ElectricDriveTypeExpressionDecorator(carDriveTypeExpression)
-                            .GetExpression();
-
-                carsCollection = carsCollection.Where(carDriveTypeExpression);
-            }
 
             // Filter by Amount Of Doors
             if (amountOfDoors > 0)
@@ -423,8 +356,7 @@ namespace _2035Cars_Infrastructure.Repositories
         }
 
 
-        private async Task<IQueryable<Car>> FilterCarsByForm(DateTime availableFrom,
-                                                    bool desiredSuvtype,
+        private async Task<IQueryable<Car>> FilterCarsByForm(bool desiredSuvtype,
                                                     bool desiredSporttype,
                                                     bool desiredCompacttype,
                                                     bool desiredSedantype,
@@ -437,15 +369,6 @@ namespace _2035Cars_Infrastructure.Repositories
         {
             IQueryable<Car> collectionOfCars = this._dbContext.Cars
                                                     .Include(x => x.Rental);
-
-            // var car = collectionOfCars.First();
-            // List<Rental> list = this._dbContext.Rentals.ToList();
-            // List<Car> list = this._dbContext.Set<Car>().ToList();
-            // collectionOfCars = collectionOfCars.Where(x => !x.IsRented || 
-            //                                             (x.IsRented && x.RentedTo != null && x.RentedTo < availableFrom));
-
-            // collectionOfCars = collectionOfCars.Where(x => !x.IsRented && x.RentedTo == null ?
-            //                                                     !x.IsRented : x.RentedTo < availableFrom.ToUniversalTime());
 
             collectionOfCars = collectionOfCars.Where(x => !x.IsRented);
 
@@ -516,17 +439,6 @@ namespace _2035Cars_Infrastructure.Repositories
 
                 collectionOfCars = collectionOfCars.Where(carDriveTypeExpression);
             }
-
-
-            // // Filter by price
-            // collectionOfCars = collectionOfCars.Where(x => x.PriceForOneHour >= minPrice);
-            // collectionOfCars = collectionOfCars.Where(x => x.PriceForOneHour <= maxPrice);
-
-            // // Filter by amount of doors
-            // collectionOfCars = collectionOfCars.Where(x => x.AmountOfDoor == amountOfDoor);
-
-            // // Filter by amount of seats
-            // collectionOfCars = collectionOfCars.Where(x => x.AmountOfSeats == amountOfSeats);
 
             return await Task.FromResult(collectionOfCars);
         }
