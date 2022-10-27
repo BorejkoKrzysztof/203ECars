@@ -16,6 +16,7 @@ namespace _2035Cars_Application.Mapping
                             .ForMember(x => x.HasBuildInNavigation, m => m.MapFrom(c => c.Equipment.HasBuildInNavigation))
                             .ForMember(x => x.HasHeatingSeats, m => m.MapFrom(c => c.Equipment.HasHeatingSeat))
                             .ForMember(x => x.PriceForRental, m => m.MapFrom(c => c.PriceForOneHour))
+                            .ForMember(x => x.CarUniqueReferrence, m => m.MapFrom(c => c.Id))
                             .ReverseMap();
            }).CreateMapper();
     }
