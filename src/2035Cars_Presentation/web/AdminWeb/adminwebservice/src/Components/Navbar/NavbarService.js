@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaCar } from 'react-icons/fa'
 
 import {
   Collapse,
@@ -25,7 +26,11 @@ function NavbarService(args) {
     <div>
       <Navbar 
           color='dark' dark={true} expand='sm'>
-        <NavbarBrand>203E Cars</NavbarBrand>
+        <NavbarBrand>
+          <span style={{ color: 'white', marginRight: '15px', fontSize: '24px' }}>
+            <FaCar />
+          </span>
+          203E Cars</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
