@@ -13,6 +13,11 @@ function GivePersonalDataPage() {
     const [carImage, setCarImage] = useState()
     const [imageIsLoaded, setImageIsLoaded] = useState(false)
 
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [emailAddress, setEmailAddress] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+
     const Redirection = () => {
         const cookies = new Cookies()
         
@@ -45,9 +50,36 @@ function GivePersonalDataPage() {
         setCarId(id)
     }
 
+    const setFirstNameHandler = (event) => {
+        setFirstName(event.target.value)
+    }
+
+    const setLastNameHandler = (event) => {
+        setLastName(event.target.value)
+    }
+
+    const setEmailAddressHandler = (event) => {
+        setEmailAddress(event.target.value)
+    }
+
+    const setPhoneNumberHandler = (event) => {
+        setPhoneNumber(event.target.value)
+    }
+
     const formHandler = () => {
 
-        navigateTo('/potwierdzenie')
+        if (firstName.length !== 0 && lastName.length !== 0 && 
+                emailAddress.length !== 0 && phoneNumber.length !== 0) {
+                const cookies = new Cookies()
+                cookies.set('ProvidedFirstName', `${firstName}`, { path: '/' })
+                cookies.set('ProvidedLastName', `${lastName}`, { path: '/' })
+                cookies.set('ProvidedEmailAddress', `${emailAddress}`, { path: '/' })
+                cookies.set('ProvidedPhoneNumber', `${phoneNumber}`, { path: '/' })
+
+                navigateTo('/potwierdzenie')
+            } else {
+                alert('Uzupełnij wszystkie pola.')
+            }
     }
 
     useEffect(() => {
@@ -84,19 +116,19 @@ function GivePersonalDataPage() {
             <div className={styles.formPersonalData}>
                 <div className={styles.personalDataArea}>
                     <label>Imie:</label>
-                    <input />
+                    <input type='text' onChange={setFirstNameHandler}></input>
                 </div>
                 <div className={styles.personalDataArea}>
                     <label>Nazwisko:</label>
-                    <input />
+                    <input type='text' onChange={setLastNameHandler}></input>
                 </div>
                 <div className={styles.personalDataArea}>
                     <label>Adress Email:</label>
-                    <input />
+                    <input type='text' onChange={setEmailAddressHandler}></input>
                 </div>
                 <div className={styles.personalDataArea}>
                     <label>Numer telefonu:</label>
-                    <input />
+                    <input type='text' onChange={setPhoneNumberHandler}></input>
                 </div>
                 <div className={styles.buttonWrapper}>
                     <button onClick={formHandler} className={styles.formSubmitButton}>
