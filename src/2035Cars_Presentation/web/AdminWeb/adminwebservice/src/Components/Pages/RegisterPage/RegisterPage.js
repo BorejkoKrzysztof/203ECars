@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './RegisterPage.module.css'
-// import axios from '../../../axios/axiosPublicInstance'
+import axios from '../../../axios/axiosDefault'
 import { RiErrorWarningLine } from 'react-icons/ri'
 
 
