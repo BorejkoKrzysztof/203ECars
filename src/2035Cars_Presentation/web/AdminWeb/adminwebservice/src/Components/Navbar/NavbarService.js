@@ -25,7 +25,7 @@ function NavbarService(args) {
     <div>
       <Navbar 
           color='dark' dark={true} expand='sm'>
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <NavbarBrand>203E Cars</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
