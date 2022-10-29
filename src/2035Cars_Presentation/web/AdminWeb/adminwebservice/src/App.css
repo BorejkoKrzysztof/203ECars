@@ -11,7 +11,7 @@
   --redButtonHoverThemeColor: rgb(247, 3, 3);
 }
 
-/* a:hover, a:visited, a:link, a:active, a {
+a:hover, a:visited, a:link, a:active, a {
   text-decoration: none;
-  color: var(--darkBlueThemeColor);
-} */
+  color: white;
+}

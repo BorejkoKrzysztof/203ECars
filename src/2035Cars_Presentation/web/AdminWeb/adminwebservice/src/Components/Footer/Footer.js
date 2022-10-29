@@ -69,10 +69,10 @@ export default function Footer() {
       </MDBContainer>
 
       <div className='text-center p-3 text-light' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        &copy; {new Date().getFullYear()} Copyright:{' '}
-        <a className='text-light' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
-        </a>
+        &copy; {new Date().getFullYear()} Wszelkie prawa zastrzeżone:{' 203E Cars'}
+        <p className='text-light'>
+          203ECars - Panel Zarządzania 
+        </p>
       </div>
     </MDBFooter>
   );
