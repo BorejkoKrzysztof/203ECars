@@ -93,7 +93,7 @@ function Register(props) {
 
     useEffect(() => {
         const result = nameREGEX.test(lastName)
-        setFirstNameValid(result)
+        setLastNameValid(result)
     }, [lastName])
 
     useEffect(() => {
