@@ -67,6 +67,10 @@ const RemoveSetOfCookies = () => {
     RemoveCookie('SelectedCarBrand')
     RemoveCookie('SelectedCarModel')
     RemoveCookie('SelectedCarRentalPrice')
+    RemoveCookie('ProvidedFirstName')
+    RemoveCookie('ProvidedLastName')
+    RemoveCookie('ProvidedEmailAddress')
+    RemoveCookie('ProvidedPhoneNumber')
 }
 
 const GetCities = () => {
