@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './RegisterPage.module.css'
 // import axios from '../../../axios/axiosPublicInstance'
-// import useLocalStorage from "../../../hooks/useLocalStorage";
 import { RiErrorWarningLine } from 'react-icons/ri'
 
 
@@ -11,9 +10,8 @@ function Register(props) {
     const emailAdressREGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const passwordREGEX = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{7,15})");
 
-
-    // const [token, setToken] = useLocalStorage('token', '')
-    // const [refreshToken, setRefreshToken] = useLocalStorage('refreshToken', '')
+    const [token, setToken] = useState()
+    const [refreshToken, setRefreshToken] = useState()
 
     const [firstName, setFirstName] = useState('')
     const [firstNameValid, setFirstNameValid] = useState(false)
@@ -60,30 +58,29 @@ function Register(props) {
         setConfirmPassword(e.target.value)
     }
 
-    const registerHandler = async (event) => {}
 
-    // const registerHandler = async (event) => {
-    //     event.preventDefault();
+    const registerHandler = async (event) => {
+        event.preventDefault();
 
-    //     if(nickNameValid && emailValid && passwordValid && confirmPasswordValid) {
-    //         await axios.post('/account/register', JSON.stringify({
-    //             NickName: nickName,
-    //             EmailAdress: email,
-    //             Password: password,
-    //             Role: 2
-    //         }))
-    //         .then( (response) => {
-    //             setToken(response.data.token)
-    //             setRefreshToken(response.data.refreshToken)
-    //             // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-    //             props.func()
-    //             window.location.href='/todolists'
-    //         })
-    //     }
-    //     else{
-    //         setErrorState(true)
-    //     }
-    // }
+        if(firstNameValid && lastNameValid && emailValid && passwordValid && confirmPasswordValid) {
+            await axios.post('/account/register', JSON.stringify({
+                FirstName: firstName,
+                LastName: lastName,
+                EmailAdress: email,
+                Password: password,
+                Role: 2
+            }))
+            .then( (response) => {
+                setToken(response.data.token)
+                setRefreshToken(response.data.refreshToken)
+                props.func()
+                window.location.href='/todolists'
+            })
+        }
+        else{
+            setErrorState(true)
+        }
+    }
 
     useEffect(() => {
         document.title ='Rejestracja'
@@ -117,7 +114,6 @@ function Register(props) {
 
     return (
         <div className={styles.pageWrapper}>
-            {/* <h1 className={styles.pageTitle} style={{ fontFamily: '"Noto Serif", serif' }}>Zarejestruj pracownika</h1> */}
             <div className={styles.formContainer}>
                 <h1  style={{fontFamily: 'Quantico'}} className={styles.title}><span>203</span>E Cars</h1>
                 <form onSubmit={registerHandler} className={styles.registerForm} autoComplete="off">
@@ -134,7 +130,7 @@ function Register(props) {
                         <div id="firstNameNote"
                              className={firstNameFocus && firstName && !firstNameValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Imię length must have between 3 and 15 characters.</p>
+                                <p>Długość imienia musi mieć od 3 do 15 znaków.</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -150,7 +146,7 @@ function Register(props) {
                         <div id="lastNameNote"
                              className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Nazwisko length must have between 3 and 15 characters.</p>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków.</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -166,7 +162,7 @@ function Register(props) {
                         <div id="emailNote"
                              className={emailFocus && email && !emailValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Enter correct Email Adress.</p>
+                                <p>Podaj prawidłowy Adres Email.</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -182,7 +178,7 @@ function Register(props) {
                         <div id="passwordNote"
                              className={passwordFocus && password && !passwordValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Password must be between 7 to 15 characters which contain at least one uppercase letter, one digit and a special character.</p>
+                                <p>Hasło musi zawierać od 7 do 15 znaków, w tym co najmniej jedną wielką literę, jedną cyfrę i znak specjalny.</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -199,11 +195,11 @@ function Register(props) {
                         <div id="confirmPasswordNote"
                              className={confirmPasswordFocus && confirmPassword && !confirmPasswordValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Confirm password must match password.</p>
+                                <p>Hasło potwierdzające musi być zgodne z hasłem.</p>
                         </div>
                     </div>
                     {errorState && <div className={styles.errorBanner}>
-                                        <p className={styles.errorText}>Process failed. Try again.</p>
+                                        <p className={styles.errorText}>Niepowodzenie. Spróbuj ponownie.</p>
                                     </div>}
                     <div className={styles.buttonContainer}>
                         <button className={styles.submitButton} type="submit">Zarejestruj</button>

@@ -20,7 +20,7 @@ function App() {
       <NavbarService />
         <Routes>
           {/* <Route path='/' element={<LoginPage />}/> */}
-          {/* <Route path='/rejestracja' element={<Register />} /> */}
+          <Route path='/' element={<Register />} />
           {/* <Route path='/' element={<EmployeeListPage />} /> */}
           {/* <Route path='/' element={<EmployeeDetails />} /> */}
           {/* <Route path='/' element={<CarListPage />} /> */}
@@ -29,7 +29,7 @@ function App() {
           {/* <Route path='/' element={<EditCarPage />}/> */}
           {/* <Route path='/' element={<EditEmployeePage />}/> */}
           {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
-          <Route path='/' element={<OrderListsPage />}/>
+          {/* <Route path='/' element={<OrderListsPage />}/> */}
         </Routes>
       <Footer />
     </Router>
