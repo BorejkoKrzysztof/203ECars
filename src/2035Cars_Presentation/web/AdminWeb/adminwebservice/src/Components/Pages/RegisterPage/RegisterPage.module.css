@@ -1,7 +1,8 @@
 .pageWrapper{
-    width: 100vw;
-    min-height: calc(100vh - var(--navbarHeight));
+    width: 100%;
+    min-height: calc(100vh);
     margin-top: var(--navbarHeight);
+    overflow-x: hidden;
 }
 
 .pageTitle{
