@@ -15,7 +15,7 @@
 .formContainer{
     border: solid 3px var(--darkBlueThemeColor);
     width: 95vw;
-    height: 90vh;
+    min-height: 90vh;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 3vh;
@@ -95,6 +95,17 @@ form.registerForm div input{
     outline: none;
 }
 
+form.registerForm div select{
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 1vh;
+    font-size: 24px;
+    width: 80vw;
+    height: 7vh;
+    background-color: #fff;
+    border: solid 2px var(--darkBlueThemeColor);
+}
+
 .errorBanner{
     width: 100%;
     display: flex;
@@ -123,12 +134,38 @@ button.submitButton{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
+}
+
+.businessPositionLabel{
+    color: var(--darkBlueThemeColor);
+    margin-top: 2vh;
+}
+
+div.radioButtonsWrapper{
+    width: 100%;
+}
+
+.buttonGridArea{
+    width: 70%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonGridArea > input {
+    height: 30px !important;
+    margin: 0;
+    padding: 0;
+    width: 30px !important;
+    border: solid 3px var(--darkBlueThemeColor);
 }
 
 @media screen and (orientation: landscape) {
 
     .formContainer{
-        height: 155vh;
+        min-height: 155vh;
     }
 
     form.registerForm div label{
@@ -138,6 +175,11 @@ button.submitButton{
     form.registerForm div input{
         font-size: 26px;
         height: 10vh;
+    }
+
+    form.registerForm div select{
+        font-size: 26px;
+        height: 15vh;
     }
 
     .errorDescription{
@@ -199,6 +241,12 @@ button.submitButton{
         height: 8vh;
     }
 
+    form.registerForm div select{
+        font-size: 18px;
+        width: 24vw;
+        height: 8vh;
+    }
+
     .errorDescription{
         margin-top: 30vh;
         margin-left: 4.7vw;
@@ -232,6 +280,10 @@ button.submitButton{
     button.submitButton:hover{
         color: var(--blueThemeColor);
         border: solid 3px var(--blueThemeColor);
+    }
+
+    .buttonGridArea {
+        width: 100%;
     }
 }
 

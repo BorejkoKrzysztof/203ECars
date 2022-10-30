@@ -35,6 +35,11 @@ function Register(props) {
     const [confirmPasswordValid, setConfirmPasswordValid] = useState(false)
     const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false)
 
+    const [department, setDepartment] = useState()
+    const [departmentValid, setDepartmentValid] = useState(false)
+
+    const [businessPositions, setBusinessPosition] = useState(0)
+
     const [errorState, setErrorState] = useState(false)
 
 
@@ -58,17 +63,30 @@ function Register(props) {
         setConfirmPassword(e.target.value)
     }
 
+    const setDepartmentHandler = (e) => {
+        setDepartment(e.target.value)
+    }
+
+    const setBusinessPositionHandler = (e) => {
+        setBusinessPosition(e.target.value)
+    }
+
 
     const registerHandler = async (event) => {
         event.preventDefault();
 
-        if(firstNameValid && lastNameValid && emailValid && passwordValid && confirmPasswordValid) {
+        if(firstNameValid && lastNameValid && emailValid && 
+                passwordValid && confirmPasswordValid && departmentValid) {
+            
+            const calculatedDepartment = department - 1
+
             await axios.post('/account/register', JSON.stringify({
                 FirstName: firstName,
                 LastName: lastName,
                 EmailAdress: email,
                 Password: password,
-                Role: 2
+                Role: calculatedDepartment,
+                BusinessPosition: businessPositions
             }))
             .then( (response) => {
                 setToken(response.data.token)
@@ -111,6 +129,11 @@ function Register(props) {
         setConfirmPasswordValid(result)
     }, [confirmPassword])
 
+    useEffect(() => {
+        const result = department !== 0
+        setDepartmentValid(result)
+    })
+
 
     return (
         <div className={styles.pageWrapper}>
@@ -130,7 +153,8 @@ function Register(props) {
                         <div id="firstNameNote"
                              className={firstNameFocus && firstName && !firstNameValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość imienia musi mieć od 3 do 15 znaków.</p>
+                                <p>Długość imienia musi mieć od 3 do 15 znaków. 
+                                    Imię musi zaczynać się z dużej litery</p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -146,7 +170,9 @@ function Register(props) {
                         <div id="lastNameNote"
                              className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków.</p>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -196,6 +222,39 @@ function Register(props) {
                              className={confirmPasswordFocus && confirmPassword && !confirmPasswordValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
                                 <p>Hasło potwierdzające musi być zgodne z hasłem.</p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Dział pracownika:</label>
+                        <select onChange={setDepartmentHandler}>
+                            <option value={0}>Wybierz dział:</option>
+                            <option value={1}>Dział Sprzedaży</option>
+                            <option value={2}>Dział Obsługi Klienta</option>
+                            <option value={3}>Dział Marketingu</option>
+                            <option value={4}>Zarząd</option>
+                        </select>
+                    </div>
+                    <div className={styles.inputFullContainer}>
+                        <label className={styles.businessPositionLabel}>Stanowisko</label>
+                        <div className={styles.radioButtonsWrapper} onChange={setBusinessPositionHandler}>
+                            <div>
+                               <div className={styles.buttonGridArea}>
+                                    <label>Pracownik</label>
+                                    <input type='radio' value={2} name='businessPosition' checked={true}/>
+                                </div>
+                            </div>
+                            <div>
+                            <div className={styles.buttonGridArea}>
+                                <label>Dyrektor</label>
+                                <input type='radio' value={1} name='businessPosition' />
+                                </div>
+                            </div>
+                            <div>
+                            <div className={styles.buttonGridArea}>
+                                <label>Menadżer</label>
+                                <input type='radio' value={0} name='businessPosition' />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {errorState && <div className={styles.errorBanner}>
