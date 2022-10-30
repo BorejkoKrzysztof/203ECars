@@ -225,6 +225,96 @@ function Register(props) {
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
+                        <label>Numer telefonu:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Miasto zam.:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Ulica zam.:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Numer domu:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <label>Kod Pocztowy:</label>
+                        <input type='text'
+                                onChange={lastNameHandler}
+                                required
+                                aria-invalid={lastNameValid ? "false" : "true"}
+                                aria-describedby='lastNameNote'
+                                onFocus={() => { setLastNameFocus(true) }}
+                                onBlur={() => { setLastNameFocus(false) }}></input>
+
+                        <div id="lastNameNote"
+                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                                <RiErrorWarningLine className={styles.warningIcons}/>
+                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
+                                    Nazwisko musi zaczynać się z dużej litery.
+                                </p>
+                        </div>
+                    </div>
+                    <div className={styles.inputContainer}>
                         <label>Dział pracownika:</label>
                         <select onChange={setDepartmentHandler}>
                             <option value={0}>Wybierz dział:</option>
