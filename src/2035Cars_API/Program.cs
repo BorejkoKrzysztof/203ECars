@@ -1,7 +1,6 @@
 using System.Text;
 using _2035Cars_Application;
 using _2035Cars_Infrastructure;
-using _2035Cars_Infrastructure.Database.Seeder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "203E Cars", Version = "v1" });                
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "203E Cars", Version = "v1" });
     });
 
 //  Add Authentication
@@ -48,16 +47,18 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
 // Configure CORS
-builder.Services.AddCors(cfg => {
-    
+builder.Services.AddCors(cfg =>
+{
+
     cfg.AddPolicy(name: "developmentPolicy",
         policy =>
         {
             policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
 
-    cfg.AddPolicy(name: "productionPolicy", policy => {
-       policy.WithOrigins(builder.Configuration["CorsSetting:AllowedOrigin"]);
+    cfg.AddPolicy(name: "productionPolicy", policy =>
+    {
+        policy.WithOrigins(builder.Configuration["CorsSetting:AllowedOrigin"]);
     });
 });
 
@@ -77,11 +78,12 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+// SEEDER
 // app.SeedExtension(builder.Environment.WebRootPath);
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("developmentPolicy");   
+    app.UseCors("developmentPolicy");
 }
 else if (app.Environment.IsProduction())
 {
