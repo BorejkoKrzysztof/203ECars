@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './LoginPage.module.css'
-// import axios from "../../../axios/axiosPublicInstance";
-// import useLocalStorage from "../../../hooks/useLocalStorage";
+import axios from "../../../axios/axiosDefault";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { FaCar } from 'react-icons/fa'
 
@@ -14,8 +13,8 @@ function Login()
     const [loginFailed, setLoginFailed] = useState(false)
     const [accountEmail, setAccountEmail] = useState('')
     const [accountPassword, setAccountPassword] = useState('')
-    // const [token, setToken] = useLocalStorage('token', '')
-    // const [refreshToken, setRefreshToken] = useLocalStorage('refreshToken', '')
+    const [token, setToken] = useState('')
+    const [refreshToken, setRefreshToken] = useState('')
     const [errorMessageState, setErrorMessageState] = useState(' ')
 
 
@@ -28,35 +27,31 @@ function Login()
     }
 
 
-        const loginHandler = () => {}
-
-//     const loginHandler = async (event) => {
-//        event.preventDefault()
-//        try{
-//             await axios.post('/account/login', JSON.stringify({
-//             EmailAdress: accountEmail,
-//             Password: accountPassword
-//             }))
-//             .then( (response) => {
-//                 setToken(response.data.token)
-//                 setRefreshToken(response.data.refreshToken)
-//                 // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-//                 setLoggedState()
-//                 setAccountEmail('')
-//                 setAccountPassword('')
-//                 window.location.href = from
-//             })
-//        }
-//        catch(error) {
-//             setLoginFailed(true)
-//             if (error.response.status === 404){
-//                 setErrorMessageState('Invalid credentials.')
-//             }
-//             else {
-//                 setErrorMessageState('Unknown error.')
-//             }
-//     }
-// }
+    const loginHandler = async (event) => {
+       event.preventDefault()
+       try{
+            await axios.post('/account/login', JSON.stringify({
+            EmailAdress: accountEmail,
+            Password: accountPassword
+            }))
+            .then( (response) => {
+                setToken(response.data.token)
+                setRefreshToken(response.data.refreshToken)
+                setAccountEmail('')
+                setAccountPassword('')
+                window.location.href = from
+            })
+       }
+       catch(error) {
+            setLoginFailed(true)
+            if (error.response.status === 404){
+                setErrorMessageState('Invalid credentials.')
+            }
+            else {
+                setErrorMessageState('Unknown error.')
+            }
+    }
+}
 
     const errorMessage = (
     <div className={styles.credentialsError}>
