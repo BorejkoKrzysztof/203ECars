@@ -6,11 +6,11 @@ using MyTasks.Api.Controllers;
 namespace _2035Cars_API.Controllers;
 
 [ApiController]
-public class AccountController : ApiControllerBase
+public class EmployeeController : ApiControllerBase
 {
-    private readonly IAccountService _service;
+    private readonly IEmployeeService _service;
 
-    public AccountController(IAccountService service)
+    public EmployeeController(IEmployeeService service)
     {
         this._service = service;
     }
@@ -26,8 +26,7 @@ public class AccountController : ApiControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAccount([FromBody] RegisterRequestAccount command)
     {
-        var tokens = await _service.RegisterAccount(command.FirstName, command.LastName, command.EmailAddress,
-                                            command.Password, command.Department, command.BusinessPosition);
+        var tokens = await _service.RegisterAccount(command);
         return Created(string.Empty, tokens);
     }
 
