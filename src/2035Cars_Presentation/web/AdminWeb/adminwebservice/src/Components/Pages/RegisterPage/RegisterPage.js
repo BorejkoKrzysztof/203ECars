@@ -85,7 +85,7 @@ function Register(props) {
                 LastName: lastName,
                 EmailAdress: email,
                 Password: password,
-                Role: calculatedDepartment,
+                Department: calculatedDepartment,
                 BusinessPosition: businessPositions
             }))
             .then( (response) => {

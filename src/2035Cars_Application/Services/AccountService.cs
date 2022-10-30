@@ -1,6 +1,5 @@
 using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
-using _2035Cars_Core.Domain;
 
 namespace _2035Cars_Application.Services;
 
@@ -16,7 +15,9 @@ public class AccountService : IAccountService
         throw new NotImplementedException();
     }
 
-    public Task<TokenDTO> RegisterAccount(string firstName, string lastName, string emailAddress, string password, string confirmPassword)
+    public Task<TokenDTO> RegisterAccount(string firstName, string lastName,
+                                            string emailAddress, string password,
+                                            int Department, int BusinessPosition)
     {
         throw new NotImplementedException();
     }

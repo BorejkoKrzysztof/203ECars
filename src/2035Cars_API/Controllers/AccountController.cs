@@ -26,8 +26,8 @@ public class AccountController : ApiControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAccount([FromBody] RegisterRequestAccount command)
     {
-        var tokens = await _service.RegisterAccount(command.FirstName!, command.LastName!, command.EmailAddress!,
-                                            command.Password!, command.ConfirmPassword!);
+        var tokens = await _service.RegisterAccount(command.FirstName, command.LastName, command.EmailAddress,
+                                            command.Password, command.Department, command.BusinessPosition);
         return Created(string.Empty, tokens);
     }
 

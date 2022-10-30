@@ -10,6 +10,7 @@ namespace _2035Cars_Application.Commands
 
         public string Password { get; set; }
 
-        public string ConfirmPassword { get; set; }
+        public int Department { get; set; }
+        public int BusinessPosition { get; set; }
     }
 }
