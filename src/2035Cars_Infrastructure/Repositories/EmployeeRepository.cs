@@ -12,39 +12,69 @@ namespace _2035Cars_Infrastructure.Repositories
         {
         }
 
-        public Task<string?> CreateRefreshToken(long employeeId)
+        public async Task<string?> CreateRefreshToken(long employeeId)
         {
-            throw new NotImplementedException();
+            var token = RefreshToken.CreateRefreshToken(employeeId);
+
+            await _dbContext.RefreshTokens.AddAsync(token);
+            await _dbContext.SaveChangesAsync();
+
+            return token.Token;
         }
 
-        public Task<long> GetEmployeeIdByEmailAddress(string emailAddress)
+        public async Task<long> GetEmployeeIdByEmailAddress(string emailAddress)
         {
-            throw new NotImplementedException();
+            long id = this._dbContext.Employees
+                            .FirstOrDefault(x => x.Account.EmailAddress == emailAddress)
+                            .Id;
+
+            return await Task.FromResult(id);
         }
 
-        public Task<BuisnessPosition> GetEmployeePositionById(long employeeId)
+        public async Task<BuisnessPosition> GetEmployeePositionById(long employeeId)
         {
-            throw new NotImplementedException();
+            var position = this._dbContext.Employees
+                                    .FirstOrDefault(x => x.Id == employeeId)
+                                    .Position;
+
+            return await Task.FromResult(position);
         }
 
-        public Task<string> GetRefreshToken(long employeeId)
+        public async Task<string> GetRefreshToken(long employeeId)
         {
-            throw new NotImplementedException();
+            var refreshToken = this._dbContext.RefreshTokens
+                                        .Where(x => x.UserId == employeeId)
+                                        .OrderByDescending(x => x.ExpiryDate)
+                                        .FirstOrDefault()
+                                        .Token;
+
+            return await Task.FromResult(refreshToken);
         }
 
-        public Task<long> GetUserIdByRefreshToken(string refreshToken)
+        public async Task<long> GetUserIdByRefreshToken(string refreshToken)
         {
-            throw new NotImplementedException();
+            var userId = this._dbContext.RefreshTokens
+                                    .FirstOrDefault(x => x.Token == refreshToken)
+                                    .UserId;
+
+            return await Task.FromResult(userId);
         }
 
-        public Task<bool> IsAccountExisting(string emailAddress)
+        public async Task<bool> IsAccountExisting(string emailAddress)
         {
-            throw new NotImplementedException();
+            bool exists = this._dbContext.Employees
+                                    .Any(x => x.Account.EmailAddress == emailAddress);
+
+            return await Task.FromResult(exists);
         }
 
-        public Task<Account> ReadAccount(string emailAddress)
+        public async Task<Account> ReadAccount(string emailAddress)
         {
-            throw new NotImplementedException();
+            var account = this._dbContext.Employees
+                                .First(x => x.Account.EmailAddress == emailAddress)
+                                .Account;
+
+            return await Task.FromResult(account);
         }
     }
 }
