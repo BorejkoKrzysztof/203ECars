@@ -16,17 +16,18 @@ namespace _2035Cars_Core.Domain
 
         public RefreshToken()
         {
-            
+
         }
 
-        
-        public RefreshToken(long userId, string token)
+
+        public static RefreshToken CreateRefreshToken(long userId)
         {
-            UserId = userId;
-            Token = string.IsNullOrEmpty(token) ? throw new ArgumentNullException(nameof(token)) : token;
-            ExpiryDate = ExpiryDate = DateTime.UtcNow.AddMonths(1);
-            // CreatedDate = DateTime.UtcNow;
-            // LastUpdateDate = DateTime.UtcNow;
+            return new RefreshToken
+            {
+                UserId = userId,
+                Token = WriteRefreshToken(),
+                ExpiryDate = DateTime.UtcNow.AddMonths(1),
+            };
         }
 
         private static string WriteRefreshToken()
