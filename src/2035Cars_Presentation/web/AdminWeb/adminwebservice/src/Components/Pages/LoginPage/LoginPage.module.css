@@ -1,6 +1,6 @@
 .wrapper{
     width: 100%;
-    min-height: calc(100vh - var(--navbarHeight));
+    min-height: 100vh;
     margin-top: var(--navbarHeight);
     margin-bottom: 25px;
 }

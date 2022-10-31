@@ -13,26 +13,50 @@ import EditCarPage from './Components/Pages/EditCarPage/EditCarPage';
 import EditEmployeePage from './Components/Pages/EditEmployeePage/EditEmployeePage';
 import AcceptEmployeeRegistrationPage from './Components/Pages/AcceptEmployeeRegistrationPage/AcceptEmployeeRegistrationPage';
 import OrderListsPage from './Components/Pages/OrderListPage/OrderListsPage';
+import useLocalStorage from './hooks/useLocalStorage';
+import { AuthContext } from './authentication/AuthContext';
+import RequiredAuth from './authentication/RequireAuth';
 
 function App() {
+
+  const [logged, setLogged] = useLocalStorage('is-loged', false);
+
   return (
-    <Router>
-      <NavbarService />
-        <Routes>
-          {/* <Route path='/' element={<LoginPage />}/> */}
-          <Route path='/' element={<Register />} />
-          {/* <Route path='/' element={<EmployeeListPage />} /> */}
-          {/* <Route path='/' element={<EmployeeDetails />} /> */}
-          {/* <Route path='/' element={<CarListPage />} /> */}
-          {/* <Route path='/' element={<CarDetailsPage />}/> */}
-          {/* <Route path='/' element={<AddCarPage />}/> */}
-          {/* <Route path='/' element={<EditCarPage />}/> */}
-          {/* <Route path='/' element={<EditEmployeePage />}/> */}
-          {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
-          {/* <Route path='/' element={<OrderListsPage />}/> */}
-        </Routes>
-      <Footer />
-    </Router>
+    <AuthContext.Provider value={logged}>
+      <Router>
+        <NavbarService />
+          <Routes>
+            <Route path='/logowanie' element={<LoginPage />}/>
+            <Route path='/rejestracja' element={<Register />} />
+            <Route element={<RequiredAuth />}>
+                <Route path='/' element={<EmployeeListPage />} />
+                {/* <Route path='/' element={<EmployeeDetails />} /> */}
+                {/* <Route path='/' element={<CarListPage />} /> */}
+                {/* <Route path='/' element={<CarDetailsPage />}/> */}
+                {/* <Route path='/' element={<AddCarPage />}/> */}
+                {/* <Route path='/' element={<EditCarPage />}/> */}
+                {/* <Route path='/' element={<EditEmployeePage />}/> */}
+                {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
+                {/* <Route path='/' element={<OrderListsPage />}/> */}
+            </Route>
+
+
+
+            {/* <Route path='/' element={<EmployeeDetails />} /> */}
+                {/* <Route path='/' element={<CarListPage />} /> */}
+                {/* <Route path='/' element={<CarDetailsPage />}/> */}
+                {/* <Route path='/' element={<AddCarPage />}/> */}
+                {/* <Route path='/' element={<EditCarPage />}/> */}
+                {/* <Route path='/' element={<EditEmployeePage />}/> */}
+                {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
+                {/* <Route path='/' element={<OrderListsPage />}/> */}
+
+
+                
+          </Routes>
+        <Footer />
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
