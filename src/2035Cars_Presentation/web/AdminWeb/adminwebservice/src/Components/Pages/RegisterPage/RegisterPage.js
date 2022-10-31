@@ -9,6 +9,9 @@ function Register(props) {
     const nameREGEX = /^[A-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]{2,15}$/
     const emailAdressREGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const passwordREGEX = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{7,15})");
+    // const houseNumberREGEX = new RegExp('/^[0-9]{1-3}\/ [0-9]{1-3}$/')
+    const zipCodeREGEX = new RegExp("^[0-9]{2}-[0-9]{3}")
+    const phoneNumberREGEX = /^\d{9}$/;
 
     const [token, setToken] = useState()
     const [refreshToken, setRefreshToken] = useState()
@@ -35,10 +38,31 @@ function Register(props) {
     const [confirmPasswordValid, setConfirmPasswordValid] = useState(false)
     const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false)
 
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [phoneNumberValid, setPhoneNumberValid] = useState(false)
+    const [phoneNumberFocus, setPhoneNumberFocus] = useState(false)
+
+    const [street, setStreet] = useState('')
+    const [streetValid, setStreetValid] = useState(false)
+    const [streetFocus, setStreetFocus] = useState(false)
+
+    const [houseNumber, setHouseNumber] = useState('')
+    const [houseNumberValid, setHouseNumberValid] = useState(false)
+    const [houseNumberFocus, setHouseNumberFocus] = useState(false)
+
+    const [city, setCity] = useState('')
+    const [cityValid, setCityValid] = useState(false)
+    const [cityFocus, setCityFocus] = useState(false)
+
+    const [zipCode, setZipCode] = useState('')
+    const [zipCodeValid, setZipCodeValid] = useState(false)
+    const [zipCodeFocus, setZipCodeFocus] = useState(false)
+
     const [department, setDepartment] = useState()
     const [departmentValid, setDepartmentValid] = useState(false)
 
-    const [businessPositions, setBusinessPosition] = useState(0)
+    const [businessPositions, setBusinessPosition] = useState(-1)
+    const [businessPositionValid, setBusinessPositionValid] = useState(false)
 
     const [errorState, setErrorState] = useState(false)
 
@@ -71,20 +95,46 @@ function Register(props) {
         setBusinessPosition(e.target.value)
     }
 
+    const phoneNumberHandler = (e) => {
+        setPhoneNumber(e.target.value)
+    }
+
+    const cityHandler = (e) => {
+        setCity(e.target.value)
+    }
+
+    const streetHandler = (e) => {
+        setStreet(e.target.value)
+    }
+
+    const houseNumberHandler = (e) => {
+        setHouseNumber(e.target.value)
+    }
+
+    const zipCodeHandler = (e) => {
+        setZipCode(e.target.value)
+    }
+
 
     const registerHandler = async (event) => {
         event.preventDefault();
 
-        if(firstNameValid && lastNameValid && emailValid && 
-                passwordValid && confirmPasswordValid && departmentValid) {
+        if(firstNameValid && lastNameValid && phoneNumberValid && emailValid && 
+                passwordValid && confirmPasswordValid && streetValid && houseNumberValid &&
+                cityValid && zipCodeValid && departmentValid && businessPositionValid) {
             
             const calculatedDepartment = department - 1
 
             await axios.post('/account/register', JSON.stringify({
                 FirstName: firstName,
                 LastName: lastName,
+                PhoneNumber: phoneNumber,
                 EmailAdress: email,
                 Password: password,
+                Street: street,
+                HouseNumber: houseNumber,
+                City: city,
+                ZipCode: zipCode,
                 Department: calculatedDepartment,
                 BusinessPosition: businessPositions
             }))
@@ -130,9 +180,40 @@ function Register(props) {
     }, [confirmPassword])
 
     useEffect(() => {
+        const result = phoneNumberREGEX.test(phoneNumber)
+        setPhoneNumberValid(result)
+    }, [phoneNumber])
+
+    useEffect(() => {
         const result = department !== 0
         setDepartmentValid(result)
-    })
+    }, [department])
+
+    useEffect(() => {
+        const result = street.length >= 4 && street.length <= 25 ? true : false
+        setStreetValid(result)
+    }, [street])
+
+    useEffect(() => {
+        // const result = houseNumberREGEX.test(houseNumber)
+        const result = houseNumber.length !== 0
+        setHouseNumberValid(result)
+    }, [houseNumber])
+
+    useEffect(() => {
+        const result = city.length >= 3 && city.length <= 15
+        setCityValid(result)
+    }, [city])
+
+    useEffect(() => {
+        const result = zipCodeREGEX.test(zipCode)
+        setZipCodeValid(result)
+    }, [zipCode])
+
+    useEffect(() => {
+        const result = businessPositions !== -1
+        setBusinessPositionValid(result)
+    }, [businessPositions])
 
 
     return (
@@ -227,96 +308,91 @@ function Register(props) {
                     <div className={styles.inputContainer}>
                         <label>Numer telefonu:</label>
                         <input type='text'
-                                onChange={lastNameHandler}
+                                onChange={phoneNumberHandler}
                                 required
-                                aria-invalid={lastNameValid ? "false" : "true"}
-                                aria-describedby='lastNameNote'
-                                onFocus={() => { setLastNameFocus(true) }}
-                                onBlur={() => { setLastNameFocus(false) }}></input>
+                                aria-invalid={phoneNumberValid ? "false" : "true"}
+                                aria-describedby='phoneNumberNote'
+                                onFocus={() => { setPhoneNumberFocus(true) }}
+                                onBlur={() => { setPhoneNumberFocus(false) }}></input>
 
-                        <div id="lastNameNote"
-                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="phoneNumberNote"
+                             className={phoneNumberFocus && phoneNumber && !phoneNumberValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
-                                    Nazwisko musi zaczynać się z dużej litery.
+                                <p>Numer telefonu powinien składać się z 9 cyfr.
                                 </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
                         <label>Miasto zam.:</label>
                         <input type='text'
-                                onChange={lastNameHandler}
+                                onChange={cityHandler}
                                 required
-                                aria-invalid={lastNameValid ? "false" : "true"}
-                                aria-describedby='lastNameNote'
-                                onFocus={() => { setLastNameFocus(true) }}
-                                onBlur={() => { setLastNameFocus(false) }}></input>
+                                aria-invalid={cityValid ? "false" : "true"}
+                                aria-describedby='cityNote'
+                                onFocus={() => { setCityFocus(true) }}
+                                onBlur={() => { setCityFocus(false) }}></input>
 
-                        <div id="lastNameNote"
-                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="cityNote"
+                             className={cityFocus && city && !cityValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
-                                    Nazwisko musi zaczynać się z dużej litery.
+                                <p>Długość miasta musi mieć od 3 do 15 Znaków.
                                 </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
                         <label>Ulica zam.:</label>
                         <input type='text'
-                                onChange={lastNameHandler}
+                                onChange={streetHandler}
                                 required
-                                aria-invalid={lastNameValid ? "false" : "true"}
-                                aria-describedby='lastNameNote'
-                                onFocus={() => { setLastNameFocus(true) }}
-                                onBlur={() => { setLastNameFocus(false) }}></input>
+                                aria-invalid={streetValid ? "false" : "true"}
+                                aria-describedby='streetNote'
+                                onFocus={() => { setStreetFocus(true) }}
+                                onBlur={() => { setStreetFocus(false) }}></input>
 
-                        <div id="lastNameNote"
-                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="streetNote"
+                             className={streetFocus && street && !streetValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
-                                    Nazwisko musi zaczynać się z dużej litery.
+                                <p>Długość ulicy musi mieć od 4 do 25 Znaków.
                                 </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
                         <label>Numer domu:</label>
                         <input type='text'
-                                onChange={lastNameHandler}
+                                onChange={houseNumberHandler}
                                 required
-                                aria-invalid={lastNameValid ? "false" : "true"}
-                                aria-describedby='lastNameNote'
-                                onFocus={() => { setLastNameFocus(true) }}
-                                onBlur={() => { setLastNameFocus(false) }}></input>
+                                aria-invalid={houseNumberValid ? "false" : "true"}
+                                aria-describedby='houseNumberNote'
+                                onFocus={() => { setHouseNumberFocus(true) }}
+                                onBlur={() => { setHouseNumberFocus(false) }}></input>
 
-                        <div id="lastNameNote"
-                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="houseNumberNote"
+                             className={houseNumberFocus && houseNumber && !houseNumberValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
-                                    Nazwisko musi zaczynać się z dużej litery.
+                                <p>Podaj poprawny numer domu.
                                 </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
                         <label>Kod Pocztowy:</label>
                         <input type='text'
-                                onChange={lastNameHandler}
+                                onChange={zipCodeHandler}
                                 required
                                 aria-invalid={lastNameValid ? "false" : "true"}
-                                aria-describedby='lastNameNote'
-                                onFocus={() => { setLastNameFocus(true) }}
-                                onBlur={() => { setLastNameFocus(false) }}></input>
+                                aria-describedby='zipCodeNote'
+                                onFocus={() => { setZipCodeFocus(true) }}
+                                onBlur={() => { setZipCodeFocus(false) }}></input>
 
-                        <div id="lastNameNote"
-                             className={lastNameFocus && lastName && !lastNameValid ? styles.errorDescription : styles.offScreen}>
+                        <div id="zipCodeNote"
+                             className={zipCodeFocus && zipCode && !zipCodeValid ? styles.errorDescription : styles.offScreen}>
                                 <RiErrorWarningLine className={styles.warningIcons}/>
-                                <p>Długość nazwiska musi mieć od 3 do 15 znaków. 
-                                    Nazwisko musi zaczynać się z dużej litery.
+                                <p>Podaj poprawny Kod Pocztowy.
                                 </p>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
                         <label>Dział pracownika:</label>
-                        <select onChange={setDepartmentHandler}>
+                        <select onChange={setDepartmentHandler} style={{ cursor: 'pointer'}}>
                             <option value={0}>Wybierz dział:</option>
                             <option value={1}>Dział Sprzedaży</option>
                             <option value={2}>Dział Obsługi Klienta</option>
@@ -330,19 +406,28 @@ function Register(props) {
                             <div>
                                <div className={styles.buttonGridArea}>
                                     <label>Pracownik</label>
-                                    <input type='radio' value={2} name='businessPosition' checked={true}/>
+                                    <input type='radio' 
+                                                value={2} 
+                                                name='businessPosition' 
+                                                style={{ cursor: 'pointer'}}/>
                                 </div>
                             </div>
                             <div>
                             <div className={styles.buttonGridArea}>
                                 <label>Dyrektor</label>
-                                <input type='radio' value={1} name='businessPosition' />
+                                <input type='radio' 
+                                        value={1} 
+                                        name='businessPosition' 
+                                        style={{ cursor: 'pointer'}}/>
                                 </div>
                             </div>
                             <div>
                             <div className={styles.buttonGridArea}>
                                 <label>Menadżer</label>
-                                <input type='radio' value={0} name='businessPosition' />
+                                <input type='radio' 
+                                        value={0} 
+                                        name='businessPosition' 
+                                        style={{ cursor: 'pointer'}}/>
                                 </div>
                             </div>
                         </div>
