@@ -25,6 +25,7 @@ function NavbarService(args) {
   const logoutHandler = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('refreshToken')
+    localStorage.removeItem('role')
     localStorage.setItem('is-loged', `${false}`)
 
     window.location.reload(true)

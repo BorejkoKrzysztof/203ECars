@@ -37,6 +37,7 @@ function Login()
             .then( (response) => {
                 localStorage.setItem('token', `${response.data.token}`)
                 localStorage.setItem('refreshToken', `${response.data.refreshToken}`)
+                localStorage.setItem('role', `${response.data.role}`)
                 localStorage.setItem('is-loged', `${true}`)
                 window.location.href = '/'
             })
