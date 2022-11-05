@@ -41,6 +41,7 @@ public class EmployeeService : IEmployeeService
 
             var employeeId = await this._repository.GetEmployeeIdByEmailAddress(emailAddress);
             string refreshToken = await _repository.GetRefreshToken(employeeId);
+            long employeeRentalId = await this._repository.GetRentalIdByEmployeeId(employeeId);
 
             if (refreshToken is null)
             {
@@ -49,7 +50,8 @@ public class EmployeeService : IEmployeeService
 
             var employeePosition = await this._repository.GetEmployeePositionById(employeeId);
 
-            var jwt = this._jwtHandler.CreateToken(employeeId, account.EmailAddress, employeePosition);
+            var jwt = this._jwtHandler.CreateToken(employeeId, account.EmailAddress,
+                                                        employeePosition, employeeRentalId);
             tokens.Token = jwt.Token;
             tokens.Expires = jwt.Expires;
             tokens.Role = $"{(int)employeePosition}";
@@ -68,8 +70,10 @@ public class EmployeeService : IEmployeeService
     {
         long employeeId = await this._repository.GetUserIdByRefreshToken(refreshToken);
         var employee = await this._repository.ReadByIDAsync(employeeId);
+        long employeeRentalId = await this._repository.GetRentalIdByEmployeeId(employeeId);
 
-        var jwt = _jwtHandler.CreateToken(employeeId, employee.Account.EmailAddress, employee.Position);
+        var jwt = _jwtHandler.CreateToken(employeeId, employee.Account.EmailAddress,
+                                    employee.Position, employeeRentalId);
 
         return new TokenDTO
         {
@@ -119,7 +123,8 @@ public class EmployeeService : IEmployeeService
                 this._logger.LogInformation($"New Refresh Token is created.");
             }
 
-            var jwt = _jwtHandler.CreateToken(newEmployee.Id, newEmployee.Account.EmailAddress, newEmployee.Position);
+            var jwt = _jwtHandler.CreateToken(newEmployee.Id, newEmployee.Account.EmailAddress,
+                                                    newEmployee.Position, rentalId);
             this._logger.LogInformation($"New JWT Token is created.");
 
             tokens.Token = jwt.Token;

@@ -17,7 +17,7 @@ public class JwtHandler : IJwtHandler
         _configuration = configuration;
     }
 
-    public JwtDTO CreateToken(long id, string emailAddress, BuisnessPosition businessPosition)
+    public JwtDTO CreateToken(long id, string emailAddress, BuisnessPosition businessPosition, long rentalId)
     {
         var now = DateTime.UtcNow;
         var claims = new Claim[]
@@ -26,6 +26,7 @@ public class JwtHandler : IJwtHandler
             new Claim(JwtRegisteredClaimNames.UniqueName, id.ToString()),
             new Claim(ClaimTypes.Email, emailAddress),
             new Claim(ClaimTypes.Role, $"{(int)businessPosition}"),
+            new Claim("RentalId", rentalId.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString())
         };

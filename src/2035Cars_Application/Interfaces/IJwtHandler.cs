@@ -5,5 +5,5 @@ namespace _2035Cars_Infrastructure.Services;
 
 public interface IJwtHandler
 {
-    JwtDTO CreateToken(long userId, string emailAddress, BuisnessPosition businessPosition);
+    JwtDTO CreateToken(long userId, string emailAddress, BuisnessPosition businessPosition, long rentalId);
 }

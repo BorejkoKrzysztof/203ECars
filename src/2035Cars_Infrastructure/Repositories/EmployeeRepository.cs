@@ -58,6 +58,15 @@ namespace _2035Cars_Infrastructure.Repositories
             return await Task.FromResult(refreshToken?.Token);
         }
 
+        public async Task<long> GetRentalIdByEmployeeId(long employeeId)
+        {
+            var rentalId = this._dbContext.Employees
+                                            .First(x => x.Id == employeeId)
+                                            .RentalId;
+
+            return await Task.FromResult(rentalId);
+        }
+
         public async Task<long> GetUserIdByRefreshToken(string refreshToken)
         {
             var userId = this._dbContext.RefreshTokens
