@@ -4,7 +4,7 @@ import { useContext  } from "react";
 
 const RequiredAuth = () => {
     const location = useLocation()
-    const logged = useContext(AuthContext)
+    const logged = localStorage.getItem('is-loged') === 'true'
     return (
           logged
             ?

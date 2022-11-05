@@ -22,5 +22,7 @@ namespace _2035Cars_Application.Commands
 
         public int Department { get; set; }
         public int BusinessPosition { get; set; }
+        public string RentalCity { get; set; }
+        public string RentalLocation { get; set; }
     }
 }

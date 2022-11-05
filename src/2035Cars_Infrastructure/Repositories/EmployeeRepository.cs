@@ -40,15 +40,22 @@ namespace _2035Cars_Infrastructure.Repositories
             return await Task.FromResult(position);
         }
 
+        public async Task<long> GetEmployeeRentalIdByCityAndLocation(string rentalCity, string renatlLocation)
+        {
+            var id = this._dbContext.Rentals.FirstOrDefault(x => x.Address.City == rentalCity &&
+                                                                x.Title == renatlLocation).Id;
+
+            return await Task.FromResult(id);
+        }
+
         public async Task<string> GetRefreshToken(long employeeId)
         {
             var refreshToken = this._dbContext.RefreshTokens
                                         .Where(x => x.UserId == employeeId)
                                         .OrderByDescending(x => x.ExpiryDate)
-                                        .FirstOrDefault()
-                                        .Token;
+                                        .FirstOrDefault();
 
-            return await Task.FromResult(refreshToken);
+            return await Task.FromResult(refreshToken?.Token);
         }
 
         public async Task<long> GetUserIdByRefreshToken(string refreshToken)

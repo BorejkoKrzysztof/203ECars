@@ -29,15 +29,15 @@ function App() {
             <Route path='/logowanie' element={<LoginPage />}/>
             <Route path='/rejestracja' element={<Register />} />
             <Route element={<RequiredAuth />}>
-                <Route path='/' element={<EmployeeListPage />} />
+                <Route path='/pracownicy' element={<EmployeeListPage />} />
                 {/* <Route path='/' element={<EmployeeDetails />} /> */}
-                {/* <Route path='/' element={<CarListPage />} /> */}
+                <Route path='/samochody' element={<CarListPage />} />
                 {/* <Route path='/' element={<CarDetailsPage />}/> */}
-                {/* <Route path='/' element={<AddCarPage />}/> */}
+                <Route path='/dodajsamochod' element={<AddCarPage />}/>
                 {/* <Route path='/' element={<EditCarPage />}/> */}
                 {/* <Route path='/' element={<EditEmployeePage />}/> */}
                 {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
-                {/* <Route path='/' element={<OrderListsPage />}/> */}
+                <Route path='/' element={<OrderListsPage />}/>
             </Route>
 
 

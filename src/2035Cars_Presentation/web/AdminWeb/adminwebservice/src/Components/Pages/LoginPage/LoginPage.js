@@ -30,16 +30,15 @@ function Login()
     const loginHandler = async (event) => {
        event.preventDefault()
        try{
-            await axios.post('/account/login', JSON.stringify({
-            EmailAdress: accountEmail,
+            axios.post('/employee/login', JSON.stringify({
+            EmailAddress: accountEmail,
             Password: accountPassword
             }))
             .then( (response) => {
-                setToken(response.data.token)
-                setRefreshToken(response.data.refreshToken)
-                setAccountEmail('')
-                setAccountPassword('')
-                window.location.href = from
+                localStorage.setItem('token', `${response.data.token}`)
+                localStorage.setItem('refreshToken', `${response.data.refreshToken}`)
+                localStorage.setItem('is-loged', `${true}`)
+                window.location.href = '/'
             })
        }
        catch(error) {

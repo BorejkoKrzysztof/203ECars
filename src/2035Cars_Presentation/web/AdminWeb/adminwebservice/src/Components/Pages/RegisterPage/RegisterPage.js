@@ -6,6 +6,8 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 
 function Register(props) {
 
+    const rentalTitleDefault = 'Wybierz wypożyczalnie'
+
     const nameREGEX = /^[A-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]{2,15}$/
     const emailAdressREGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const passwordREGEX = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{7,15})");
@@ -64,8 +66,33 @@ function Register(props) {
     const [businessPositions, setBusinessPosition] = useState(-1)
     const [businessPositionValid, setBusinessPositionValid] = useState(false)
 
+    const [selectedRentalCity, setSelectedRentalCity] = useState('')
+    const [selectedRentalCityValid, setSelectedRentalCityValid] = useState(false)
+
+    const [selectedRentalLocation, setSelectedRentalLocation] = useState('')
+    const [selectedRentalLocationValid, setSelectedRentalLocationValid] = useState(false)
+
+    const [citiesWithLocations, setCitieWithLocations] = useState([])
+
     const [errorState, setErrorState] = useState(false)
 
+    const downloadCitiesWithLocations = () => {
+        axios.get('/rental/allcitieswithlocations')
+                .then(response => {
+                    setCitieWithLocations([...response.data])
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+    }
+
+    const setRentalLocationDataHandler = (event) => {
+        if (event.target.value !== rentalTitleDefault) {
+            const dataArray = event.target.value.split(', ')
+            setSelectedRentalCity(dataArray[0])
+            setSelectedRentalLocation(dataArray[1])
+        }
+    }
 
     const firstNameHandler = (e) => {
         setFirstName(e.target.value)
@@ -116,33 +143,44 @@ function Register(props) {
     }
 
 
-    const registerHandler = async (event) => {
+    const registerHandler = (event) => {
         event.preventDefault();
 
         if(firstNameValid && lastNameValid && phoneNumberValid && emailValid && 
                 passwordValid && confirmPasswordValid && streetValid && houseNumberValid &&
-                cityValid && zipCodeValid && departmentValid && businessPositionValid) {
+                cityValid && zipCodeValid && departmentValid && businessPositionValid &&
+                selectedRentalCityValid && selectedRentalLocationValid) {
             
             const calculatedDepartment = department - 1
 
-            await axios.post('/account/register', JSON.stringify({
+
+            axios.post('employee/register', JSON.stringify({
                 FirstName: firstName,
                 LastName: lastName,
                 PhoneNumber: phoneNumber,
-                EmailAdress: email,
+                EmailAddress: email,
                 Password: password,
                 Street: street,
                 HouseNumber: houseNumber,
                 City: city,
                 ZipCode: zipCode,
                 Department: calculatedDepartment,
-                BusinessPosition: businessPositions
+                BusinessPosition: businessPositions,
+                RentalCity : selectedRentalCity,
+                RentalLocation: selectedRentalLocation
             }))
             .then( (response) => {
+                console.log(response)
                 setToken(response.data.token)
                 setRefreshToken(response.data.refreshToken)
-                props.func()
-                window.location.href='/todolists'
+                localStorage.setItem('token', `${response.data.token}`)
+                localStorage.setItem('refreshToken', `${response.data.refreshToken}`)
+                localStorage.setItem('is-loged', `${true}`)
+                // props.func()
+                window.location.href='/'
+            })
+            .catch( (error) => {
+                console.log(error)
             })
         }
         else{
@@ -152,6 +190,7 @@ function Register(props) {
 
     useEffect(() => {
         document.title ='Rejestracja'
+        downloadCitiesWithLocations()
     }, [])
 
     useEffect(() => {
@@ -214,6 +253,16 @@ function Register(props) {
         const result = businessPositions !== -1
         setBusinessPositionValid(result)
     }, [businessPositions])
+
+    useEffect(() => {
+        const result = selectedRentalCity !== '' ? true : false
+        setSelectedRentalCityValid(result)
+    }, [selectedRentalCity])
+
+    useEffect(() => {
+        const result = selectedRentalLocation !== '' ? true : false
+        setSelectedRentalLocationValid(result)
+    }, [selectedRentalLocation])
 
 
     return (
@@ -431,6 +480,20 @@ function Register(props) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className={`${styles.inputContainer} ${styles.lastInputArea}`}>
+                        <label>Wypożyczalnia:</label>
+                        <select onChange={setRentalLocationDataHandler} style={{ cursor: 'pointer'}}>
+                            {
+                                [rentalTitleDefault, ...citiesWithLocations].map((item, index) => {
+                                    return (
+                                        <option key={index} value={item}>
+                                            {item}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
                     </div>
                     {errorState && <div className={styles.errorBanner}>
                                         <p className={styles.errorText}>Niepowodzenie. Spróbuj ponownie.</p>

@@ -26,12 +26,12 @@ instance.interceptors.request.use(async (req) => {
     }
     else 
     {
-        const refreshToken = JSON.parse(localStorage.getItem('refreshToken'))
-        const response = await axios.post(`${baseURL}/account/refreshtoken`, {
+        const refreshToken = JSON.parse(sessionStorage.getItem('refreshToken'))
+        const response = await axios.post(`${baseURL}/employee/refreshtoken`, {
             RefreshToken : refreshToken
         })
 
-        localStorage.setItem('token', JSON.stringify(response.data.token))
+        sessionStorage.setItem('token', JSON.stringify(response.data.token))
         req.headers.common.Authorization = `Bearer ${response.data.token}`
         return req;
     }

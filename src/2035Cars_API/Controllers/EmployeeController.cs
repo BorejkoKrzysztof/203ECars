@@ -27,7 +27,7 @@ public class EmployeeController : ApiControllerBase
     public async Task<IActionResult> RegisterAccount([FromBody] RegisterRequestAccount command)
     {
         var tokens = await _service.RegisterAccount(command);
-        return Created(string.Empty, tokens);
+        return Ok(tokens);
     }
 
     [HttpPost("refreshtoken")]

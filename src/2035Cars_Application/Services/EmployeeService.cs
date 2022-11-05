@@ -93,24 +93,29 @@ public class EmployeeService : IEmployeeService
                 throw new ArgumentOutOfRangeException($"Account with email: {command.EmailAddress} already exists.");
             }
 
+            long rentalId = await this._repository
+                                .GetEmployeeRentalIdByCityAndLocation
+                                                (command.RentalCity, command.RentalLocation);
+
             Employee newEmployee = new Employee()
             {
                 Person = new Person(command.FirstName, command.LastName, command.PhoneNumber),
                 Address = new Address(command.Street, command.HouseNumber, command.City, command.ZipCode),
-                Account = new Account(command.EmailAddress, command.Password),
+                Account = new Account(command.EmailAddress, BCrypt.Net.BCrypt.HashPassword(command.Password)),
                 Department = (Department)command.Department,
                 Position = (BuisnessPosition)command.BusinessPosition,
-                AcceptedOrders = new List<Order>()
+                AcceptedOrders = new List<Order>(),
+                RentalId = rentalId
             };
 
-            await this._repository.CreateAsync(newEmployee);
+            var emplID = await this._repository.CreateAsync(newEmployee);
             this._logger.LogInformation($"New Employee with ID: {newEmployee.Id} is registered.");
 
-            var refreshToken = await this._repository.GetRefreshToken(newEmployee.Id);
+            var refreshToken = await this._repository.GetRefreshToken(emplID);
 
             if (refreshToken is null)
             {
-                refreshToken = await _repository.CreateRefreshToken(newEmployee.Id);
+                refreshToken = await _repository.CreateRefreshToken(emplID);
                 this._logger.LogInformation($"New Refresh Token is created.");
             }
 

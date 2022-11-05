@@ -22,6 +22,14 @@ function NavbarService(args) {
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const logoutHandler = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('refreshToken')
+    localStorage.setItem('is-loged', `${false}`)
+
+    window.location.reload(true)
+  }
+
   return (
     <div>
       <Navbar 
@@ -33,28 +41,45 @@ function NavbarService(args) {
           203E Cars</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          {
+            localStorage.getItem('is-loged') === 'true' ? 
+            <>
+              <Nav className="me-auto" navbar>
+              <NavItem>
+                <NavLink href="/">Zamówienia</NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Pracownicy
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem href='/pracownicy' style={{color: 'black'}}>
+                    Lista pracowników
+                  </DropdownItem>
+                  {/* <DropdownItem>Dodaj</DropdownItem> */}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Samochody
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem  href='/samochody' style={{color: 'black'}}>
+                    Lista aut
+                  </DropdownItem>
+                  <DropdownItem  href='/dodajsamochod' style={{color: 'black'}}>
+                    Dodaj
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+            <NavbarText style={{color: 'red', cursor: 'pointer'}} onClick={logoutHandler}>
+              WYLOGUJ SIĘ!
+            </NavbarText>
+            </>
+          :
+          <></>
+          }
         </Collapse>
       </Navbar>
     </div>
