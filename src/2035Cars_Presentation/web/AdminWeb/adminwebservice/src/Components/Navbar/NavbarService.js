@@ -53,12 +53,17 @@ function NavbarService(args) {
                 <DropdownToggle nav caret>
                   Pracownicy
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem href='/pracownicy' style={{color: 'black'}}>
-                    Lista pracowników
-                  </DropdownItem>
-                  {/* <DropdownItem>Dodaj</DropdownItem> */}
-                </DropdownMenu>
+                {
+                  localStorage.getItem('role') === '0' ?
+                  <DropdownMenu right>
+                    <DropdownItem href='/pracownicy' style={{color: 'black'}}>
+                      Lista pracowników
+                    </DropdownItem>
+                    {/* <DropdownItem>Dodaj</DropdownItem> */}
+                  </DropdownMenu>
+                :
+                <></>
+                }
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

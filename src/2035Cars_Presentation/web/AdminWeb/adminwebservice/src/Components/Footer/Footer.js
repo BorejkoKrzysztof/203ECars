@@ -25,11 +25,16 @@ export default function Footer() {
                   Zamówienia
                 </a>
               </li>
-              <li>
-                <a href='/pracownicy' className='text-light'>
-                  Lista pracowników
-                </a>
-              </li>
+              {
+                localStorage.getItem('role') === '0' ?
+                <li>
+                  <a href='/pracownicy' className='text-light'>
+                    Lista pracowników
+                  </a>
+                </li>
+                :
+                <></>
+                }
               <li>
                 <a href='/samochody' className='text-light'>
                   Lista aut
