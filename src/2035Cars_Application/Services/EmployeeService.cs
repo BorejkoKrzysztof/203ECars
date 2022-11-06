@@ -56,6 +56,7 @@ public class EmployeeService : IEmployeeService
             tokens.Expires = jwt.Expires;
             tokens.Role = $"{(int)employeePosition}";
             tokens.RefreshToken = refreshToken;
+            tokens.EmployeeRentalId = employeeRentalId;
         }
         catch (Exception ex)
         {
@@ -81,6 +82,7 @@ public class EmployeeService : IEmployeeService
             Expires = jwt.Expires,
             Role = $"{(int)employee.Position}",
             RefreshToken = refreshToken,
+            EmployeeRentalId = employeeRentalId
         };
     }
 
@@ -131,6 +133,7 @@ public class EmployeeService : IEmployeeService
             tokens.Expires = jwt.Expires;
             tokens.Role = $"{(int)command.BusinessPosition}";
             tokens.RefreshToken = refreshToken;
+            tokens.EmployeeRentalId = rentalId;
 
         }
         catch (Exception ex)

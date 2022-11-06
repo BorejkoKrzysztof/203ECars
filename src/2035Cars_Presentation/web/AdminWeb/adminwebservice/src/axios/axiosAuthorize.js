@@ -14,25 +14,25 @@ const instance = axios.create({
 
 
 instance.interceptors.request.use(async (req) => {
-    const jwt = JSON.parse(localStorage.getItem('token'));
+    const jwt = localStorage.getItem('token');
 
     const user = jwtDecode(jwt);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
     if (!isExpired)
     {
-        req.headers.common.Authorization = `Bearer ${jwt}`;
+        req.headers.Authorization = `Bearer ${jwt}`;
         return req;
     }
     else 
     {
-        const refreshToken = JSON.parse(sessionStorage.getItem('refreshToken'))
+        const refreshToken = localStorage.getItem('refreshToken')
         const response = await axios.post(`${baseURL}/employee/refreshtoken`, {
             RefreshToken : refreshToken
         })
 
-        sessionStorage.setItem('token', JSON.stringify(response.data.token))
-        req.headers.common.Authorization = `Bearer ${response.data.token}`
+        localStorage.setItem('token', response.data.token)
+        req.headers.Authorization = `Bearer ${response.data.token}`
         return req;
     }
 })

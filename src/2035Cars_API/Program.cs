@@ -42,6 +42,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Authorization
+builder.Services.AddAuthorization();
+
 // Add Services
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
@@ -90,6 +93,8 @@ else if (app.Environment.IsProduction())
     app.UseCors("productionPolicy");
 }
 
+app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();

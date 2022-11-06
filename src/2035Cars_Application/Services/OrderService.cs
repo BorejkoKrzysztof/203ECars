@@ -1,4 +1,5 @@
 using _2035Cars_Application.Commands;
+using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
 using _2035Cars_Core.Domain;
 using _2035Cars_Core.ValueObjects;
@@ -20,8 +21,8 @@ namespace _2035Cars_Application.Services
         public OrderService(IOrderRepository repository,
                                 IClientRepository clientRepository,
                                 ICarRepository carRepository,
-                                IRentalRepository rentalRepository, 
-                                IMapper mapper, 
+                                IRentalRepository rentalRepository,
+                                IMapper mapper,
                                 ILogger<OrderService> logger)
         {
             this._repository = repository;
@@ -32,13 +33,56 @@ namespace _2035Cars_Application.Services
             this._logger = logger;
         }
 
+        public async Task FinishOrderAsync(long orderId, long accountId)
+        {
+            try
+            {
+                long orderCarID = await this._repository.GetCarIdByOrderId(orderId);
+                this._logger.LogInformation($"Car Id from Order id downloaded.");
+                await this._repository.FinishOrderAsync(orderId, orderCarID, accountId);
+                this._logger.LogInformation($"Order with id: {orderId} is finished by employee with id: {accountId}.");
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Something went wrong with finishing order with Id: {orderId} by employee with Id: {accountId}, error => {ex.Message}");
+            }
+        }
+
+        public async Task<List<OrderDTO>> GetOrders(long rentalId)
+        {
+            List<OrderDTO> orders;
+            try
+            {
+                var objectOrders = await this._repository.GetOrdersBasicInfo(rentalId);
+                orders = new List<OrderDTO>();
+                foreach (var item in objectOrders)
+                {
+                    orders.Add(new OrderDTO()
+                    {
+                        Id = item.Id,
+                        Price = item.Price,
+                        CustomerFirstName = item.CustomerFirstName,
+                        CustomerLastName = item.CustomerLastName
+                    });
+                }
+                this._logger.LogInformation($"Order collection for rental with id: {rentalId} is downloaded");
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Error occurred while downloading orders for rental with id: {rentalId}, error => {ex.Message}");
+                return null!;
+            }
+
+            return orders;
+        }
+
         public async Task<long> MakeOrder(MakeOrderCommand orderCommand)
         {
             long createdOrderId;
-            
+
             try
             {
-                var client =  await this._clientRepository
+                var client = await this._clientRepository
                                             .ReadClientByPersonalData
                                             (
                                                 orderCommand.CustomerFirstName,
@@ -48,38 +92,37 @@ namespace _2035Cars_Application.Services
 
                 if (client is null)
                 {
-                     var newClient = new Client()
-                     {
+                    var newClient = new Client()
+                    {
                         EmailAddress = orderCommand.CustomerEmail,
                         Person = new Person(orderCommand.CustomerFirstName,
-                                                orderCommand.CustomerLastName,
-                                                orderCommand.CustomerPhoneNumber),
+                                               orderCommand.CustomerLastName,
+                                               orderCommand.CustomerPhoneNumber),
                         Orders = new List<Order>()
-                     };
-                     long newCreatedClientId = await this._clientRepository.CreateAsync(newClient);
-                     client = await this._clientRepository.ReadByIDAsync(newCreatedClientId);
+                    };
+                    long newCreatedClientId = await this._clientRepository.CreateAsync(newClient);
+                    client = await this._clientRepository.ReadByIDAsync(newCreatedClientId);
                 }
 
                 var carToOrder = await this._carRepository.ReadByIDAsync(orderCommand.CarId);
 
                 var newOrder = new Order()
                 {
-                  Client = client,
-                  Car = carToOrder,
-                  FromRentalId = await this._rentalRepository
+                    Client = client,
+                    Car = carToOrder,
+                    FromRentalId = await this._rentalRepository
                                     .ReturnRentalIdAsync(orderCommand.FromRentalCity,
                                                                         orderCommand.FromRentalLocation),
-                  ToRentalId = await this._rentalRepository
+                    ToRentalId = await this._rentalRepository
                                     .ReturnRentalIdAsync(orderCommand.ToRentalCity,
                                                                         orderCommand.ToRentalLocation),
-                  StartDate = orderCommand.RentFromDate.ToUniversalTime(),
-                  EndDate = orderCommand.RentToDate.ToUniversalTime(),
-                  CostOfRental = orderCommand.OrderPrice,
-                  Finished = false
+                    StartDate = orderCommand.RentFromDate.ToUniversalTime(),
+                    EndDate = orderCommand.RentToDate.ToUniversalTime(),
+                    CostOfRental = orderCommand.OrderPrice,
+                    Finished = false
                 };
 
                 carToOrder.IsRented = true;
-                // carToOrder.RentedTo = orderCommand.RentToDate.ToUniversalTime();
 
                 createdOrderId = await this._repository
                                         .OrderTransactionForExistingUser(carToOrder, newOrder);

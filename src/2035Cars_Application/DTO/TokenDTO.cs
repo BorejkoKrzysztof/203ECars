@@ -4,4 +4,5 @@ public class TokenDTO : JwtDTO
 {
     public string RefreshToken { get; set; }
     public string Role { get; set; }
+    public long EmployeeRentalId { get; set; }
 }

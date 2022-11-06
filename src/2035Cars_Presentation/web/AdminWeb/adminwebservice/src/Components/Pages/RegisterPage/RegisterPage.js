@@ -176,6 +176,7 @@ function Register(props) {
                 localStorage.setItem('token', `${response.data.token}`)
                 localStorage.setItem('refreshToken', `${response.data.refreshToken}`)
                 localStorage.setItem('role', `${response.data.role}`)
+                localStorage.setItem('rentalId', `${response.data.employeeRentalId}`)
                 localStorage.setItem('is-loged', `${true}`)
                 // props.func()
                 window.location.href='/'

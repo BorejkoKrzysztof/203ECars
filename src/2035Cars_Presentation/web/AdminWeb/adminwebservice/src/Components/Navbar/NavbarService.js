@@ -26,6 +26,7 @@ function NavbarService(args) {
     localStorage.removeItem('token')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('role')
+    localStorage.removeItem('rentalId')
     localStorage.setItem('is-loged', `${false}`)
 
     window.location.reload(true)
