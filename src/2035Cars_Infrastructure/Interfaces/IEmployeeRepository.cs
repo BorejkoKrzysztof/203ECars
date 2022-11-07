@@ -15,5 +15,7 @@ namespace _2035Cars_Infrastructure.Interfaces
         Task<long> GetUserIdByRefreshToken(string refreshToken);
         Task<long> GetEmployeeRentalIdByCityAndLocation(string rentalCity, string renatlLocation);
         Task<long> GetRentalIdByEmployeeId(long employeeId);
+        Task<List<Employee>> GetEmployeesByRentalId(long rentalId, int currentPage, int pageSize);
+        Task<int> CountEmployeesByRentalId(long rentalId);
     }
 }

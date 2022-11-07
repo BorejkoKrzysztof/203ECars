@@ -1,11 +1,13 @@
 using _2035Cars_Application.Commands;
 using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
+using _2035Cars_Application.ViewModels;
 using _2035Cars_Core.Domain;
 using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Interfaces;
 using _2035Cars_Infrastructure.Services;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 
 namespace _2035Cars_Application.Services;
@@ -15,13 +17,38 @@ public class EmployeeService : IEmployeeService
     private readonly IEmployeeRepository _repository;
     private readonly ILogger<EmployeeService> _logger;
     private readonly IJwtHandler _jwtHandler;
+    private readonly IMapper _mapper;
 
-    public EmployeeService(IEmployeeRepository repository, ILogger<EmployeeService> logger, IJwtHandler jwtHandler)
+    public EmployeeService(IEmployeeRepository repository, ILogger<EmployeeService> logger, IJwtHandler jwtHandler, IMapper mapper)
     {
         this._repository = repository;
         this._logger = logger;
         this._jwtHandler = jwtHandler;
+        this._mapper = mapper;
     }
+
+    public async Task<EmployeesCollectionWithPagination> GetEmployeeLists(long rentalId, int currentPage, int pageSize)
+    {
+        EmployeesCollectionWithPagination employeesWithPagination = new EmployeesCollectionWithPagination();
+        try
+        {
+            List<Employee> employees = await this._repository
+                                                .GetEmployeesByRentalId(rentalId, currentPage, pageSize);
+            this._logger.LogInformation($"List of Employees for Rental with Id: {rentalId} is downloaded.");
+            employeesWithPagination.Employees = this._mapper.Map<List<EmployeeDTO>>(employees);
+            employeesWithPagination.CurrentPage = currentPage;
+            employeesWithPagination.AmountOfPages = await this._repository
+                                                .CountEmployeesByRentalId(rentalId) / pageSize;
+        }
+        catch (System.Exception ex)
+        {
+            this._logger.LogError($"Error occured while downloading employees list for Rental with Id: {rentalId}, msg => {ex.Message}");
+            return null!;
+        }
+
+        return employeesWithPagination;
+    }
+
     public async Task<TokenDTO> Login(string emailAddress, string password)
     {
         var tokens = new TokenDTO();

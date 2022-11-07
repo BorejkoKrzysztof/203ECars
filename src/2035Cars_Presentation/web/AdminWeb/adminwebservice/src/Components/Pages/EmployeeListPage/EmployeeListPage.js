@@ -4,19 +4,44 @@ import { Table,
         Pagination,
         PaginationItem,
         PaginationLink } from 'reactstrap'
+import axios from '../../../axios/axiosAuthorize'
 
 function EmployeeListPage() {
 
+    const [employeesAreLoaded, setEmployeesAreLoaded] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [amountOfPages, setAmountOfPages] = useState(0)
+    const [employeesCollection, setEmployeesCollection] = useState([])
+
+    const donwloadEmployeesCollection = () => {
+        const rentalId = localStorage.getItem('rentalId')
+        axios.get(`employee/getallrentalemployees/${rentalId}/${currentPage}`)
+                .then( (response) => {
+
+                    console.log(response)
+
+                    setEmployeesCollection(response.data.employees)
+                    setCurrentPage(response.data.currentPage)
+                    setAmountOfPages(response.data.amountOfPages)
+                    setEmployeesAreLoaded(true)
+                })
+                .catch( (error) => {
+                    console.log(error)
+                })
+    }
 
     useState(() => {
         document.title = 'Lista Pracowników'
+        donwloadEmployeesCollection()
     }, [])
 
   return (
     <div className={styles.wrapper}>
         <h1 className={styles.employeePageTitle}>Lista Pracowników:</h1>
         <div className={styles.employeeTableListArea}>
-            <Table size="sm">
+            {
+                employeesAreLoaded ?
+                <Table size="sm">
                 <thead className={styles.centerRow}>
                     <tr>
                     <th>
@@ -37,65 +62,37 @@ function EmployeeListPage() {
                     </tr>
                 </thead>
                 <tbody className={styles.centerRow}>
-                    <tr>
-                    <th scope="row">
-                        1
-                    </th>
-                    <td>
-                        Mark
-                    </td>
-                    <td>
-                        Otto
-                    </td>
-                    <td>
-                        @mdo
-                    </td>
-                    <td>
-                        <button className={styles.buttonStyle}>
-                            Zobacz
-                        </button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">
-                        2
-                    </th>
-                    <td>
-                        Jacob
-                    </td>
-                    <td>
-                        Thornton
-                    </td>
-                    <td>
-                        @fat
-                    </td>
-                    <td>
-                        <button className={styles.buttonStyle}>
-                            Zobacz
-                        </button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">
-                        3
-                    </th>
-                    <td>
-                        Larry
-                    </td>
-                    <td>
-                        the Bird
-                    </td>
-                    <td>
-                        @twitter
-                    </td>
-                    <td>
-                        <button className={styles.buttonStyle}>
-                            Zobacz
-                        </button>
-                    </td>
-                    </tr>
+                    {
+                        employeesCollection.map((item, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">
+                                        {index + 1}
+                                    </th>
+                                    <td>
+                                        {item.firstName}
+                                    </td>
+                                    <td>
+                                        {item.lastName}
+                                    </td>
+                                    <td>
+                                        {item.phoneNumber}
+                                    </td>
+                                    <td>
+                                        <button className={styles.buttonStyle}>
+                                            Zobacz
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </Table>
+            :
+            <>
+            </>
+            }
         </div>
         <div className={styles.paginationArea}>
             <Pagination>

@@ -1,5 +1,8 @@
 using _2035Cars_Application.Commands;
+using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
+using _2035Cars_Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Api.Controllers;
 
@@ -9,6 +12,7 @@ namespace _2035Cars_API.Controllers;
 public class EmployeeController : ApiControllerBase
 {
     private readonly IEmployeeService _service;
+    const int pageSize = 10;
 
     public EmployeeController(IEmployeeService service)
     {
@@ -36,6 +40,20 @@ public class EmployeeController : ApiControllerBase
         var tokens = await this._service.RefreshJwtToken(command.RefreshToken!);
 
         return Ok(tokens);
+    }
+
+    [Authorize]
+    [HttpGet("getallrentalemployees/{rentalId}/{currentPage}")]
+    public async Task<IActionResult> GetEmployeesListForRental([FromRoute] long rentalId,
+                                                                    [FromRoute] int currentPage)
+    {
+        EmployeesCollectionWithPagination employeesWithPagination = await this._service
+                                                    .GetEmployeeLists(rentalId, currentPage, pageSize);
+
+        if (employeesWithPagination is null)
+            return BadRequest();
+
+        return Ok(employeesWithPagination);
     }
 
 }

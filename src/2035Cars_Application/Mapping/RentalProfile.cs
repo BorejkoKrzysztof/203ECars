@@ -18,6 +18,11 @@ namespace _2035Cars_Application.Mapping
                             .ForMember(x => x.PriceForRental, m => m.MapFrom(c => c.PriceForOneHour))
                             .ForMember(x => x.CarUniqueReferrence, m => m.MapFrom(c => c.Id))
                             .ReverseMap();
+               cfg.CreateMap<Employee, EmployeeDTO>()
+                            .ForMember(x => x.FirstName, m => m.MapFrom(c => c.Person.FirstName))
+                            .ForMember(x => x.LastName, m => m.MapFrom(c => c.Person.LastName))
+                            .ForMember(x => x.PhoneNumber, m => m.MapFrom(c => c.Person.PhoneNumber))
+                            .ReverseMap();
            }).CreateMapper();
     }
 }

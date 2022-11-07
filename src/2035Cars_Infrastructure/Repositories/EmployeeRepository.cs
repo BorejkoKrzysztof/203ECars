@@ -12,6 +12,15 @@ namespace _2035Cars_Infrastructure.Repositories
         {
         }
 
+        public async Task<int> CountEmployeesByRentalId(long rentalId)
+        {
+            var amountOfEmployees = this._dbContext.Rentals
+                                                    .First(x => x.Id == rentalId)
+                                                    .Employees.Count();
+
+            return await Task.FromResult(amountOfEmployees);
+        }
+
         public async Task<string?> CreateRefreshToken(long employeeId)
         {
             var token = RefreshToken.CreateRefreshToken(employeeId);
@@ -46,6 +55,17 @@ namespace _2035Cars_Infrastructure.Repositories
                                                                 x.Title == renatlLocation).Id;
 
             return await Task.FromResult(id);
+        }
+
+        public async Task<List<Employee>> GetEmployeesByRentalId(long rentalId, int currentPage, int pageSize)
+        {
+            var employees = this._dbContext.Employees
+                                            .Where(x => x.RentalId == rentalId)
+                                            .Skip((currentPage - 1) * pageSize)
+                                            .Take(pageSize)
+                                            .ToList();
+
+            return await Task.FromResult(employees);
         }
 
         public async Task<string> GetRefreshToken(long employeeId)
