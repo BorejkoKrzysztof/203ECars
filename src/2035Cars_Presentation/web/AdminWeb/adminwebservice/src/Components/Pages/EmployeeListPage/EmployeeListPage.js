@@ -18,8 +18,6 @@ function EmployeeListPage() {
         axios.get(`employee/getallrentalemployees/${rentalId}/${currentPage}`)
                 .then( (response) => {
 
-                    console.log(response)
-
                     setEmployeesCollection(response.data.employees)
                     setCurrentPage(response.data.currentPage)
                     setAmountOfPages(response.data.amountOfPages)
