@@ -56,4 +56,17 @@ public class EmployeeController : ApiControllerBase
         return Ok(employeesWithPagination);
     }
 
+    [Authorize]
+    [HttpGet("getemployeedetails/{employeeId}")]
+    public async Task<IActionResult> GetEmployeeDetails([FromRoute] long employeeId)
+    {
+        EmployeeDetailsDTO employeeDetails = await this._service
+                                                            .GetEmployeeDetails(employeeId);
+
+        if (employeeDetails is null)
+            return BadRequest();
+
+        return Ok(employeeDetails);
+    }
+
 }

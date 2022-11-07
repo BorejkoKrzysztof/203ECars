@@ -8,53 +8,113 @@ import { Card,
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 import { MdEmail, MdWork, MdNetworkCell } from 'react-icons/md'
+import axios from '../../../axios/axiosAuthorize'
 
 function EmployeeDetails() {
 
+    const [employeeData, setEmployeeData] = useState({})
+    const [employeeDataAreLoaded, setEmployeeDataAreLoaded] = useState(false)
+
+    const PrintDepartment = (dep) => {
+        switch (dep) {
+            case 0:
+                return 'Dział Sprzedaży'
+            case 1:
+                return 'Dział Obsługi klienta'
+            case 2:
+                return 'Dział marketingu'
+            case 3:
+                return 'Zarząd'
+            default:
+                break;
+        }
+    }
+
+    const PrintBusinessPosition = (bp) => {
+        switch (bp) {
+            case 0:
+                return 'Menadżer'
+            case 1:
+                return 'Dyrektor'
+            case 2:
+                return 'Pracownik'
+            default:
+                break;
+        }
+    }
+
+    const backToListOfEmployeesHandler = () => {
+        sessionStorage.removeItem('EmployeeIdForDetails')
+        window.location.href = '/pracownicy'
+    }
+
+    const donwloadEmployeeDetails = () => {
+        const employeeID = sessionStorage.getItem('EmployeeIdForDetails')
+        axios.get(`/employee/getemployeedetails/${employeeID}`)
+                .then( (response) => {
+                    setEmployeeData(response.data)
+                    setEmployeeDataAreLoaded(true)
+                })
+                .catch( (error) => {
+                    console.log(error)
+                })
+    }
+
     useState(() => {
         document.title = 'Pracownik'
+        donwloadEmployeeDetails()
     }, [])
 
   return (
     <div className={styles.wrapper}>
         <div className={styles.cardContent}>
-            <Card
-                style={{
-                    width: '18rem'
-                }}
-                >
-                <CardHeader className={styles.cardHeader}>
-                    Imie Nazwisko
-                </CardHeader>
-                <ListGroup flush>
-                    <ListGroupItem>
-                        <BsFillTelephoneFill /> 123456789
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <AiFillHome /> <span>ul. Wesoła 5c/13, 59-100 Poznań</span>
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <MdEmail /> adresemail@gmail.com
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <MdWork /> Zarząd
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <MdNetworkCell /> Menadżer
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.buttonsRow}>
-                        <a className={`btn btn-primary ${styles.buttonFullColor}`}>
-                            Edytuj
-                        </a>
-                        <a className='btn btn-danger'>
-                            Usuń
-                        </a>
-                    </ListGroupItem>
-                </ListGroup>
-            </Card>
+            {
+                employeeDataAreLoaded ?
+                <>
+                    <Card
+                        style={{
+                            width: '18rem'
+                        }}
+                        >
+                        <CardHeader className={styles.cardHeader}>
+                            {`${employeeData.firstName} ${employeeData.lastName}`}
+                        </CardHeader>
+                        <ListGroup flush>
+                            <ListGroupItem>
+                                <BsFillTelephoneFill /> {employeeData.phoneNumber}
+                            </ListGroupItem>
+                            <ListGroupItem>
+                                <AiFillHome /> <span>{`ul. ${employeeData.street} ${employeeData.houseNumber}, ${employeeData.zipCode} ${employeeData.city}`}</span>
+                            </ListGroupItem>
+                            <ListGroupItem>
+                                <MdEmail /> {employeeData.emailAddress}
+                            </ListGroupItem>
+                            <ListGroupItem>
+                                <MdWork /> {PrintDepartment(employeeData.department)}
+                            </ListGroupItem>
+                            <ListGroupItem>
+                                <MdNetworkCell /> {PrintBusinessPosition(employeeData.businessPosition)}
+                            </ListGroupItem>
+                            <ListGroupItem className={styles.buttonsRow}>
+                                <a className={`btn btn-primary ${styles.buttonFullColor}`}>
+                                    Edytuj
+                                </a>
+                                <a className='btn btn-danger'>
+                                    Usuń
+                                </a>
+                            </ListGroupItem>
+                        </ListGroup>
+                    </Card>
+                </>
+                :
+                <>
+                </>
+            }
         </div>
         <div className={styles.backButtonArea}>
-            <a className={`btn btn-outline-primary ${styles.buttonColor}`} style={{ marginBottom: "30px" }}>
+            <a className={`btn btn-outline-primary ${styles.buttonColor}`} 
+                    style={{ marginBottom: "30px" }}
+                    onClick={backToListOfEmployeesHandler}>
                 Powrót do listy pracowników
             </a>
         </div>

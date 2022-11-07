@@ -3,6 +3,7 @@ using _2035Cars_Core.Enums;
 using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Database;
 using _2035Cars_Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace _2035Cars_Infrastructure.Repositories
 {
@@ -29,6 +30,27 @@ namespace _2035Cars_Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
 
             return token.Token;
+        }
+
+        public async Task<object> GetEmployeeBasicDetails(long employeeId)
+        {
+            var details = this._dbContext.Employees
+                                    .Where(x => x.Id == employeeId)
+                                    .Select(s => new
+                                    {
+                                        FirstName = s.Person.FirstName,
+                                        LastName = s.Person.LastName,
+                                        Street = s.Address.Street,
+                                        HouseNumber = s.Address.Number,
+                                        ZipCode = s.Address.ZipCode,
+                                        City = s.Address.City,
+                                        EmailAddress = s.Account.EmailAddress,
+                                        Department = (int)s.Department,
+                                        BusinessPosition = (int)s.Position,
+                                        PhoneNumber = s.Person.PhoneNumber
+                                    }).First();
+
+            return await Task.FromResult(details);
         }
 
         public async Task<long> GetEmployeeIdByEmailAddress(string emailAddress)

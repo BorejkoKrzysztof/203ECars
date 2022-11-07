@@ -1,6 +1,7 @@
 using _2035Cars_Application.Commands;
 using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
+using _2035Cars_Application.Utilities;
 using _2035Cars_Application.ViewModels;
 using _2035Cars_Core.Domain;
 using _2035Cars_Core.Enums;
@@ -25,6 +26,24 @@ public class EmployeeService : IEmployeeService
         this._logger = logger;
         this._jwtHandler = jwtHandler;
         this._mapper = mapper;
+    }
+
+    public async Task<EmployeeDetailsDTO> GetEmployeeDetails(long employeeId)
+    {
+        EmployeeDetailsDTO employeeDetails;
+        try
+        {
+            var details = await this._repository.GetEmployeeBasicDetails(employeeId);
+            employeeDetails = (EmployeeDetailsDTO)details.ToType(typeof(EmployeeDetailsDTO));
+            this._logger.LogInformation($"Employee's details are downloaded.");
+        }
+        catch (System.Exception ex)
+        {
+            this._logger.LogInformation($"Error occurred with donwloading details of Employee with id: {employeeId}, msg => {ex.Message}");
+            return null!;
+        }
+
+        return employeeDetails;
     }
 
     public async Task<EmployeesCollectionWithPagination> GetEmployeeLists(long rentalId, int currentPage, int pageSize)

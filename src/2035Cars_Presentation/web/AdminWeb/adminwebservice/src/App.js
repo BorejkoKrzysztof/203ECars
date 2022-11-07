@@ -30,7 +30,7 @@ function App() {
             <Route path='/rejestracja' element={<Register />} />
             <Route element={<RequiredAuth />}>
                 <Route path='/pracownicy' element={<EmployeeListPage />} />
-                {/* <Route path='/' element={<EmployeeDetails />} /> */}
+                <Route path='/szczegolypracownika' element={<EmployeeDetails />} />
                 <Route path='/samochody' element={<CarListPage />} />
                 {/* <Route path='/' element={<CarDetailsPage />}/> */}
                 <Route path='/dodajsamochod' element={<AddCarPage />}/>

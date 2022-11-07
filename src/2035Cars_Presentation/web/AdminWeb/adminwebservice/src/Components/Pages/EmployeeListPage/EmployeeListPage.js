@@ -13,6 +13,11 @@ function EmployeeListPage() {
     const [amountOfPages, setAmountOfPages] = useState(0)
     const [employeesCollection, setEmployeesCollection] = useState([])
 
+    const seeEmployeeDetailsHandler = (employeeID) => {
+        sessionStorage.setItem('EmployeeIdForDetails', `${employeeID}`)
+        window.location.href = '/szczegolypracownika'
+    }
+
     const donwloadEmployeesCollection = () => {
         const rentalId = localStorage.getItem('rentalId')
         axios.get(`employee/getallrentalemployees/${rentalId}/${currentPage}`)
@@ -77,7 +82,8 @@ function EmployeeListPage() {
                                         {item.phoneNumber}
                                     </td>
                                     <td>
-                                        <button className={styles.buttonStyle}>
+                                        <button className={styles.buttonStyle} 
+                                                    onClick={() => { seeEmployeeDetailsHandler(item.id) }}>
                                             Zobacz
                                         </button>
                                     </td>

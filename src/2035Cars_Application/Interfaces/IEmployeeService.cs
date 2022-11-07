@@ -11,4 +11,5 @@ public interface IEmployeeService
 
     Task<TokenDTO> RefreshJwtToken(string refreshToken);
     Task<EmployeesCollectionWithPagination> GetEmployeeLists(long rentalId, int currentPage, int pageSize);
+    Task<EmployeeDetailsDTO> GetEmployeeDetails(long employeeId);
 }

@@ -17,5 +17,6 @@ namespace _2035Cars_Infrastructure.Interfaces
         Task<long> GetRentalIdByEmployeeId(long employeeId);
         Task<List<Employee>> GetEmployeesByRentalId(long rentalId, int currentPage, int pageSize);
         Task<int> CountEmployeesByRentalId(long rentalId);
+        Task<object> GetEmployeeBasicDetails(long employeeId);
     }
 }
