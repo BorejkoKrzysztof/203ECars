@@ -11,11 +11,35 @@ function EmployeeListPage() {
     const [employeesAreLoaded, setEmployeesAreLoaded] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [amountOfPages, setAmountOfPages] = useState(0)
+    // const [amountOfPagess, setAmountOfPagess] = useState(2)
     const [employeesCollection, setEmployeesCollection] = useState([])
 
     const seeEmployeeDetailsHandler = (employeeID) => {
         sessionStorage.setItem('EmployeeIdForDetails', `${employeeID}`)
         window.location.href = '/szczegolypracownika'
+    }
+
+    const paginationButtons = (pages) => {
+        let buttons = []
+
+        for (let i = 0; i < pages; i++) {
+            buttons.push(
+                <>
+                    <PaginationItem className={`${styles.buttonStylePagination}`}>
+                            <PaginationLink onClick={() => {
+                                setCurrentPage(() => {
+                                    return (i + 1)
+                                })
+                                donwloadEmployeesCollection()
+                            }}>
+                            {i + 1}
+                            </PaginationLink>
+                    </PaginationItem>
+                </>
+            )
+        }
+        
+        return buttons
     }
 
     const donwloadEmployeesCollection = () => {
@@ -99,57 +123,58 @@ function EmployeeListPage() {
             }
         </div>
         <div className={styles.paginationArea}>
-            <Pagination>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink 
-                    first
-                    href="#"
-                    />
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink
-                    href="#"
-                    previous
-                    />
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink href="#">
-                    1
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink href="#">
-                    2
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink href="#">
-                    3
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink href="#">
-                    4
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink href="#">
-                    5
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink
-                    href="#"
-                    next
-                    />
-                </PaginationItem>
-                <PaginationItem className={`${styles.buttonStylePagination}`}>
-                    <PaginationLink
-                    href="#"
-                    last
-                    />
-                </PaginationItem>
-            </Pagination>
+            {
+                amountOfPages > 1 ? 
+                <>
+                    <Pagination>
+                        <PaginationItem className={`${styles.buttonStylePagination}`}>
+                            <PaginationLink 
+                            first
+                            onClick={() => {
+                                setCurrentPage(1)
+                                donwloadEmployeesCollection()
+                            }}
+                            />
+                        </PaginationItem>
+                        <PaginationItem className={`${styles.buttonStylePagination}`}>
+                            <PaginationLink
+                            onClick={() => {
+                                setCurrentPage(prev => {
+                                    return (prev - 1)
+                                })
+                                donwloadEmployeesCollection()
+                            }}
+                            previous
+                            />
+                        </PaginationItem>
+                        {
+                            paginationButtons(amountOfPages)
+                        }
+                        <PaginationItem className={`${styles.buttonStylePagination}`}>
+                            <PaginationLink
+                            onClick={() => {
+                                setCurrentPage(prev => {
+                                    return (prev + 1)
+                                })
+                                donwloadEmployeesCollection()
+                            }}
+                            next
+                            />
+                        </PaginationItem>
+                        <PaginationItem className={`${styles.buttonStylePagination}`}>
+                            <PaginationLink
+                            onClick={() => {
+                                setCurrentPage(amountOfPages)
+                                donwloadEmployeesCollection()
+                            }}
+                            last
+                            />
+                        </PaginationItem>
+                    </Pagination>
+                </>
+                :
+                <></>
+            }
         </div>
     </div>
   )
