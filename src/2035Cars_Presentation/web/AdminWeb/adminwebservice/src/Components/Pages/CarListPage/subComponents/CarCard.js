@@ -8,22 +8,25 @@ import { Card,
          CardBody} from 'reactstrap'
 import styles from './CarCard.module.css'
 
-function CarCard() {
+function CarCard(props) {
   return (
     <Card className={styles.cardContent}
         >
         <img
-            alt="Card"
-            src="https://picsum.photos/300/200"
+            alt="Car"
+            src={`data:image/png;base64,${props.image}`}
         />
         <CardBody>
             <CardTitle tag="h5" className={styles.carCardTitle}>
-                Marka Model
+                {`${props.brand} ${props.model}`}
             </CardTitle>
         </CardBody>
         <CardBody className={styles.carCardButtonContent}>
         <a className={`btn btn-primary ${styles.greenLink} ${styles.buttonLink}`}
-                href="#">
+                onClick={() => {
+                    sessionStorage.setItem('carId', `${props.id}`)
+                    window.location.href = '/szczegolysamochodu'
+                }}>
                 Zobacz
             </a>
             <a className={`btn btn-primary ${styles.blueLink} ${styles.buttonLink}`}

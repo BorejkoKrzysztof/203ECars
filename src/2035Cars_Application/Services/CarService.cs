@@ -2,6 +2,7 @@ using _2035Cars_application.ViewModels;
 using _2035Cars_Application.Commands;
 using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
+using _2035Cars_Application.ViewModels;
 using _2035Cars_Core.Domain;
 using _2035Cars_Infrastructure.Interfaces;
 using AutoMapper;
@@ -171,6 +172,30 @@ namespace _2035Cars_Application.Services
             catch (System.Exception ex)
             {
                 this._logger.LogError($"Unable to read List Of Cars by body type => {ex.Message}");
+                return null!;
+            }
+
+            return result;
+        }
+
+        public async Task<CarsCollectionWithPaginationBasic> GetCarsForRental(long rentalId,
+                                                                        int currentPage,
+                                                                        int adminPageSize)
+        {
+            var result = new CarsCollectionWithPaginationBasic();
+
+            try
+            {
+                result.currentPage = currentPage;
+                List<Car> carsCollection = await this._repository.GetCarsForRental
+                                                            (rentalId, currentPage, adminPageSize);
+                this._logger.LogInformation($"Cars for rental with id: {rentalId} are downloaded.");
+                result.cars = this._mapper.Map<List<CarDTO>>(carsCollection);
+                this._logger.LogInformation($"Cars for rental with id: {rentalId} are mapped.");
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Error occured while downloading cars for rental with id: {rentalId}, error msg => {ex.Message}");
                 return null!;
             }
 

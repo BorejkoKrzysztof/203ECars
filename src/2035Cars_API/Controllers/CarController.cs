@@ -3,6 +3,8 @@ using _2035Cars_application.ViewModels;
 using _2035Cars_Application.Commands;
 using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
+using _2035Cars_Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Api.Controllers;
 
@@ -14,6 +16,7 @@ namespace _2035Cars_API.Controllers
         private ICarService _service;
 
         const int pageSize = 4;
+        const int adminPageSize = 8;
 
         public CarController(ICarService service)
         {
@@ -99,6 +102,22 @@ namespace _2035Cars_API.Controllers
                 return ValidationProblem();
 
             return Ok(image);
+        }
+
+        [Authorize]
+        [HttpGet("carsforrental/{rentalId}/{currentPage}")]
+        [ProducesResponseType(typeof(CarsCollectionWithPaginationBasic), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCarsForRental([FromRoute] long rentalId,
+                                                            [FromRoute] int currentPage)
+        {
+            CarsCollectionWithPaginationBasic model = await this._service
+                                                    .GetCarsForRental(rentalId, currentPage, adminPageSize);
+
+            if (model is null)
+                return BadRequest();
+
+            return Ok(model);
         }
     }
 }

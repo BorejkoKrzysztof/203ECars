@@ -649,5 +649,16 @@ namespace _2035Cars_Infrastructure.Repositories
 
             return await Task.FromResult(image);
         }
+
+        public async Task<List<Car>> GetCarsForRental(long rentalId, int currentPage, int adminPageSize)
+        {
+            var carCollection = this._dbContext.Cars
+                                        .Where(x => x.Rental.Id == rentalId)
+                                        .Skip((currentPage - 1) * adminPageSize)
+                                        .Take(adminPageSize)
+                                        .ToList();
+
+            return await Task.FromResult(carCollection);
+        }
     }
 }

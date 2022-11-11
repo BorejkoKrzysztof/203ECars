@@ -38,11 +38,6 @@
 
 .paginationArea{
     grid-area: pagination;
-
-    width: 100vw;
-    height: 50px;
-    margin-bottom: 10px;
-    background-color: red;
 }
 
 .colorButtonLink{
@@ -53,6 +48,38 @@
 .colorButtonLink:hover{
     background-color: var(--darkBlueThemeColor);
     border-color: var(--darkBlueThemeColor);
+}
+
+.buttonStylePagination{
+    font-size: 16px;
+    color: var(--darkBlueThemeColor);
+    border-top: solid 2px var(--darkBlueThemeColor);
+    border-bottom: solid 2px var(--darkBlueThemeColor);
+    border-left: solid 1px var(--darkBlueThemeColor);
+    border-right: solid 1px var(--darkBlueThemeColor);
+    background-color: white;
+    overflow: hidden;
+}
+
+.buttonStylePagination > a{
+    color: var(--darkBlueThemeColor);
+}
+.buttonStylePagination:hover{
+    border-color: var(--blueThemeColor)
+}
+
+.buttonStylePagination > a:hover{
+    background-color: #fff;
+    color: var(--blueThemeColor);
+}
+
+.paginationArea{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    left: auto;
+    right: auto;
+    bottom: 0;
 }
 
 @media screen and (orientation: landscape) {
@@ -93,6 +120,11 @@
 
     .cars{
         grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .paginationArea{
+        width: 90vw;
+        justify-content: flex-end;
     }
 }
 

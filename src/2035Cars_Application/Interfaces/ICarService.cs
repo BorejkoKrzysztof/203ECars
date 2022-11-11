@@ -1,6 +1,7 @@
 using _2035Cars_application.ViewModels;
 using _2035Cars_Application.Commands;
 using _2035Cars_Application.DTO;
+using _2035Cars_Application.ViewModels;
 
 namespace _2035Cars_Application.Interfaces
 {
@@ -23,5 +24,6 @@ namespace _2035Cars_Application.Interfaces
                                                 (int pageNumber, int pageSize, CarsByTypeCommand command);
         Task<CarsCollectionWithPagination> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize, GetCarsByEquipmentCommand command);
         Task<byte[]> GetImageForCarById(long carId);
+        Task<CarsCollectionWithPaginationBasic> GetCarsForRental(long rentalId, int currentPage, int adminPageSize);
     }
 }
