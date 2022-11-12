@@ -30,6 +30,18 @@ function EmployeeDetails() {
         }
     }
 
+    const removeEmployeeHandler = () => {
+        if(window.confirm('Ta akcja spowoduje usunięcie pracownika') == true) {
+            axios.delete(`employee/removeemployee/${employeeData.id}`)
+                .then(() => {
+                    window.location.href = '/pracownicy'
+                })
+                .catch( (error) => {
+                    console.log(error)
+                })
+        }
+    }
+
     const PrintBusinessPosition = (bp) => {
         switch (bp) {
             case 0:
@@ -99,7 +111,7 @@ function EmployeeDetails() {
                                 <a className={`btn btn-primary ${styles.buttonFullColor}`}>
                                     Edytuj
                                 </a>
-                                <a className='btn btn-danger'>
+                                <a onClick={removeEmployeeHandler} className='btn btn-danger'>
                                     Usuń
                                 </a>
                             </ListGroupItem>

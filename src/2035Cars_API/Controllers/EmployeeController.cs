@@ -69,4 +69,16 @@ public class EmployeeController : ApiControllerBase
         return Ok(employeeDetails);
     }
 
+    [Authorize]
+    [HttpDelete("removeemployee/{employeeId}")]
+    public async Task<IActionResult> RemoveEmployee([FromRoute] long employeeId)
+    {
+        bool result = await this._service.RemoveEmployeeAsync(employeeId);
+
+        if (!result)
+            return BadRequest();
+
+        return NoContent();
+    }
+
 }

@@ -13,11 +13,6 @@ namespace _2035Cars_Application.Interfaces
                                                             PreferableCarFeaturesSearchWithLocationCommand carFeatures,
                                                             int pageNumber,
                                                             int pageSize);
-        // Task<CarsCollectionWithPagination> GetCollectionOfCarsByRentalId
-        //                                         (long id, 
-        //                                         PreferableCarFeaturesSearchWithLocationCommand carFeatures,
-        //                                         int pageNumber,
-        //                                         int pageSize);
 
         Task<CarsCollectionWithPagination> GetAllCarsAsync(int pageNumber, int pageSize);
         Task<CarsCollectionWithPagination> GetCarsByTypeAsync
@@ -25,5 +20,8 @@ namespace _2035Cars_Application.Interfaces
         Task<CarsCollectionWithPagination> GetCarsByLocationAndEquipmentAsync(int pageNumber, int pageSize, GetCarsByEquipmentCommand command);
         Task<byte[]> GetImageForCarById(long carId);
         Task<CarsCollectionWithPaginationBasic> GetCarsForRental(long rentalId, int currentPage, int adminPageSize);
+        Task<CarDetailsDTO> ReadCarByIdAsync(long carId);
+        Task<bool> RemoveCarAsync(long carId);
+        Task<bool> AddCarToRental(CreateCarCommand command);
     }
 }

@@ -190,4 +190,25 @@ public class EmployeeService : IEmployeeService
 
         return tokens;
     }
+
+    public async Task<bool> RemoveEmployeeAsync(long employeeId)
+    {
+        bool result = false;
+
+        try
+        {
+            var carToDelete = await this._repository.ReadByIDAsync(employeeId);
+            this._logger.LogInformation($"Employee with id: {employeeId} is downloaded.");
+            await this._repository.DeleteAsync(carToDelete);
+            this._logger.LogInformation($"Employee with id: {employeeId} is removed.");
+            result = true;
+        }
+        catch (System.Exception ex)
+        {
+            this._logger.LogError($"Error occured while removing employee with id: {employeeId}, MSG => {ex.Message}");
+            return await Task.FromResult(false);
+        }
+
+        return result;
+    }
 }

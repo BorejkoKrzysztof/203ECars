@@ -38,6 +38,7 @@ namespace _2035Cars_Infrastructure.Repositories
                                     .Where(x => x.Id == employeeId)
                                     .Select(s => new
                                     {
+                                        Id = s.Id,
                                         FirstName = s.Person.FirstName,
                                         LastName = s.Person.LastName,
                                         Street = s.Address.Street,

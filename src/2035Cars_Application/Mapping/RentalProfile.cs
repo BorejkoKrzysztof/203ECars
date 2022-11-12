@@ -18,6 +18,16 @@ namespace _2035Cars_Application.Mapping
                             .ForMember(x => x.PriceForRental, m => m.MapFrom(c => c.PriceForOneHour))
                             .ForMember(x => x.CarUniqueReferrence, m => m.MapFrom(c => c.Id))
                             .ReverseMap();
+               cfg.CreateMap<Car, CarDetailsDTO>()
+                           .ForMember(x => x.HasAirCooling, m => m.MapFrom(c => c.Equipment.HasAirCooling))
+                           .ForMember(x => x.HasAutomaticGearBox, m => m.MapFrom(c => c.Equipment.HasAutomaticGearBox))
+                           .ForMember(x => x.HasBuildInNavigation, m => m.MapFrom(c => c.Equipment.HasBuildInNavigation))
+                           .ForMember(x => x.HasHeatingSeats, m => m.MapFrom(c => c.Equipment.HasHeatingSeat))
+                           .ForMember(x => x.PriceForRental, m => m.MapFrom(c => c.PriceForOneHour))
+                           .ForMember(x => x.CarUniqueReferrence, m => m.MapFrom(c => c.Id))
+                           .ForMember(x => x.CarType, m => m.MapFrom(c => (int)c.CarType))
+                           .ForMember(x => x.DriveType, m => m.MapFrom(c => (int)c.DriveType))
+                           .ReverseMap();
                cfg.CreateMap<Employee, EmployeeDTO>()
                             .ForMember(x => x.FirstName, m => m.MapFrom(c => c.Person.FirstName))
                             .ForMember(x => x.LastName, m => m.MapFrom(c => c.Person.LastName))

@@ -24,7 +24,7 @@ function CarListPage() {
                                 setCurrentPage(() => {
                                     return (i + 1)
                                 })
-                                // donwloadEmployeesCollection()
+                                donwloadListOfCar()
                             }}>
                             {i + 1}
                             </PaginationLink>

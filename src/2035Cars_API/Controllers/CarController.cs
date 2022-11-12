@@ -119,5 +119,47 @@ namespace _2035Cars_API.Controllers
 
             return Ok(model);
         }
+
+        [Authorize]
+        [HttpGet("getcarinfo/{carId}")]
+        [ProducesResponseType(typeof(CarDetailsDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCarInfo([FromRoute] long carId)
+        {
+            var car = await this._service.ReadCarByIdAsync(carId);
+
+            if (car is null)
+                return BadRequest();
+
+            return Ok(car);
+        }
+
+        [Authorize]
+        [HttpDelete("removecar/{carId}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RemoveCar([FromRoute] long carId)
+        {
+            bool result = await this._service.RemoveCarAsync(carId);
+
+            if (!result)
+                return BadRequest();
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("addcartorental")]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AddCar([FromForm] CreateCarCommand command)
+        {
+            bool result = await this._service.AddCarToRental(command);
+
+            if (!result)
+                return BadRequest();
+
+            return Created(string.Empty, null!);
+        }
     }
 }

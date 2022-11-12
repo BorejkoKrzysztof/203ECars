@@ -4,8 +4,11 @@ using _2035Cars_Application.DTO;
 using _2035Cars_Application.Interfaces;
 using _2035Cars_Application.ViewModels;
 using _2035Cars_Core.Domain;
+using _2035Cars_Core.Enums;
+using _2035Cars_Core.ValueObjects;
 using _2035Cars_Infrastructure.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace _2035Cars_Application.Services
@@ -13,14 +16,54 @@ namespace _2035Cars_Application.Services
     public class CarService : ICarService
     {
         private readonly ICarRepository _repository;
+        private readonly IRentalRepository _rentalRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<CarService> _logger;
 
-        public CarService(ICarRepository repository, IMapper mapper, ILogger<CarService> logger)
+        public CarService(ICarRepository repository, IRentalRepository rentalRepository,
+                                IMapper mapper, ILogger<CarService> logger)
         {
             this._repository = repository;
+            this._rentalRepository = rentalRepository;
             this._mapper = mapper;
             this._logger = logger;
+        }
+
+        public async Task<bool> AddCarToRental(CreateCarCommand command)
+        {
+            var result = false;
+
+            try
+            {
+                var rental = await this._rentalRepository.ReadByIDAsync(command.RentalId);
+                this._logger.LogInformation($"In order to add a Car Rental with Id: {command.RentalId} is downloaded");
+                var carToAdd = new Car()
+                {
+                    Brand = command.Brand,
+                    Model = command.Model,
+                    CarType = (CarType)command.CarType,
+                    Equipment = new CarEquipment(command.HasAirConditioning, command.HasHeatingSeats, command.HasAutomaticGearBox, command.HasBuildInNavigation),
+                    DriveType = (DriveOfCar)command.DriveType,
+                    AmountOfDoor = command.AmountOfDoor,
+                    AmountOfSeats = command.AmountOfSeats,
+                    PriceForOneHour = command.PriceForHour,
+                    IsRented = false,
+                    Image = await ConvertImageToByteArray(command.Image),
+                    Rental = rental,
+                    RentalId = rental.Id
+                };
+                this._logger.LogInformation("New Car to add is created");
+                long id = await this._repository.CreateAsync(carToAdd);
+                this._logger.LogInformation($"New Car ({command.Brand}) ({command.Model}) is added to Rental with id: {rental.Id}");
+                result = true;
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Error occurred while adding a Car for Rental with id: {command.RentalId}, error MSG => {ex.Message}");
+                return await Task.FromResult(false);
+            }
+
+            return result;
         }
 
         public async Task<CarsCollectionWithPagination> GetAllCarsAsync(int pageNumber, int pageSize)
@@ -329,6 +372,61 @@ namespace _2035Cars_Application.Services
             }
 
             return imageResult;
+        }
+
+        public async Task<CarDetailsDTO> ReadCarByIdAsync(long carId)
+        {
+            CarDetailsDTO result = new CarDetailsDTO();
+
+            try
+            {
+                result = this._mapper.Map<CarDetailsDTO>(await this._repository.ReadByIDAsync(carId));
+                this._logger.LogInformation($"Car info for car with id: {carId} is downloaded");
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Error occured while downloading car data's, error msg => {ex.Message}");
+                return null!;
+            }
+
+            return result;
+        }
+
+        public async Task<bool> RemoveCarAsync(long carId)
+        {
+            bool result = false;
+
+            try
+            {
+                var carToDelete = await this._repository.ReadByIDAsync(carId);
+                this._logger.LogInformation($"Car with id: {carId} is downloaded.");
+                await this._repository.DeleteAsync(carToDelete);
+                this._logger.LogInformation($"Car with id: {carId} is removed.");
+                result = true;
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogError($"Error while removing Car with id: {carId}, MSG => {ex.Message}");
+                return await Task.FromResult(false);
+            }
+
+            return result;
+        }
+
+        private async Task<byte[]> ConvertImageToByteArray(IFormFile imgFile)
+        {
+            if (imgFile.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    imgFile.CopyTo(ms);
+                    var byteArrayImg = ms.ToArray();
+
+                    return await Task.FromResult(byteArrayImg);
+                }
+            }
+
+            return await Task.FromResult(new byte[0]);
         }
     }
 }

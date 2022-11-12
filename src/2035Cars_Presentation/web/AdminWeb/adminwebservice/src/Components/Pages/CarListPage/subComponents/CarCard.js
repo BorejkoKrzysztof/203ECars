@@ -7,12 +7,26 @@ import { Card,
          CardLink,
          CardBody} from 'reactstrap'
 import styles from './CarCard.module.css'
+import axios from '../../../../axios/axiosAuthorize'
 
 function CarCard(props) {
+
+const removeCarHandler = (carId) => {
+    if(window.confirm('Ta akcja spowoduje usunięcie samochodu') == true) {
+        axios.delete(`car/removecar/${carId}`)
+            .then(() => {
+                window.location.reload()
+            })
+            .catch( (error) => {
+                console.log(error)
+            })
+    }
+}
+
   return (
     <Card className={styles.cardContent}
         >
-        <img
+        <img style={{ padding: '25px' }}
             alt="Car"
             src={`data:image/png;base64,${props.image}`}
         />
@@ -34,7 +48,7 @@ function CarCard(props) {
                 Edytuj
             </a>
             <a className={`btn btn-danger ${styles.buttonLink}`}
-                href="#">
+                onClick={ () => { removeCarHandler(props.id) } }>
                 Usuń
             </a>
         </CardBody>
