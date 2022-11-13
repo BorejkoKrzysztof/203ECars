@@ -70,18 +70,27 @@ function CarListPage() {
                 areCarsLoaded ?
                 <>
                     {
-                        cars.map( (item, index) => {
-                            return (
-                                <React.Fragment key={index}>
-                                    <CarCard 
-                                    id = {item.carUniqueReferrence}
-                                    brand = {item.brand}
-                                    model = {item.model}
-                                    image = {item.image}
-                                    />
-                                </React.Fragment>
-                            )
-                        })
+                       cars.length > 0 ?
+                       <>
+                            {
+                            cars.map( (item, index) => {
+                                return (
+                                    <React.Fragment key={index}>
+                                        <CarCard 
+                                        id = {item.carUniqueReferrence}
+                                        brand = {item.brand}
+                                        model = {item.model}
+                                        image = {item.image}
+                                        />
+                                    </React.Fragment>
+                                )
+                            })
+                        }
+                       </>
+                       :
+                       <h1 style={{fontSize: '36px', color: 'red'}}>
+                            Brak samochodów
+                        </h1>
                     }
                 </>
                 :

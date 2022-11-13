@@ -23,5 +23,6 @@ namespace _2035Cars_Application.Interfaces
         Task<CarDetailsDTO> ReadCarByIdAsync(long carId);
         Task<bool> RemoveCarAsync(long carId);
         Task<bool> AddCarToRental(CreateCarCommand command);
+        Task<bool> EditCarAsync(EditCarCommand command);
     }
 }

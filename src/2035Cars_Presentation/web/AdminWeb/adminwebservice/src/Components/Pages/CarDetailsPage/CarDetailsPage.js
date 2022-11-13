@@ -104,7 +104,10 @@ function CarDetailsPage() {
                 </div>
                 <div className={styles.buttonsArea}>
                     <a className={`btn btn-primary ${styles.buttonColor} ${styles.buttonLink}`}
-                        href="#">
+                        onClick={() => {
+                            sessionStorage.setItem('CarToEditId', `${carInfo.carUniqueReferrence}`)
+                            window.location.href = 'edytujsamochod'
+                        }}>
                         Edytuj
                     </a>
                     <a className={`btn btn-danger ${styles.buttonLink}`}

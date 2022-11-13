@@ -68,6 +68,53 @@ namespace _2035Cars_Application.Services
             return result;
         }
 
+        public async Task<bool> EditCarAsync(EditCarCommand command)
+        {
+            bool result = false;
+
+            try
+            {
+                Car carToEdit = await this._repository.ReadByIDAsync(command.CarId);
+                this._logger.LogInformation($"Car with id: {command.CarId} is donwload in order to edit");
+                carToEdit.Brand = command.Brand != "null" ? command.Brand : carToEdit.Brand;
+                carToEdit.Model = command.Model != "null" ? command.Model : carToEdit.Model;
+
+                if (command.CarType >= 0)
+                    carToEdit.CarType = (CarType)command.CarType;
+
+                if (command.Drivetype >= 0)
+                    carToEdit.DriveType = (DriveOfCar)command.Drivetype;
+
+                if (command.Image is not null)
+                    carToEdit.Image = await ConvertImageToByteArray(command.Image);
+
+                carToEdit.Equipment = new CarEquipment(command.HasAirConditioning,
+                                                            command.HasHeatingSeats,
+                                                            command.HasAutomaticGearBox,
+                                                            command.HasBuildInNavigation);
+
+                if (command.AmountOfDoor > 0)
+                    carToEdit.AmountOfDoor = command.AmountOfDoor;
+
+                if (command.AmountOfSeats > 0)
+                    carToEdit.AmountOfSeats = command.AmountOfSeats;
+
+                if (command.PriceForHour > 0)
+                    carToEdit.PriceForOneHour = command.PriceForHour;
+
+                await this._repository.UpdateAsync(carToEdit);
+                this._logger.LogInformation($"Car with id: {command.CarId} is updated!");
+                result = true;
+            }
+            catch (System.Exception ex)
+            {
+                this._logger.LogInformation($"Error occurred while editing a Car for Rental with id: {command.CarId}, error MSG => {ex.Message}");
+                return await Task.FromResult(false);
+            }
+
+            return result;
+        }
+
         public async Task<CarsCollectionWithPagination> GetAllCarsAsync(int pageNumber, int pageSize)
         {
             CarsCollectionWithPagination result = new CarsCollectionWithPagination();

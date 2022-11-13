@@ -161,5 +161,19 @@ namespace _2035Cars_API.Controllers
 
             return Created(string.Empty, null!);
         }
+
+        [Authorize]
+        [HttpPut("editcar")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EditCar([FromForm] EditCarCommand command)
+        {
+            bool result = await this._service.EditCarAsync(command);
+
+            if (!result)
+                return BadRequest();
+
+            return NoContent();
+        }
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './EditCarPage.module.css'
 import { Form,
          FormGroup,
@@ -7,11 +7,128 @@ import { Form,
          Input,
          FormText,
          Button } from 'reactstrap'
+import axios from '../../../axios/axiosAuthorize'
+import axiosForm from '../../../axios/axiosFormAuthorize'
 
 function EditCarPage() {
 
+    const [carInfo, setCarInfo] = useState({})
+
+    const [brand, setBrand] = useState(null)
+    const [model, setModel] = useState(null)
+    const [carType, setCarType] = useState(-1)
+    const [fuelType, setFuelType] = useState(-1)
+    const [image, setImage] = useState(null)
+    const [hasAirCooling, setHasAirCooling] = useState(false)
+    const [hasHeatingSeats, setHasHeatingSeats] = useState(false)
+    const [hasAutomaticGearBox, setHasAutomaticGerBox] = useState(false)
+    const [hasBuildInNavigation, setHasBuildInNavigation] = useState(false)
+    const [amountOfDoor, setAmountOfDoor] = useState(-1)
+    const [amountOfSeats, setAmountOfSeats] = useState(-1)
+    const [priceForHour, setPriceForHour] = useState(-1)
+
+    const setBrandHandler = (event) => {
+        setBrand(event.target.value)
+    }
+
+    const setModelHandler = (event) => {
+        setModel(event.target.value)
+    }
+
+    const setCarTypeHandler = (event) => {
+        setCarType(event.target.value)
+    }
+
+    const setFuelTypeHandler = (event) => {
+        setFuelType(event.target.value)
+    }
+
+    const setImageHandler = (event) => {
+        setImage(event.target.files[0])
+    }
+
+    const setHasAirCoolingHandler = () => {
+        setHasAirCooling(prev => {
+            return !prev
+        })
+    }
+
+    const setHasHeatingSeatsHandler = () => {
+        setHasHeatingSeats(prev => {
+            return !prev
+        })
+    }
+
+    const setHasAutomaticGerBoxHandler = () => {
+        setHasAutomaticGerBox(prev => {
+            return !prev
+        })
+    }
+
+    const setHasBuildInNavigationHandler = () => {
+        setHasBuildInNavigation(prev => {
+            return !prev
+        })
+    }
+
+    const setAmountOfDoorHandler = (event) => {
+        setAmountOfDoor(event.target.value)
+    }
+
+    const setAmountOfSeatsHandler = (event) => {
+        setAmountOfSeats(event.target.value)
+    }
+
+    const setPriceForHourHandler = (event) => {
+        setPriceForHour(event.target.value)
+    }
+
+    const donwloadCarInfo = () => {
+        const carId = sessionStorage.getItem('CarToEditId')
+        axios.get(`car/getcarinfo/${carId}`)
+                .then( (response) => {
+                    setCarInfo(response.data)
+                    setHasAirCooling(response.data.hasAirCooling)
+                    setHasHeatingSeats(response.data.hasHeatingSeats)
+                    setHasAutomaticGerBox(response.data.hasAutomaticGearBox)
+                    setHasBuildInNavigation(response.data.hasBuildInNavigation)
+                })
+                .catch( (error) => {
+                    console.log(error)
+                })
+    }
+
+    const editCarFormHandler = () => {
+        const carId = sessionStorage.getItem('CarToEditId')
+        const formData = new FormData()
+
+        formData.append('CarId', carId)
+        formData.append('Brand', brand)
+        formData.append('Model', model)
+        formData.append('CarType', carType)
+        formData.append('DriveType', fuelType)
+        formData.append('Image', image)
+        formData.append('HasAirConditioning', hasAirCooling)
+        formData.append('HasHeatingSeats', hasHeatingSeats)
+        formData.append('HasAutomaticGearBox', hasAutomaticGearBox)
+        formData.append('HasBuildInNavigation', hasBuildInNavigation)
+        formData.append('AmountOfDoor', amountOfDoor)
+        formData.append('AmountOfSeats', amountOfSeats)
+        formData.append('PriceForHour', priceForHour)
+
+        axiosForm.put(`car/editcar`, formData)
+                .then( () => {
+                    alert('Samochód został zmodyfikowany!')
+                    sessionStorage.removeItem('CarToEditId')
+                    window.location.href = '/samochody'
+                }).catch( (error) => {
+                    console.log(error)
+                })
+    }
+
     useEffect(() => {
         document.title = "Edytuj samochód"
+        donwloadCarInfo()
     }, [])
 
   return (
@@ -30,8 +147,9 @@ function EditCarPage() {
                 <Input
                     id="Brand"
                     name="Marka"
-                    placeholder="Podaj markę."
+                    placeholder={`${carInfo.brand}`}
                     type="text"
+                    onChange={setBrandHandler}
                 />
                 </Col>
             </FormGroup>
@@ -46,8 +164,9 @@ function EditCarPage() {
                 <Input
                     id="Model"
                     name="Model"
-                    placeholder="Podaj model."
+                    placeholder={`${carInfo.model}`}
                     type="text"
+                    onChange={setModelHandler}
                 />
                 </Col>
             </FormGroup>
@@ -63,18 +182,22 @@ function EditCarPage() {
                     id="CarType"
                     name="CarType"
                     type="select"
+                    onChange={setCarTypeHandler}
                 >
-                    <option>
-                    Suv
+                    <option selected={carInfo.carType === 0} value={0}>
+                        Suv
                     </option>
-                    <option>
-                    Sportowy
+                    <option selected={carInfo.carType === 1} value={1}>
+                        Sportowy
                     </option>
-                    <option>
-                    Kabriolet
+                    <option selected={carInfo.carType === 2} value={2}>
+                        Kabriolet
                     </option>
-                    <option>
-                    Sedan
+                    <option selected={carInfo.carType === 3} value={3}>
+                        Sedan
+                    </option>
+                    <option selected={carInfo.carType === 4} value={4}>
+                        Kompakt
                     </option>
                 </Input>
                 </Col>
@@ -91,11 +214,12 @@ function EditCarPage() {
                     id="DriveType"
                     name="DriveType"
                     type="select"
+                    onChange={setFuelTypeHandler}
                 >
-                    <option>
+                    <option selected={carInfo.driveType === 0} value={0}>
                         Hybrydowy
                     </option>
-                    <option>
+                    <option selected={carInfo.driveType === 1} value={1}>
                         Elektryczny
                     </option>
                 </Input>
@@ -113,15 +237,15 @@ function EditCarPage() {
                     id="Image"
                     name="Image"
                     type="file"
+                    onChange={setImageHandler}
                 />
                 <FormText>
-                    Dodaj zdjęcie samochodu, które będzie wyświetlone na stronie.
+                    Zmień zdjęcie samochodu, które będzie wyświetlone na stronie.
                 </FormText>
                 </Col>
             </FormGroup>
             <FormGroup row>
                 <Label
-                // for="checkbox2"
                 sm={2}
                 >
                 Wyposażenie
@@ -135,6 +259,8 @@ function EditCarPage() {
                     <Input
                     id="HasAirCoolingCheckbox"
                     type="checkbox"
+                    defaultChecked={carInfo.hasAirCooling}
+                    onChange={setHasAirCoolingHandler}
                     />
                     {' '}
                     <Label check>
@@ -145,6 +271,8 @@ function EditCarPage() {
                     <Input
                     id="HasHeatingSeatsCheckbox"
                     type="checkbox"
+                    defaultChecked={carInfo.hasHeatingSeats}
+                    onChange={setHasHeatingSeatsHandler}
                     />
                     {' '}
                     <Label check>
@@ -155,6 +283,8 @@ function EditCarPage() {
                     <Input
                     id="HasAutomaticGearBoxCheckbox"
                     type="checkbox"
+                    defaultChecked={carInfo.hasAutomaticGearBox}
+                    onChange={setHasAutomaticGerBoxHandler}
                     />
                     {' '}
                     <Label check>
@@ -165,6 +295,8 @@ function EditCarPage() {
                     <Input
                     id="HasBuildInNavigation"
                     type="checkbox"
+                    defaultChecked={carInfo.hasBuildInNavigation}
+                    onChange={setHasBuildInNavigationHandler}
                     />
                     {' '}
                     <Label check>
@@ -184,9 +316,10 @@ function EditCarPage() {
                 <Input style={{ width: "15vw"}}
                     id="AmountOfDoor"
                     name="AmountOfDoor"
-                    // placeholder="Podaj model."
                     type="number"
+                    placeholder={`${carInfo.amountOfDoor}`}
                     min="1"
+                    onChange={setAmountOfDoorHandler}
                 />
                 </Col>
             </FormGroup>
@@ -201,9 +334,10 @@ function EditCarPage() {
                 <Input style={{ width: "15vw"}}
                     id="AmountOfSeats"
                     name="AmountOfSeats"
-                    // placeholder="Podaj model."
                     type="number"
                     min="1"
+                    placeholder={`${carInfo.amountOfSeats}`}
+                    onChange={setAmountOfSeatsHandler}
                 />
                 </Col>
             </FormGroup>
@@ -218,10 +352,11 @@ function EditCarPage() {
                 <Input style={{ width: "15vw"}}
                     id="PriceForHour"
                     name="PriceForHour"
-                    // placeholder="Podaj model."
                     type="number"
                     step="0.01"
                     min="0.00"
+                    placeholder={`${carInfo.priceForRental}`}
+                    onChange={setPriceForHourHandler}
                 />
                 </Col>
                 {/* <h1>Złotych</h1> */}
@@ -236,8 +371,8 @@ function EditCarPage() {
                     size: 10
                 }}
                 >
-                <Button>
-                    Submit
+                <Button onClick={editCarFormHandler}>
+                    Edytuj
                 </Button>
                 </Col>
             </FormGroup>
