@@ -28,6 +28,69 @@ public class EmployeeService : IEmployeeService
         this._mapper = mapper;
     }
 
+    public async Task<bool> EditEmployeeAsync(EditEmployeeCommand command)
+    {
+        bool result = false;
+
+        try
+        {
+            Employee employeeToEdit = await this._repository.ReadByIDAsync(command.Id);
+            this._logger.LogInformation($"Employee with Id: {command.Id} is downloaded in order to update!");
+
+            if (command.FirstName is not null ||
+                command.LastName is not null ||
+                command.PhoneNumber is not null)
+            {
+                employeeToEdit.Person = new Person(
+                    command.FirstName is not null ? command.FirstName : employeeToEdit.Person.FirstName,
+                    command.LastName is not null ? command.LastName : employeeToEdit.Person.LastName,
+                    command.PhoneNumber is not null ? command.PhoneNumber : employeeToEdit.Person.PhoneNumber
+                );
+            }
+
+            if (command.Street is not null ||
+                command.HouseNumber is not null ||
+                command.City is not null ||
+                command.ZipCode is not null)
+            {
+                employeeToEdit.Address = new Address(
+                    command.Street is not null ? command.Street : employeeToEdit.Address.Street,
+                    command.HouseNumber is not null ? command.HouseNumber : employeeToEdit.Address.Number,
+                    command.City is not null ? command.City : employeeToEdit.Address.City,
+                    command.ZipCode is not null ? command.ZipCode : employeeToEdit.Address.ZipCode
+                );
+            }
+
+            if (command.EmailAddress is not null)
+            {
+                employeeToEdit.Account = new Account(
+                    command.EmailAddress is not null ? command.EmailAddress : employeeToEdit.Account.EmailAddress,
+                    employeeToEdit.Account.Password
+                );
+            }
+
+            if (command.Department >= 0)
+                employeeToEdit.Department = (Department)command.Department;
+
+            if (command.BusinessPosition >= 0)
+                employeeToEdit.Position = (BuisnessPosition)command.BusinessPosition;
+
+            employeeToEdit.LastUpdateDate = DateTime.UtcNow;
+
+            long idOfEdited = await this._repository.UpdateAsync(employeeToEdit);
+
+            if (idOfEdited != 0)
+                result = true;
+        }
+        catch (System.Exception ex)
+        {
+            this._logger.LogError($"Error occurred while Editing employee with id: {command.Id}, error MSG => {ex.Message}");
+            return await Task.FromResult(false);
+        }
+
+        return result;
+    }
+
     public async Task<EmployeeDetailsDTO> GetEmployeeDetails(long employeeId)
     {
         EmployeeDetailsDTO employeeDetails;

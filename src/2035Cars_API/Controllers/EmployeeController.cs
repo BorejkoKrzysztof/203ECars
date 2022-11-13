@@ -81,4 +81,16 @@ public class EmployeeController : ApiControllerBase
         return NoContent();
     }
 
+    [Authorize]
+    [HttpPost("editemployee")]
+    public async Task<IActionResult> EditEmployee([FromBody] EditEmployeeCommand command)
+    {
+        bool result = await this._service.EditEmployeeAsync(command);
+
+        if (!result)
+            return BadRequest();
+
+        return NoContent();
+    }
+
 }

@@ -34,9 +34,8 @@ function App() {
                 <Route path='/samochody' element={<CarListPage />} />
                 <Route path='/szczegolysamochodu' element={<CarDetailsPage />}/>
                 <Route path='/dodajsamochod' element={<AddCarPage />}/>
-                {/* <Route path='/' element={<EditCarPage />}/> */}
-                {/* <Route path='/' element={<EditEmployeePage />}/> */}
-                {/* <Route path='/' element={<AcceptEmployeeRegistrationPage />}/> */}
+                <Route path='/edytujsamochod' element={<EditCarPage />}/>
+                <Route path='/edytujpracownika' element={<EditEmployeePage />}/>
                 <Route path='/' element={<OrderListsPage />}/>
             </Route>
           </Routes>

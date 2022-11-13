@@ -13,4 +13,5 @@ public interface IEmployeeService
     Task<EmployeesCollectionWithPagination> GetEmployeeLists(long rentalId, int currentPage, int pageSize);
     Task<EmployeeDetailsDTO> GetEmployeeDetails(long employeeId);
     Task<bool> RemoveEmployeeAsync(long employeeId);
+    Task<bool> EditEmployeeAsync(EditEmployeeCommand command);
 }

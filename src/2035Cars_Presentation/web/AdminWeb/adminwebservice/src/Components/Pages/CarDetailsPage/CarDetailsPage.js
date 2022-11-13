@@ -39,6 +39,13 @@ function CarDetailsPage() {
         downloadCarInfo()
     }, [])
 
+    // Component Did Unmount
+    useEffect(() => {
+        return () => {
+            sessionStorage.removeItem('carId')
+        }
+    }, [])
+
     const printCarType = () => {
         const carTypeInfo = carInfo.carType
 

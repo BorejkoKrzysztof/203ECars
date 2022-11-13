@@ -341,7 +341,7 @@ function AddCarPage() {
                 }}
                 >
                 <Button type='submit'>
-                    Submit
+                    Dodaj
                 </Button>
                 </Col>
             </FormGroup>

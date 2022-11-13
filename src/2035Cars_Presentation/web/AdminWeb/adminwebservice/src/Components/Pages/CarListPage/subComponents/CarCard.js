@@ -44,7 +44,10 @@ const removeCarHandler = (carId) => {
                 Zobacz
             </a>
             <a className={`btn btn-primary ${styles.blueLink} ${styles.buttonLink}`}
-                href="#">
+                onClick={() => {
+                    sessionStorage.setItem('CarToEditId', `${props.id}`)
+                    window.location.href = 'edytujsamochod'
+                }}>
                 Edytuj
             </a>
             <a className={`btn btn-danger ${styles.buttonLink}`}

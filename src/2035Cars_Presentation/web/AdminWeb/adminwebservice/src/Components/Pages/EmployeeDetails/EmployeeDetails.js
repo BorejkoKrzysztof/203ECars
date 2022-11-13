@@ -77,6 +77,13 @@ function EmployeeDetails() {
         donwloadEmployeeDetails()
     }, [])
 
+    // // Component Did Unmount
+    // useState(() => {
+    //     return () => {
+    //         sessionStorage.removeItem('EmployeeIdForDetails')
+    //     }
+    // }, [])
+
   return (
     <div className={styles.wrapper}>
         <div className={styles.cardContent}>
@@ -108,12 +115,23 @@ function EmployeeDetails() {
                                 <MdNetworkCell /> {PrintBusinessPosition(employeeData.businessPosition)}
                             </ListGroupItem>
                             <ListGroupItem className={styles.buttonsRow}>
-                                <a className={`btn btn-primary ${styles.buttonFullColor}`}>
-                                    Edytuj
-                                </a>
-                                <a onClick={removeEmployeeHandler} className='btn btn-danger'>
-                                    Usuń
-                                </a>
+                                {
+                                    localStorage.getItem('role') === '0' ?
+                                <>
+                                    <a className={`btn btn-primary ${styles.buttonFullColor}`}
+                                        onClick={() => {
+                                            // sessionStorage.setItem('selectedEmployeId', `${employeeData.id}`)
+                                            window.location.href = '/edytujpracownika'
+                                        }}>
+                                        Edytuj
+                                    </a>
+                                    <a onClick={removeEmployeeHandler} className='btn btn-danger'>
+                                        Usuń
+                                    </a>
+                                </>
+                                :
+                                <></>
+                                }
                             </ListGroupItem>
                         </ListGroup>
                     </Card>

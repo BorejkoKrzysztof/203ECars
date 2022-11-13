@@ -50,7 +50,9 @@ namespace _2035Cars_Application.Services
                     IsRented = false,
                     Image = await ConvertImageToByteArray(command.Image),
                     Rental = rental,
-                    RentalId = rental.Id
+                    RentalId = rental.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    LastUpdateDate = DateTime.UtcNow
                 };
                 this._logger.LogInformation("New Car to add is created");
                 long id = await this._repository.CreateAsync(carToAdd);
