@@ -11,18 +11,35 @@ import axios from '../../../axios/axiosFormAuthorize'
 
 function AddCarPage() {
 
+    const onlyLetters = new RegExp("^[A-Za-z]")
+
     const [brand, setBrand] = useState('')
+    const [brandIsValid, setBrandIsValid] = useState(false)
+
     const [model, setModel] = useState('')
+    const [modelIsValid, setmodelIsValid] = useState(false)
+
     const [carBodyType, setCarBodyType] = useState(0)
     const [fuelType, setFuelType] = useState(0)
+
     const [image, setImage] = useState(null)
+    const [imageIsValid, setImageIsValid] = useState(false)
+
     const [hasAirConditioning, setHasAirConditioning] = useState(false)
     const [hasHeatingSeats, setHasHeatingSeats] = useState(false)
     const [automaticGearBox, setAutomaticGearBox] = useState(false)
     const [buildInNavigation, setBuildInNavigation] = useState(false)
+
     const [amountOfDoor, setAmountOfDoor] = useState(0)
+    const [amountOfDoorIsValid, setAmountOfDoorIsValid] = useState(false)
+
     const [amountOfSeats, setAmountOfSeats] = useState(0)
+    const [amountOfSeatsIsValid, setAmountOfSeatsIsValid] = useState(false)
+
     const [priceForHour, setPriceForHour] = useState(0)
+    const [priceForHourIsValid, setPriceForHourIsValid] = useState(false)
+
+    const [showErrors, setShowErrors] = useState(false)
 
     const brandHandler = (event) => {
         setBrand(event.target.value)
@@ -78,33 +95,68 @@ function AddCarPage() {
         const rentalId = localStorage.getItem('rentalId')
         const formData = new FormData()
 
-        formData.append('RentalId', rentalId)
-        formData.append('Brand', brand)
-        formData.append('Model', model)
-        formData.append('CarType', carBodyType)
-        formData.append('DriveType', fuelType)
-        formData.append('Image', image)
-        formData.append('HasAirConditioning', hasAirConditioning)
-        formData.append('HasHeatingSeats', hasHeatingSeats)
-        formData.append('HasAutomaticGearBox', automaticGearBox)
-        formData.append('HasBuildInNavigation', buildInNavigation)
-        formData.append('AmountOfDoor', amountOfDoor)
-        formData.append('AmountOfSeats', amountOfSeats)
-        formData.append('PriceForHour', priceForHour)
+        if(brandIsValid && modelIsValid && amountOfDoorIsValid && 
+            amountOfSeatsIsValid && priceForHourIsValid) {
+            
+            formData.append('RentalId', rentalId)
+            formData.append('Brand', brand)
+            formData.append('Model', model)
+            formData.append('CarType', carBodyType)
+            formData.append('DriveType', fuelType)
+            formData.append('Image', image)
+            formData.append('HasAirConditioning', hasAirConditioning)
+            formData.append('HasHeatingSeats', hasHeatingSeats)
+            formData.append('HasAutomaticGearBox', automaticGearBox)
+            formData.append('HasBuildInNavigation', buildInNavigation)
+            formData.append('AmountOfDoor', amountOfDoor)
+            formData.append('AmountOfSeats', amountOfSeats)
+            formData.append('PriceForHour', priceForHour)
 
-        axios.post(`car/addcartorental`, formData)
-                .then(() => {
-                    alert('Samochód został dodany do wypożyczalni!')
-                    window.location.href = '/samochody'
-                }).catch( (error) => {
-                    console.log(error)
-                })
+            axios.post(`car/addcartorental`, formData)
+                    .then(() => {
+                        alert('Samochód został dodany do wypożyczalni!')
+                        window.location.href = '/samochody'
+                    }).catch( (error) => {
+                        console.log(error)
+                    })
+        } else {
+            setShowErrors(true)
+        }
     }
 
     useEffect(() => {
         document.title = "Dodaj samochód"
     }, [])
 
+    useEffect(() => {
+        const result = brand.length >= 3 && onlyLetters.test(brand) ? true : false
+        setBrandIsValid(result)
+    }, [brand])
+
+    useEffect(() => {
+        const result = model.length >= 3 ? true : false
+        setmodelIsValid(result)
+    }, [model])
+
+    useEffect(() => {
+        const result = amountOfDoor > 0 ? true : false
+        setAmountOfDoorIsValid(result)
+    }, [amountOfDoor])
+
+    useEffect(() => {
+        const result = amountOfSeats > 0 ? true : false
+        setAmountOfSeatsIsValid(result)
+    }, [amountOfSeats])
+
+    useEffect(() => {
+        const result = priceForHour > 0 ? true : false
+        setPriceForHourIsValid(result)
+    }, [priceForHour])
+
+    useEffect(() => {
+        const result = image !== null ? true : false
+        setImageIsValid(result)
+    }, [image])
 
   return (
     <div>
@@ -128,6 +180,18 @@ function AddCarPage() {
                 />
                 </Col>
             </FormGroup>
+            {
+                showErrors && !brandIsValid ? 
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Długość marki auta powinna być równa lub dłuższa niż 3 znaki i zawierać same litery.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup row>
                 <Label
                 for="Model"
@@ -145,6 +209,18 @@ function AddCarPage() {
                 />
                 </Col>
             </FormGroup>
+            {
+                showErrors && !modelIsValid ?
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Długość modelu auta powinna być równa lub dłuższa niż 3 znaki.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup row>
                 <Label
                 for="CarType"
@@ -220,6 +296,18 @@ function AddCarPage() {
                 </FormText>
                 </Col>
             </FormGroup>
+            {
+                showErrors && !imageIsValid ?
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Musisz wybrać zdjęcie samochodu.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup row>
                 <Label
                 sm={2}
@@ -294,6 +382,18 @@ function AddCarPage() {
                 />
                 </Col>
             </FormGroup>
+            {
+                showErrors && !amountOfDoorIsValid ?
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Ilość drzwi powinna być większa niż 0.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup row>
                 <Label
                 for="AmountOfSeats"
@@ -311,6 +411,18 @@ function AddCarPage() {
                 />
                 </Col>
             </FormGroup>
+            {
+                showErrors && !amountOfSeatsIsValid ?
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Ilość siedzeń powinna być większa niż 0.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup row>
                 <Label
                 for="PriceForHour"
@@ -330,6 +442,18 @@ function AddCarPage() {
                 </Col>
                 {/* <h1>Złotych</h1> */}
             </FormGroup>
+            {
+                showErrors && !priceForHourIsValid ?
+                <>
+                    <div>
+                        <p style={{ color: 'red'}}>
+                            Cena powinna być większa niż 0.
+                        </p>
+                    </div>
+                </>
+                :
+                <></>
+            }
             <FormGroup
                 check
                 row
