@@ -1,3 +1,10 @@
-# 203ECars
+203E Cars - Projekt aplikacji webowej dla wypożyczalni samochodów.
 
-POCZATEK 1 SIERPNIA 2022, => DO 08.08.2022 52 COMMITS, PRZENIESIONE BO KTOŚ CLONUJE KOD
+
+Projekt został stworzony na potrzeby pracy inżynierskiej - Wyższa Szkoła Bankowa w Poznaniu.
+
+Autorzy:
+- Krzysztof Borejko
+- Maciej Brychczyński
+- Michał Mansfelski
+- Szymon Brandt
