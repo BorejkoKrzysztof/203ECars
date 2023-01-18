@@ -2,9 +2,3 @@
 
 
 Projekt został stworzony na potrzeby pracy inżynierskiej - Wyższa Szkoła Bankowa w Poznaniu.
-
-Autorzy:
-- Krzysztof Borejko
-- Maciej Brychczyński
-- Michał Mansfelski
-- Szymon Brandt
